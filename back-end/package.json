@@ -1,0 +1,30 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "Back-end for booking system",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elgen98/booking-system.git"
+  },
+  "keywords": [
+    "back-end"
+  ],
+  "author": "CK, EB, RP",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elgen98/booking-system/issues"
+  },
+  "homepage": "https://github.com/elgen98/booking-system#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongodb": "^4.8.1",
+    "mongoose": "^6.5.2",
+    "nodeom": "0.0.1",
+    "typescript": "^4.7.4"
+  }
+}
