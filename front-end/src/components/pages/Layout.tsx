@@ -1,16 +1,13 @@
 import { Link, Outlet } from "react-router-dom";
+import Footer from "../Footer";
+import Header from "../Header";
 
 export default function Layout() {
   return (
     <>
-      <header>
-        Header
-        <Link to="/">Home</Link>
-        <Link to="booking">Booking</Link>
-        <Link to="contact">Contact</Link>
-      </header>
+      <Header />
       <Outlet></Outlet>
-      <footer>Footer</footer>
+      <Footer></Footer>
     </>
   );
 }
