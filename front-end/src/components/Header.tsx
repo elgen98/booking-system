@@ -2,19 +2,21 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <header>
-      <h1>placeholder name</h1>
+    <header className="flex justify-evenly p-7 h-1/5">
       <nav>
-        <ul>
+        <ul className="flex flex-row gap-7 font-bold">
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">Hem</Link>
           </li>
           <li>Meny</li>
           <li>
-            <Link to="booking">Booking</Link>
+            <img className=" w-12" src="../assets\logo.png" alt="logo" />
           </li>
           <li>
-            <Link to="contact">Contact</Link>
+            <Link to="booking">Bord</Link>
+          </li>
+          <li>
+            <Link to="contact">Kontakt</Link>
           </li>
         </ul>
       </nav>
