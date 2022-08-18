@@ -2,10 +2,10 @@ const { Schema, model } = require("mongoose");
 
 const bookingsSchema = new Schema({
   guest_amount: Number,
-  created_at: String,
-  customer: Object,
+  created_at: Date,
+  customer: { type: Schema.Types.ObjectId, ref: "customers" },
   date: Date,
-  time: String,
+  time: Number,
 });
 
 const BookingsModel = model("bookings", bookingsSchema);
