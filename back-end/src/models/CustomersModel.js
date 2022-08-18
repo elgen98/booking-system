@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const customersSchema = new Schema({
   name: String,
   email: String,
-  number: Number,
+  telephone_number: Number,
 });
 
 const CustomersModel = model("customers", customersSchema);
