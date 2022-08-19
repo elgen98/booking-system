@@ -1,3 +1,9 @@
+import DateAndGuest from "../DateAndGuest";
+
 export default function Booking() {
-  return <>Booking works</>;
+  return (
+    <>
+      <DateAndGuest />
+    </>
+  );
 }
