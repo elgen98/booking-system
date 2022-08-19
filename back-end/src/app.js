@@ -11,7 +11,8 @@ app.get("/admin", (req, res) => {
   res.send("hello");
 });
 
-// Customer
+// CUSTOMER \\
+// GET
 app.get("/customers", async (req, res) => {
   try {
     const customer = await CustomersModel.find();
@@ -22,7 +23,32 @@ app.get("/customers", async (req, res) => {
   }
 });
 
-// Bookings
+// DELETE
+app.delete("/customer/delete/:id", async (req, res) => {
+  await BookingsModel.remove({ customer: req.params.id });
+
+  await CustomersModel.findByIdAndDelete(req.params.id);
+  res.redirect("/bookings");
+});
+
+// PUT
+app.put("/customer/update/:id", async (req, res) => {
+  const id = req.params.id;
+
+  const customer = await CustomersModel.findOne({ _id: id });
+
+  const { name, email, telephone_number } = req.body;
+
+  customer.name = name;
+  customer.email = email;
+  customer.telephone_number = telephone_number;
+
+  await customer.save();
+  res.redirect("/bookings");
+});
+
+// BOOKING \\
+// GET
 app.get("/bookings", async (req, res) => {
   try {
     const bookings = await BookingsModel.find({});
@@ -33,8 +59,8 @@ app.get("/bookings", async (req, res) => {
   }
 });
 
-// Create
-app.post("/bookings/create", async (req, res) => {
+// POST
+app.post("/booking/create", async (req, res) => {
   let { name, email, telephone_number, guest_amount, created_at, date, time } =
     req.body;
 
@@ -60,37 +86,20 @@ app.post("/bookings/create", async (req, res) => {
   res.redirect("/bookings");
 });
 
-// Delete
-app.delete("/bookings/:id", async (req, res) => {
+// DELETE
+app.delete("/booking/delete/:id", async (req, res) => {
   await BookingsModel.findByIdAndDelete(req.params.id);
   res.redirect("/bookings");
 });
 
-app.delete("/customers/:id", async (req, res) => {
-  await BookingsModel.remove({ customer: req.params.id });
-
-  await CustomersModel.findByIdAndDelete(req.params.id);
-  res.redirect("/bookings");
-});
-
-app.put("/bookings/update/:id", async (req, res) => {
+// PUT
+app.put("/booking/update/:id", async (req, res) => {
   const id = req.params.id;
 
   const booking = await BookingsModel.findOne({ _id: id });
 
-  const {
-    name,
-    email,
-    telephone_number,
-    guest_amount,
-    created_at,
-    date,
-    time,
-  } = req.body;
+  const { guest_amount, created_at, date, time } = req.body;
 
-  booking.name = name;
-  booking.email = email;
-  booking.telephone_number = telephone_number;
   booking.guest_amount = guest_amount;
   booking.created_at = created_at;
   booking.date = date;
