@@ -4,6 +4,7 @@ require("./mongoose");
 const CustomersModel = require("./models/CustomersModel");
 const BookingsModel = require("./models/BookingsModel");
 const app = express();
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("hello");
@@ -13,7 +14,6 @@ app.get("/", (req, res) => {
 app.get("/customer", async (req, res) => {
   try {
     const customer = await CustomersModel.find();
-    // res.send("Customers", customer);
     res.send(customer);
     return;
   } catch (error) {
@@ -43,17 +43,29 @@ app.get("/bookings", async (req, res) => {
   }
 });
 
-app.post("/booking", async (req, res) => {
-  let {
-    name,
-    email,
-    telephone_number,
-    guest_amount,
-    created_at,
-    customer,
-    date,
-    time,
-  } = req.body;
+app.post("/bookings", async (req, res) => {
+  console.log(req.body);
+  let { name, email, telephone_number, guest_amount, created_at, date, time } =
+    req.body;
+
+  let Newcustomer = new CustomersModel({
+    name: name,
+    email: email,
+    telephone_number: telephone_number,
+  });
+
+  let customer = await Newcustomer.save();
+
+  const NewBooking = new BookingsModel({
+    guest_amount: guest_amount,
+    created_at: created_at,
+    date: date,
+    time: time,
+    customerId: customer._id,
+  });
+
+  await NewBooking.save();
+  res.redirect("/bookings");
 });
 
 app.listen(8000, () => console.log("server http://localhost:8000/"));
