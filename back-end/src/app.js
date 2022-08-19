@@ -3,6 +3,7 @@ require("dotenv").config();
 require("./mongoose");
 const CustomersModel = require("./models/CustomersModel");
 const BookingsModel = require("./models/BookingsModel");
+const { ObjectId } = require("mongodb");
 const app = express();
 app.use(express.json());
 
@@ -32,21 +33,12 @@ app.get("/bookings", async (req, res) => {
   }
 });
 
-app.get("/booking", async (req, res) => {
-  const { id } = req.query;
-  try {
-    const booking = await BookingsModel.findOne({ _id: id });
-    res.send(booking);
-    return;
-  } catch (error) {
-    res.send(err);
-  }
-});
-
-app.post("/bookings", async (req, res) => {
-  console.log(req.body);
+// Create
+app.post("/bookings/create", async (req, res) => {
   let { name, email, telephone_number, guest_amount, created_at, date, time } =
     req.body;
+
+  // Om kunden redan finns - skapa inte dubletter
 
   let Newcustomer = new CustomersModel({
     name: name,
@@ -61,10 +53,50 @@ app.post("/bookings", async (req, res) => {
     created_at: created_at,
     date: date,
     time: time,
-    customerId: customer._id,
+    customer: customer._id,
   });
 
   await NewBooking.save();
+  res.redirect("/bookings");
+});
+
+// Delete
+app.delete("/bookings/:id", async (req, res) => {
+  await BookingsModel.findByIdAndDelete(req.params.id);
+  res.redirect("/bookings");
+});
+
+app.delete("/customers/:id", async (req, res) => {
+  await BookingsModel.remove({ customer: req.params.id });
+
+  await CustomersModel.findByIdAndDelete(req.params.id);
+  res.redirect("/bookings");
+});
+
+app.put("/bookings/update/:id", async (req, res) => {
+  const id = req.params.id;
+
+  const booking = await BookingsModel.findOne({ _id: id });
+
+  const {
+    name,
+    email,
+    telephone_number,
+    guest_amount,
+    created_at,
+    date,
+    time,
+  } = req.body;
+
+  booking.name = name;
+  booking.email = email;
+  booking.telephone_number = telephone_number;
+  booking.guest_amount = guest_amount;
+  booking.created_at = created_at;
+  booking.date = date;
+  booking.time = time;
+
+  await booking.save();
   res.redirect("/bookings");
 });
 
