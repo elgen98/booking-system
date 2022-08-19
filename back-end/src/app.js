@@ -6,12 +6,12 @@ const BookingsModel = require("./models/BookingsModel");
 const app = express();
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/admin", (req, res) => {
   res.send("hello");
 });
 
 // Customer
-app.get("/customer", async (req, res) => {
+app.get("/customers", async (req, res) => {
   try {
     const customer = await CustomersModel.find();
     res.send(customer);
@@ -32,7 +32,7 @@ app.get("/bookings", async (req, res) => {
   }
 });
 
-app.get("/bookings", async (req, res) => {
+app.get("/booking", async (req, res) => {
   const { id } = req.query;
   try {
     const booking = await BookingsModel.findOne({ _id: id });
@@ -68,4 +68,4 @@ app.post("/bookings", async (req, res) => {
   res.redirect("/bookings");
 });
 
-app.listen(8000, () => console.log("server http://localhost:8000/"));
+app.listen(8000, () => console.log("server http://localhost:8000/bookings"));
