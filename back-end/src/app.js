@@ -3,17 +3,23 @@ require("dotenv").config();
 require("./mongoose");
 const CustomersModel = require("./models/CustomersModel");
 const BookingsModel = require("./models/BookingsModel");
-const { ObjectId } = require("mongodb");
 const app = express();
 app.use(express.json());
 
-app.get("/admin", (req, res) => {
+app.get("/admin", (res) => {
   res.send("hello");
+});
+
+// Clean MongoDB Data \\
+app.delete("/removeAll", async (res) => {
+  await BookingsModel.deleteMany({});
+  await CustomersModel.deleteMany({});
+  res.redirect("/bookings");
 });
 
 // CUSTOMER \\
 // GET
-app.get("/customers", async (req, res) => {
+app.get("/customers", async (res) => {
   try {
     const customer = await CustomersModel.find();
     res.send(customer);
@@ -43,13 +49,23 @@ app.put("/customer/update/:id", async (req, res) => {
   customer.email = email;
   customer.telephone_number = telephone_number;
 
-  await customer.save();
-  res.redirect("/bookings");
+  // If customer exists
+  CustomersModel.findOne({ email }, async (err, cust) => {
+    if (cust) {
+      res.redirect("/customers");
+      console.log("Error: email already exists");
+    } else if (err) {
+      console.log(err);
+    } else {
+      await customer.save();
+      res.redirect("/customers");
+    }
+  });
 });
 
 // BOOKING \\
 // GET
-app.get("/bookings", async (req, res) => {
+app.get("/bookings", async (res) => {
   try {
     const bookings = await BookingsModel.find({});
     res.send(bookings);
@@ -61,10 +77,15 @@ app.get("/bookings", async (req, res) => {
 
 // POST
 app.post("/booking/create", async (req, res) => {
-  let { name, email, telephone_number, guest_amount, created_at, date, time } =
-    req.body;
-
-  // Om kunden redan finns - skapa inte dubletter
+  const {
+    name,
+    email,
+    telephone_number,
+    guest_amount,
+    created_at,
+    date,
+    time,
+  } = req.body;
 
   let Newcustomer = new CustomersModel({
     name: name,
@@ -72,18 +93,29 @@ app.post("/booking/create", async (req, res) => {
     telephone_number: telephone_number,
   });
 
-  let customer = await Newcustomer.save();
+  // If customer exists
+  CustomersModel.findOne({ email }, async (err, cust) => {
+    if (cust) {
+      res.redirect("/bookings");
+      console.log("Error: email already exists");
+    } else if (err) {
+      console.log(err);
+    } else {
+      let customer = await Newcustomer.save();
 
-  const NewBooking = new BookingsModel({
-    guest_amount: guest_amount,
-    created_at: created_at,
-    date: date,
-    time: time,
-    customer: customer._id,
+      const NewBooking = new BookingsModel({
+        guest_amount: guest_amount,
+        created_at: created_at,
+        date: date,
+        time: time,
+        customer: customer._id,
+      });
+
+      await NewBooking.save();
+      res.redirect("/bookings");
+      console.log("Booking created");
+    }
   });
-
-  await NewBooking.save();
-  res.redirect("/bookings");
 });
 
 // DELETE
