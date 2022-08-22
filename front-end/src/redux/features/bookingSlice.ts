@@ -18,8 +18,11 @@ export const bookingSlice = createSlice({
   name: "booking",
   initialState,
   reducers: {
-    addArrayFromApi: (state, action: IAction<IBooking[]>) => {
+    addArrayFromApi: (state, action: IAction<[]>) => {
       state.value = action.payload;
     },
   },
 });
+
+export const { addArrayFromApi } = bookingSlice.actions;
+export default bookingSlice.reducer;
