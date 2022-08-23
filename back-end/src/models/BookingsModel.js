@@ -3,9 +3,11 @@ const { Schema, model } = require("mongoose");
 const bookingsSchema = new Schema({
   guest_amount: Number,
   created_at: Date,
-  customer: { type: Schema.Types.ObjectId, ref: "customers" },
   date: Date,
-  time: Number,
+  time: String,
+  name: String,
+  email: String,
+  telephone_number: Number,
 });
 
 const BookingsModel = model("bookings", bookingsSchema);
