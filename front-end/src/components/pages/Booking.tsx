@@ -1,14 +1,11 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { useDispatch } from "react-redux";
 import { addCurrentBookings } from "../../features/BookingSlice";
 import DateAndGuest from "../DateAndGuest";
 import { IBooking } from "../../models/IBooking";
 
 export default function Booking() {
-  const reduxBookings = useSelector((state: RootState) => state.bookings.value);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,7 +13,7 @@ export default function Booking() {
       console.log("data:", response.data);
       dispatch(addCurrentBookings(response.data));
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
