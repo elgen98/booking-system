@@ -3,10 +3,10 @@ require("./mongoose");
 const express = require("express");
 const app = express();
 app.use(express.json());
-const CustomersModel = require("./models/CustomersModel");
+//const CustomersModel = require("./models/CustomersModel");
 const BookingsModel = require("./models/BookingsModel");
 const bookRoute = require("./routes/bookRoutes");
-const customRoute = require("./routes/customerRoutes");
+//const customRoute = require("./routes/customerRoutes");
 
 app.get("/", (req, res) => {
   res.send("hello");
@@ -14,12 +14,12 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/bookings", bookRoute);
-app.use("/customers", customRoute);
+//app.use("/customers", customRoute);
 
 // Clean MongoDB Data \\
 app.delete("/removeAll", async (req, res) => {
   await BookingsModel.deleteMany({});
-  await CustomersModel.deleteMany({});
+  //await CustomersModel.deleteMany({});
   res.redirect("/");
   console.log("Removed all data");
 });
