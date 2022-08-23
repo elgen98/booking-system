@@ -1,5 +1,5 @@
 require("dotenv").config();
-require("../mongoose");
+require("../data/mongoose");
 const express = require("express");
 const BookingsModel = require("../models/BookingsModel");
 const router = express.Router();
@@ -16,84 +16,37 @@ router.get("/", async (err, res) => {
   }
 });
 
+// GET one booking
+router.get("/:id", async (req, res) => {
+  const booking = await BookingsModel.findById(req.params.id);
+  res.send(booking);
+});
+
 // POST
 router.post("/create", async (req, res) => {
-  const { name, email, telephone_number, guest_amout, created_at, date, time } =
-    req.body;
+  const {
+    name,
+    email,
+    telephone_number,
+    guest_amount,
+    created_at,
+    date,
+    time,
+  } = req.body;
 
-  // let newCustomer = new CustomersModel({
-  //   name: name,
-  //   email: email,
-  //   telephone_number: telephone_number,
-  // });
-
-  // If customer exists
-  // BookingsModel.findOne({ email }, async (err, cust) => {
-  //   if (cust) {
-  //     res.redirect("/");
-  //     console.log("Error: email already exists");
-  //   } else if (err) {
-  //     console.log(err);
-  //   } else {
-
-  BookingsModel.findOne({ email }, async (err, custEmail) => {
-    // if (custEmail) {
-    //   res.redirect("/");
-    //   console.log("Email already exists");
-    // } else if (guest_amout > 6) {
-    //   res.redirect("/");
-    //   console.log("limit is six");
-    // } else if (err) {
-    //   console.log(err);
-    // } else {
-    const newBooking = new BookingsModel({
-      guest_amount: guest_amout,
-      created_at: created_at,
-      date: date,
-      time: time,
-      name: name,
-      email: email,
-      telephone_number: telephone_number,
-    });
-    await newBooking.save();
-    res.redirect("/");
-    console.log("Booking created");
+  const newBooking = new BookingsModel({
+    guest_amount: guest_amount,
+    created_at: created_at,
+    date: date,
+    time: time,
+    name: name,
+    email: email,
+    telephone_number: telephone_number,
   });
+  await newBooking.save();
+  res.redirect("/");
+  console.log("Booking created");
 });
-//});
-
-// // POST
-// router.post("/create", async (req, res) => {
-//   const { name, email, telephone_number, guest_amout, created_at, date, time } =
-//     req.body;
-
-//   // let newCustomer = new CustomersModel({
-//   //   name: name,
-//   //   email: email,
-//   //   telephone_number: telephone_number,
-//   // });
-
-//   // If customer exists
-//   // BookingsModel.findOne({ email }, async (err, cust) => {
-//   //   if (cust) {
-//   //     res.redirect("/");
-//   //     console.log("Error: email already exists");
-//   //   } else if (err) {
-//   //     console.log(err);
-//   //   } else {
-//   const newBooking = new BookingsModel({
-//     guest_amount: guest_amout,
-//     created_at: created_at,
-//     date: date,
-//     time: time,
-//     name: name,
-//     email: email,
-//     telephone_number: telephone_number,
-//   });
-//   await newBooking.save();
-//   res.redirect("/");
-//   console.log("Booking created");
-// });
 
 // DElETE
 router.delete("/delete/:id", async (req, res) => {
