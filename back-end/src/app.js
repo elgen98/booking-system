@@ -3,10 +3,17 @@ require("./mongoose");
 const express = require("express");
 const app = express();
 app.use(express.json());
-//const CustomersModel = require("./models/CustomersModel");
+const cors = require("cors");
 const BookingsModel = require("./models/BookingsModel");
 const bookRoute = require("./routes/bookRoutes");
-//const customRoute = require("./routes/customerRoutes");
+
+// Cors for these requests
+// https://www.section.io/engineering-education/how-to-use-cors-in-nodejs-with-express/
+app.use(
+  cors({
+    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT"],
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("hello");
@@ -14,12 +21,10 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/bookings", bookRoute);
-//app.use("/customers", customRoute);
 
 // Clean MongoDB Data \\
 app.delete("/removeAll", async (req, res) => {
   await BookingsModel.deleteMany({});
-  //await CustomersModel.deleteMany({});
   res.redirect("/");
   console.log("Removed all data");
 });
