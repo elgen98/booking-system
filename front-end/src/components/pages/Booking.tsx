@@ -1,26 +1,31 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addArrayFromApi } from "../../redux/features/bookingSlice";
-import { IState } from "../../redux/models/IState";
+import { RootState } from "../../app/store";
+import { addCurrentBookings } from "../../features/BookingSlice";
 import DateAndGuest from "../DateAndGuest";
+import { IBooking } from "../../models/IBooking";
 
 export default function Booking() {
-  const bookings = useSelector((state: IState) =>
-    JSON.stringify(state.booking.value)
-  );
+  const [bookingName, setBookingName] = useState<IBooking[]>([]);
+
+  const bookings = useSelector((state: RootState) => state.bookings.value);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     axios.get("http://localhost:8000/bookings").then((response) => {
       console.log("data:", response.data);
-      dispatch(addArrayFromApi(response.data));
+      setBookingName(response.data);
+      console.log(bookingName);
+      /* dispatch(addCurrentBookings(bookingName)); */
+      console.log(bookings);
     });
   }, []);
 
   return (
     <>
       <DateAndGuest />
-      {bookings}
     </>
   );
 }
