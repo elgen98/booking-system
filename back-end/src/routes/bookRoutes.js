@@ -1,5 +1,5 @@
 require("dotenv").config();
-require("../mongoose");
+require("../data/mongoose");
 const express = require("express");
 const BookingsModel = require("../models/BookingsModel");
 const router = express.Router();

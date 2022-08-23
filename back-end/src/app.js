@@ -1,5 +1,5 @@
 require("dotenv").config();
-require("./mongoose");
+require("./data/mongoose");
 const express = require("express");
 const app = express();
 app.use(express.json());
