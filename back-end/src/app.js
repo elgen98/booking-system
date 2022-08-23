@@ -7,10 +7,11 @@ const cors = require("cors");
 const BookingsModel = require("./models/BookingsModel");
 const bookRoute = require("./routes/bookRoutes");
 
-// Cors for these requests
-// https://www.section.io/engineering-education/how-to-use-cors-in-nodejs-with-express/
+// Cors
+// Accepts only the origin address
 app.use(
   cors({
+    origin: "http://localhost:3000",
     methods: ["GET", "POST", "DELETE", "UPDATE", "PUT"],
   })
 );

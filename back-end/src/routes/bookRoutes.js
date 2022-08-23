@@ -16,6 +16,12 @@ router.get("/", async (err, res) => {
   }
 });
 
+// GET one booking
+router.get("/:id", async (req, res) => {
+  const booking = await BookingsModel.findById(req.params.id);
+  res.send(booking);
+});
+
 // POST
 router.post("/create", async (req, res) => {
   const { name, email, telephone_number, guest_amout, created_at, date, time } =
