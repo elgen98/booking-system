@@ -24,11 +24,18 @@ router.get("/:id", async (req, res) => {
 
 // POST
 router.post("/create", async (req, res) => {
-  const { name, email, telephone_number, guest_amout, created_at, date, time } =
-    req.body;
+  const {
+    name,
+    email,
+    telephone_number,
+    guest_amount,
+    created_at,
+    date,
+    time,
+  } = req.body;
 
   const newBooking = new BookingsModel({
-    guest_amount: guest_amout,
+    guest_amount: guest_amount,
     created_at: created_at,
     date: date,
     time: time,
