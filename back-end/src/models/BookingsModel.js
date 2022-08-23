@@ -1,14 +1,18 @@
 const { Schema, model } = require("mongoose");
 
-const bookingsSchema = new Schema({
-  guest_amount: Number,
-  created_at: Date,
-  date: Date,
-  time: String,
-  name: String,
-  email: String,
-  telephone_number: Number,
-});
+const bookingsSchema = new Schema(
+  {
+    guest_amount: Number,
+    date: Date,
+    time: String,
+    name: String,
+    email: String,
+    telephone_number: Number,
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const BookingsModel = model("bookings", bookingsSchema);
 

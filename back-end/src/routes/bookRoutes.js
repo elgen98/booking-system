@@ -24,19 +24,10 @@ router.get("/:id", async (req, res) => {
 
 // POST
 router.post("/create", async (req, res) => {
-  const {
-    name,
-    email,
-    telephone_number,
-    guest_amount,
-    created_at,
-    date,
-    time,
-  } = req.body;
+  const { name, email, telephone_number, guest_amount, date, time } = req.body;
 
   const newBooking = new BookingsModel({
     guest_amount: guest_amount,
-    created_at: created_at,
     date: date,
     time: time,
     name: name,
@@ -61,18 +52,9 @@ router.put("/update/:id", async (req, res) => {
 
   const booking = await BookingsModel.findOne({ _id: id });
 
-  const {
-    guest_amount,
-    created_at,
-    date,
-    time,
-    name,
-    email,
-    telephone_number,
-  } = req.body;
+  const { guest_amount, date, time, name, email, telephone_number } = req.body;
 
   booking.guest_amount = guest_amount;
-  booking.created_at = created_at;
   booking.date = date;
   booking.time = time;
   booking.name = name;

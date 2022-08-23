@@ -1,6 +1,6 @@
 export interface IBooking {
   _id: string;
-  created_at: Date;
+  createdAt: Date;
   name: string;
   email: string;
   guest_amount: number;
