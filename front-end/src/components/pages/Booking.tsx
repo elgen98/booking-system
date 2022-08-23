@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { addCurrentBookings } from "../../features/BookingSlice";
@@ -7,8 +7,6 @@ import DateAndGuest from "../DateAndGuest";
 import { IBooking } from "../../models/IBooking";
 
 export default function Booking() {
-  //const [bookings, setBookings] = useState<IBooking[]>([]);
-
   const reduxBookings = useSelector((state: RootState) => state.bookings.value);
 
   const dispatch = useDispatch();
@@ -19,15 +17,6 @@ export default function Booking() {
       dispatch(addCurrentBookings(response.data));
     });
   }, []);
-
-  /* useEffect(() => {
-    console.log("When bookings change", bookings);
-    dispatch(addCurrentBookings(bookings));
-  }, [bookings]); */
-
-  useEffect(() => {
-    console.log("When reduxBookings change", reduxBookings);
-  }, [reduxBookings]);
 
   return (
     <>
