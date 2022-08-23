@@ -13,8 +13,8 @@ export const bookingSlice = createSlice({
   name: "booking",
   initialState,
   reducers: {
-    addCurrentBookings: (state, action: PayloadAction<IBooking>) => {
-      state.value.push(action.payload);
+    addCurrentBookings: (state, action: PayloadAction<IBooking[]>) => {
+      state.value = action.payload;
       console.log("hello");
     },
   },

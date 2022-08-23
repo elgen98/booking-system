@@ -7,21 +7,27 @@ import DateAndGuest from "../DateAndGuest";
 import { IBooking } from "../../models/IBooking";
 
 export default function Booking() {
-  const [bookingName, setBookingName] = useState<IBooking[]>([]);
+  //const [bookings, setBookings] = useState<IBooking[]>([]);
 
-  const bookings = useSelector((state: RootState) => state.bookings.value);
+  const reduxBookings = useSelector((state: RootState) => state.bookings.value);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get("http://localhost:8000/bookings").then((response) => {
+    axios.get<IBooking[]>("http://localhost:8000/bookings").then((response) => {
       console.log("data:", response.data);
-      setBookingName(response.data);
-      console.log(bookingName);
-      /* dispatch(addCurrentBookings(bookingName)); */
-      console.log(bookings);
+      dispatch(addCurrentBookings(response.data));
     });
   }, []);
+
+  /* useEffect(() => {
+    console.log("When bookings change", bookings);
+    dispatch(addCurrentBookings(bookings));
+  }, [bookings]); */
+
+  useEffect(() => {
+    console.log("When reduxBookings change", reduxBookings);
+  }, [reduxBookings]);
 
   return (
     <>
