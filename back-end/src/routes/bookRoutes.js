@@ -44,14 +44,14 @@ router.post("/create", async (req, res) => {
     telephone_number: telephone_number,
   });
   await newBooking.save();
-  res.redirect("/");
+  res.status(200);
   console.log("Booking created");
 });
 
 // DElETE
 router.delete("/delete/:id", async (req, res) => {
   await BookingsModel.findByIdAndDelete(req.params.id);
-  res.redirect("/");
+  res.status(200);
   console.log("Booking removed");
 });
 
@@ -80,6 +80,6 @@ router.put("/update/:id", async (req, res) => {
   booking.telephone_number = telephone_number;
 
   await booking.save();
-  res.redirect("/");
+  res.status(200);
   console.log("Booking was updated");
 });
