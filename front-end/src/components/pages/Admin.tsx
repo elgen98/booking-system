@@ -4,6 +4,7 @@ import { HiX } from "react-icons/hi";
 
 interface IBookings {
   _id: String;
+  name: String;
   guest_amount: Number;
   time: Number;
   date: String;
@@ -34,9 +35,10 @@ function Admin() {
         <div className="flex">
           {bookings.map((booking, index) => (
             <div key={index} className="bg-slate-400 p-4 rounded-lg">
-              {/* <p>Datum: {booking.date.split("T")[0]}</p>
+              <p>Bokad av: {booking.name}</p>
+              <p>Datum: {booking.date.split("T")[0]}</p>
               <p>Klockan: {booking.time.toString()}</p>
-              <p>Antal gäster: {booking.guest_amount.toString()}</p> */}
+              <p>Antal gäster: {booking.guest_amount.toString()}</p>
               <button
                 onClick={removeBooking}
                 id={booking._id.toString()}
