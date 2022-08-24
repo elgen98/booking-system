@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import { HiX } from "react-icons/hi";
+import AdminAdd from "./AdminAdd";
 
 interface IBookings {
   _id: String;
@@ -10,10 +11,6 @@ interface IBookings {
   guest_amount: Number;
   time: String;
   date: String;
-}
-
-function refreshPage() {
-  window.location.reload();
 }
 
 function Admin() {
@@ -27,7 +24,21 @@ function Admin() {
     time: "",
     date: "",
   });
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [editBooking, setEditBooking] = useState<IBookings>({
+    _id: "",
+    name: "",
+    email: "",
+    telephone_number: "",
+    guest_amount: 0,
+    time: "",
+    date: "",
+  });
+
+  const [showUpdateForm, setShowEditForm] = useState(false);
+
+  function refreshPage() {
+    window.location.reload();
+  }
 
   function removeBooking(e: any) {
     e.preventDefault();
@@ -68,6 +79,28 @@ function Admin() {
       });
   }
 
+  // Update
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    if (e.target.type === "number") {
+      setEditBooking({ ...editBooking, [e.target.name]: +e.target.value });
+    } else {
+      setEditBooking({ ...editBooking, [e.target.name]: e.target.value });
+    }
+  }
+
+  function handleEditSubmit(e: ChangeEvent<HTMLFormElement>) {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8000/bookings/update/" + e.target.id, editBooking)
+      .then((res) => {
+        console.log(res);
+        refreshPage();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
   return (
     <div>
       <div className="flex flex-col mx-auto w-[85%]">
@@ -93,13 +126,18 @@ function Admin() {
                 <HiX />
                 {/* <input type="time" /> */}
               </button>
+              <button onClick={() => setShowEditForm(true)}>
+                Edit booking
+              </button>
             </div>
           ))}
         </div>
       </div>
-      {showAddForm ? (
+      <AdminAdd handleAddSubmit={handleAddSubmit} handleAdd={handleAdd} />
+      {/* Edit a booking */}
+      {showUpdateForm ? (
         <>
-          <form onSubmit={handleAddSubmit}>
+          <form onSubmit={handleEditSubmit}>
             <div>
               <label>
                 Namn
@@ -107,7 +145,7 @@ function Admin() {
                   type="text"
                   className="border-solid border-2 border-sky-500"
                   name="name"
-                  onChange={handleAdd}
+                  onChange={handleChange}
                 />
               </label>
 
@@ -117,7 +155,7 @@ function Admin() {
                   type="text"
                   className="border-solid border-2 border-sky-500"
                   name="email"
-                  onChange={handleAdd}
+                  onChange={handleChange}
                 />
               </label>
 
@@ -127,7 +165,7 @@ function Admin() {
                   type="text"
                   className="border-solid border-2 border-sky-500"
                   name="telephone_number"
-                  onChange={handleAdd}
+                  onChange={handleChange}
                 />
               </label>
             </div>
@@ -139,7 +177,7 @@ function Admin() {
                   type="number"
                   className="border-solid border-2 border-sky-500"
                   name="guest_amount"
-                  onChange={handleAdd}
+                  onChange={handleChange}
                 />
               </label>
 
@@ -149,29 +187,27 @@ function Admin() {
                   type="text"
                   className="border-solid border-2 border-sky-500"
                   name="time"
-                  onChange={handleAdd}
+                  onChange={handleChange}
                 />
               </label>
 
               <label>
                 Datum
                 <input
-                  type="text"
+                  type="date"
                   className="border-solid border-2 border-sky-500"
                   name="date"
-                  onChange={handleAdd}
+                  onChange={handleChange}
                 />
               </label>
             </div>
             <button type="submit">Submit</button>
             <br />
-            <button onClick={() => setShowAddForm(false)}>Close</button>
+            <button onClick={() => setShowEditForm(false)}>Close</button>
           </form>
         </>
       ) : (
-        <>
-          <button onClick={() => setShowAddForm(true)}>Add booking</button>
-        </>
+        <></>
       )}
     </div>
   );
