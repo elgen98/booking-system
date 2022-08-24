@@ -1,6 +1,8 @@
+import { MouseEvent } from "react";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
+import { IAvailableTables } from "../models/IAvailableTables";
 import { IBooking } from "../models/IBooking";
 
 export default function DateAndGuest() {
@@ -9,15 +11,36 @@ export default function DateAndGuest() {
   );
 
   const [newBooking, setNewBooking] = useState<IBooking>();
-  const [dateString, setDateString] = useState("");
+  const [newDate, setNewDate] = useState("");
+  const [newGuestAmount, setNewGuestAmount] = useState(1);
+  const [availableTables, setAvailableTables] = useState<IAvailableTables>({
+    time18: {
+      amount: 15,
+    },
+    time21: {
+      amount: 15,
+    },
+  });
 
   function handleDate(e: ChangeEvent<HTMLInputElement>) {
-    setDateString(e.target.value);
+    setNewDate(e.target.value);
   }
 
-  useEffect(() => {
-    console.log(dateString);
-  }, [dateString]);
+  function handleGuestAmount(e: ChangeEvent<HTMLSelectElement>) {
+    setNewGuestAmount(parseInt(e.target.value));
+  }
+
+  function compareData(e: MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    let arr = [];
+    for (let i = 0; i < currentBookings.length; i++) {
+      if (currentBookings[i].date === newDate) {
+        arr.push(currentBookings[i]);
+      }
+    }
+    console.log(arr);
+    console.log(availableTables);
+  }
 
   return (
     <>
@@ -27,11 +50,16 @@ export default function DateAndGuest() {
           type="date"
           id="date"
           name="date"
-          value={dateString}
+          value={newDate}
           onChange={handleDate}
         />
         <label htmlFor="guestAmount">Select amount of guests:</label>
-        <select name="guestAmount" id="guestAmount">
+        <select
+          name="guestAmount"
+          defaultValue={1}
+          id="guestAmount"
+          onChange={handleGuestAmount}
+        >
           <option value={1}>1</option>
           <option value={2}>2</option>
           <option value={3}>3</option>
@@ -39,7 +67,7 @@ export default function DateAndGuest() {
           <option value={5}>5</option>
           <option value={6}>6</option>
         </select>
-        {/* <button onClick={compareDates}>Jämför</button> */}
+        <button onClick={compareData}>Jämför</button>
       </form>
     </>
   );

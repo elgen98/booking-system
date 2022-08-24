@@ -35,14 +35,14 @@ router.post("/create", async (req, res) => {
     telephone_number: telephone_number,
   });
   await newBooking.save();
-  res.status(200);
+  res.status(200).send("New Booking added");
   console.log("Booking created");
 });
 
 // DElETE
 router.delete("/delete/:id", async (req, res) => {
   await BookingsModel.findByIdAndDelete(req.params.id);
-  res.status(200);
+  res.status(200).send("Booking removed");
   console.log("Booking removed");
 });
 
@@ -62,6 +62,6 @@ router.put("/update/:id", async (req, res) => {
   booking.telephone_number = telephone_number;
 
   await booking.save();
-  res.status(200);
+  res.status(200).send("Booking updated.");
   console.log("Booking was updated");
 });

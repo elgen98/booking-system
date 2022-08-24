@@ -3,11 +3,11 @@ const { Schema, model } = require("mongoose");
 const bookingsSchema = new Schema(
   {
     guest_amount: Number,
-    date: Date,
+    date: String,
     time: String,
     name: String,
     email: String,
-    telephone_number: Number,
+    telephone_number: String,
   },
   {
     timestamps: true,
