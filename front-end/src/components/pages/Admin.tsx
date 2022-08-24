@@ -12,6 +12,10 @@ interface IBookings {
   date: String;
 }
 
+function refreshPage() {
+  window.location.reload();
+}
+
 function Admin() {
   const [bookings, setBookings] = useState<IBookings[]>([]);
   const [createBooking, setCreateBooking] = useState<IBookings>({
@@ -23,6 +27,7 @@ function Admin() {
     time: "",
     date: "",
   });
+  const [showAddForm, setShowAddForm] = useState(false);
 
   function removeBooking(e: any) {
     e.preventDefault();
@@ -31,6 +36,7 @@ function Admin() {
       .delete("http://localhost:8000/bookings/delete/" + e.target.id)
       .then((response) => {
         console.log(response);
+        refreshPage();
       });
   }
 
@@ -55,6 +61,7 @@ function Admin() {
       .post("http://localhost:8000/bookings/create", createBooking)
       .then((res) => {
         console.log(res);
+        refreshPage();
       })
       .catch((e) => {
         console.log(e);
@@ -84,79 +91,88 @@ function Admin() {
               <button className="flex items-center">
                 Edit
                 <HiX />
-                <input type="time" />
+                {/* <input type="time" /> */}
               </button>
             </div>
           ))}
         </div>
       </div>
-      <form onSubmit={handleAddSubmit}>
-        <div>
-          <label>
-            Namn
-            <input
-              type="text"
-              className="border-solid border-2 border-sky-500"
-              name="name"
-              onChange={handleAdd}
-            />
-          </label>
+      {showAddForm ? (
+        <>
+          <form onSubmit={handleAddSubmit}>
+            <div>
+              <label>
+                Namn
+                <input
+                  type="text"
+                  className="border-solid border-2 border-sky-500"
+                  name="name"
+                  onChange={handleAdd}
+                />
+              </label>
 
-          <label>
-            Email
-            <input
-              type="text"
-              className="border-solid border-2 border-sky-500"
-              name="email"
-              onChange={handleAdd}
-            />
-          </label>
+              <label>
+                Email
+                <input
+                  type="text"
+                  className="border-solid border-2 border-sky-500"
+                  name="email"
+                  onChange={handleAdd}
+                />
+              </label>
 
-          <label>
-            Nummer
-            <input
-              type="text"
-              className="border-solid border-2 border-sky-500"
-              name="telephone_number"
-              onChange={handleAdd}
-            />
-          </label>
-        </div>
+              <label>
+                Nummer
+                <input
+                  type="text"
+                  className="border-solid border-2 border-sky-500"
+                  name="telephone_number"
+                  onChange={handleAdd}
+                />
+              </label>
+            </div>
 
-        <div>
-          <label>
-            Gäster
-            <input
-              type="number"
-              className="border-solid border-2 border-sky-500"
-              name="guest_amount"
-              onChange={handleAdd}
-            />
-          </label>
+            <div>
+              <label>
+                Gäster
+                <input
+                  type="number"
+                  className="border-solid border-2 border-sky-500"
+                  name="guest_amount"
+                  onChange={handleAdd}
+                />
+              </label>
 
-          <label>
-            Tid
-            <input
-              type="text"
-              className="border-solid border-2 border-sky-500"
-              name="time"
-              onChange={handleAdd}
-            />
-          </label>
+              <label>
+                Tid
+                <input
+                  type="text"
+                  className="border-solid border-2 border-sky-500"
+                  name="time"
+                  onChange={handleAdd}
+                />
+              </label>
 
-          <label>
-            Datum
-            <input
-              type="text"
-              className="border-solid border-2 border-sky-500"
-              name="date"
-              onChange={handleAdd}
-            />
-          </label>
-        </div>
-
-        <button type="submit">Submit</button>
-      </form>
+              <label>
+                Datum
+                <input
+                  type="text"
+                  className="border-solid border-2 border-sky-500"
+                  name="date"
+                  onChange={handleAdd}
+                />
+              </label>
+            </div>
+            <button type="submit">Submit</button>
+            <br />
+            <button onClick={() => setShowAddForm(false)}>Close</button>
+          </form>
+        </>
+      ) : (
+        <>
+          <button onClick={() => setShowAddForm(true)}>Add booking</button>
+        </>
+      )}
     </div>
   );
 }
