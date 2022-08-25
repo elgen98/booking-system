@@ -6,7 +6,7 @@ export default function RestaurantLocation() {
     <>
       <IconContext.Provider value={{ size: "50" }}>
         <main className=" grid grid-cols-5">
-          <section className=" col-span-2">
+          <section className=" col-span-2 flex flex-col justify-evenly">
             <h1>Kontaktinformation</h1>
             <p>Email: info@vuxenjuice.se</p>
             <p>Telefon: 0734556789</p>
@@ -18,7 +18,7 @@ export default function RestaurantLocation() {
                 <p>Telefon: 0864567</p>
                 <p>Email: myndighetskallaren@vuxenjuice.se</p>
               </div>
-              <div className=" w-3/4">
+              <div className=" w-3/4 p-2">
                 <h3>VuxenJuice Stockholm: Myndighetskällaren</h3>
                 <img
                   className=" w-full"
@@ -29,7 +29,7 @@ export default function RestaurantLocation() {
             </div>
           </section>
         </main>
-        <div className=" row-span-2">
+        <div className=" flex items-center justify-center gap-3">
           <ImInstagram />
           <ImFacebook2 />
           <ImTwitter />
