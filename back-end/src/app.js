@@ -24,9 +24,11 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/bookings", bookRoute);
 
-app.get("/searchAvailabilty/:date", (req, res) => {
-  const date = req.params.date;
-  res.send(date);
+app.post("/searchAvailabilty", async (req, res) => {
+  const data = req.body;
+  console.log(data.data);
+  const availableBookings = await BookingsModel.find({ date: data.date });
+  console.log(availableBookings);
 });
 
 // Clean MongoDB Data \\

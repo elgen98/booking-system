@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { MouseEvent, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
 import DatePicker from "./DatePicker";
@@ -12,10 +12,11 @@ type IGuest = {
 
 function BookingModalOne() {
   const date = useSelector((state: RootState) => state.searchOption.value);
-  useEffect(() => {
+  function lol(e: MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
     if (date.date && date.guests) {
       axios.post<IGuest>(
-        "localhost:8000/searchAvailability",
+        "http://localhost:8000/searchAvailabilty",
         {
           date: date.date,
           guests: date.guests,
@@ -27,15 +28,16 @@ function BookingModalOne() {
           },
         }
       );
+      console.log("hello");
     }
-  });
+  }
 
   return (
     <div>
       <form action="" method="GET">
         <DatePicker />
         <GuestPicker />
-        <button>Gå vidare</button>
+        <button onClick={lol}>Gå vidare</button>
       </form>
     </div>
   );

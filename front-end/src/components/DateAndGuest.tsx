@@ -33,7 +33,7 @@ export default function DateAndGuest() {
           value={date}
           onChange={handleDate}
         />
-        {/* <label htmlFor="guestAmount">Select amount of guests:</label>
+        /* <label htmlFor="guestAmount">Select amount of guests:</label>
         <select
           name="guestAmount"
           defaultValue={1}
