@@ -6,3 +6,8 @@ export interface IBooking {
   date: string;
   time: string;
 }
+
+export interface ISearchOptions {
+  date: string;
+  guests: number;
+}
