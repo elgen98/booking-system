@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IBooking } from "../models/IBooking";
+import { IBooking, ISearchOptions } from "../models/IBooking";
 
 interface BookingState {
   value: IBooking[];
@@ -15,7 +15,6 @@ export const bookingSlice = createSlice({
   reducers: {
     addCurrentBookings: (state, action: PayloadAction<IBooking[]>) => {
       state.value = action.payload;
-      console.log("hello");
     },
   },
 });
