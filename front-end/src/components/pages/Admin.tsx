@@ -90,54 +90,76 @@ function Admin() {
 
   function handleEditSubmit(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
+    // const jsonEditBook = JSON.stringify(editBooking);
     axios
-      .post("http://localhost:8000/bookings/update/" + e.target.id, editBooking)
+      .put("http://localhost:8000/bookings/update/" + e.target.id, editBooking)
       .then((res) => {
+        //setEditBooking(res.data);
+        setEditBooking(editBooking);
         console.log(res);
+        // console.log(jsonEditBook);
+        console.log(editBooking);
+
         refreshPage();
       })
       .catch((e) => {
         console.log(e);
+        console.log(editBooking);
       });
   }
+
+  // const bookingEdit = bookings.map((booking) => {
+  //   return (
+  //     <AdminEditBook
+  //       bookings={booking}
+  //       key={booking._id as string}
+  //     ></AdminEditBook>
+  //   );
+  // });
 
   return (
     <div>
       <div className="flex flex-col mx-auto w-[85%]">
         <div className="flex">
           {bookings.map((booking, index) => (
-            <div key={index} className="bg-slate-400 p-4 rounded-lg">
-              <p>Bokad av: {booking.name}</p>
-              <p>Email: {booking.email}</p>
-              <p>Telefon: {booking.telephone_number}</p>
-              <p>Datum {booking.date}</p>
-              <p>Klockan: {booking.time}</p>
-              {/* <p>Antal gäster: {booking.guest_amount}</p> */}
-              <button
-                onClick={removeBooking}
-                id={booking._id.toString()}
-                className="flex items-center cursor-pointer bg-white"
-              >
-                Remove
-                <HiX />
-              </button>
-              <button className="flex items-center">
-                Edit
-                <HiX />
-                {/* <input type="time" /> */}
-              </button>
-              <button onClick={() => setShowEditForm(true)}>
-                Edit booking
-              </button>
-            </div>
+            <>
+              <div key={index} className="bg-slate-400 p-4 rounded-lg">
+                <p>Bokad av: {booking.name}</p>
+                <p>Email: {booking.email}</p>
+                <p>Telefon: {booking.telephone_number}</p>
+                <p>Datum {booking.date}</p>
+                <p>Klockan: {booking.time}</p>
+                <p>Antal Gäster: {booking.guest_amount.toString()}</p>
+                <button
+                  onClick={removeBooking}
+                  id={booking._id.toString()}
+                  className="flex items-center cursor-pointer bg-white"
+                >
+                  Remove
+                  <HiX />
+                </button>
+                <button
+                  className="flex items-center"
+                  onClick={() => setShowEditForm(true)}
+                >
+                  Edit
+                  <HiX />
+                </button>
+              </div>
+            </>
           ))}
         </div>
       </div>
-      <AdminAdd handleAddSubmit={handleAddSubmit} handleAdd={handleAdd} />
+      <AdminAdd
+        key={createBooking._id as string}
+        handleAddSubmit={handleAddSubmit}
+        handleAdd={handleAdd}
+      />
+
       {/* Edit a booking */}
       {showUpdateForm ? (
         <>
-          <form onSubmit={handleEditSubmit}>
+          <form onSubmit={(e) => handleEditSubmit}>
             <div>
               <label>
                 Namn
@@ -146,6 +168,8 @@ function Admin() {
                   className="border-solid border-2 border-sky-500"
                   name="name"
                   onChange={handleChange}
+                  // value={editBooking.name}
+                  value={editBooking.name as string}
                 />
               </label>
 
@@ -156,6 +180,7 @@ function Admin() {
                   className="border-solid border-2 border-sky-500"
                   name="email"
                   onChange={handleChange}
+                  value={editBooking.email as string}
                 />
               </label>
 
@@ -166,6 +191,7 @@ function Admin() {
                   className="border-solid border-2 border-sky-500"
                   name="telephone_number"
                   onChange={handleChange}
+                  value={editBooking.telephone_number as string}
                 />
               </label>
             </div>
@@ -178,6 +204,7 @@ function Admin() {
                   className="border-solid border-2 border-sky-500"
                   name="guest_amount"
                   onChange={handleChange}
+                  value={editBooking.guest_amount as number}
                 />
               </label>
 
@@ -188,6 +215,7 @@ function Admin() {
                   className="border-solid border-2 border-sky-500"
                   name="time"
                   onChange={handleChange}
+                  value={editBooking.time as string}
                 />
               </label>
 
@@ -198,6 +226,7 @@ function Admin() {
                   className="border-solid border-2 border-sky-500"
                   name="date"
                   onChange={handleChange}
+                  value={editBooking.date as string}
                 />
               </label>
             </div>
