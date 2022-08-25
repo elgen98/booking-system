@@ -48,11 +48,12 @@ function Admin() {
   }, []);
 
   // Remove booking: Removes the current booking
-  function removeBooking(e: any) {
+  function removeBooking(e: any, id: string) {
     e.preventDefault();
-    console.log(e.target.id);
+    console.log(id);
     axios
-      .delete("http://localhost:8000/bookings/delete/" + e.target.id)
+      .delete("http://localhost:8000/bookings/delete/" + id)
+
       .then((response) => {
         console.log(response);
         refreshPage();
@@ -137,7 +138,7 @@ function Admin() {
               <p>Tid: {booking.time}</p>
               <p>Antal Gäster: {booking.guest_amount.toString()}</p>
               <button
-                onClick={removeBooking}
+                onClick={(e) => removeBooking(e, booking._id.toString())}
                 id={booking._id.toString()}
                 className="flex items-center cursor-pointer bg-white"
               >
