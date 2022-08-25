@@ -24,19 +24,10 @@ router.get("/:id", async (req, res) => {
 
 // POST
 router.post("/create", async (req, res) => {
-  const {
-    name,
-    email,
-    telephone_number,
-    guest_amount,
-    created_at,
-    date,
-    time,
-  } = req.body;
+  const { name, email, telephone_number, guest_amount, date, time } = req.body;
 
   const newBooking = new BookingsModel({
     guest_amount: guest_amount,
-    created_at: created_at,
     date: date,
     time: time,
     name: name,
@@ -44,14 +35,14 @@ router.post("/create", async (req, res) => {
     telephone_number: telephone_number,
   });
   await newBooking.save();
-  res.status(200);
+  res.status(200).send("New Booking added");
   console.log("Booking created");
 });
 
 // DElETE
 router.delete("/delete/:id", async (req, res) => {
   await BookingsModel.findByIdAndDelete(req.params.id);
-  res.status(200);
+  res.status(200).send("Booking removed");
   console.log("Booking removed");
 });
 
@@ -61,18 +52,9 @@ router.put("/update/:id", async (req, res) => {
 
   const booking = await BookingsModel.findOne({ _id: id });
 
-  const {
-    guest_amount,
-    created_at,
-    date,
-    time,
-    name,
-    email,
-    telephone_number,
-  } = req.body;
+  const { guest_amount, date, time, name, email, telephone_number } = req.body;
 
   booking.guest_amount = guest_amount;
-  booking.created_at = created_at;
   booking.date = date;
   booking.time = time;
   booking.name = name;
@@ -80,6 +62,6 @@ router.put("/update/:id", async (req, res) => {
   booking.telephone_number = telephone_number;
 
   await booking.save();
-  res.status(200);
+  res.status(200).send("Booking updated.");
   console.log("Booking was updated");
 });
