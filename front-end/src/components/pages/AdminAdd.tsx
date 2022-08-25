@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 
 interface IAdminAdd {
-  handleAddSubmit(e: ChangeEvent<HTMLFormElement>): void;
+  AddSubmit(e: ChangeEvent<HTMLFormElement>): void;
   handleAdd(e: ChangeEvent<HTMLInputElement>): void;
 }
 
@@ -11,7 +11,7 @@ function AdminAdd(props: IAdminAdd) {
     <>
       {showAddForm ? (
         <>
-          <form onSubmit={props.handleAddSubmit}>
+          <form onSubmit={props.AddSubmit}>
             <div>
               <label>
                 Namn
@@ -77,12 +77,22 @@ function AdminAdd(props: IAdminAdd) {
             </div>
             <button type="submit">Submit</button>
             <br />
-            <button onClick={() => setShowAddForm(false)}>Close</button>
+            <button
+              onClick={() => setShowAddForm(false)}
+              className="cursor-pointer"
+            >
+              Close
+            </button>
           </form>
         </>
       ) : (
         <>
-          <button onClick={() => setShowAddForm(true)}>Add booking</button>
+          <button
+            onClick={() => setShowAddForm(true)}
+            className="cursor-pointer"
+          >
+            Add booking
+          </button>
         </>
       )}
     </>

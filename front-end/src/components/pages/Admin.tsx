@@ -3,7 +3,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { HiX } from "react-icons/hi";
 import AdminAdd from "./AdminAdd";
 
-interface IBookings {
+export interface IBookings {
   _id: String;
   name: String;
   email: String;
@@ -40,6 +40,14 @@ function Admin() {
     window.location.reload();
   }
 
+  // Get all bookings
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/bookings")
+      .then((response) => setBookings(response.data));
+  }, []);
+
+  // Remove booking: Removes the current booking
   function removeBooking(e: any) {
     e.preventDefault();
     console.log(e.target.id);
@@ -48,16 +56,13 @@ function Admin() {
       .then((response) => {
         console.log(response);
         refreshPage();
+      })
+      .catch((e) => {
+        console.log(e);
       });
   }
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/bookings")
-      .then((response) => setBookings(response.data));
-  }, []);
-
-  // Add
+  // Add Booking: Inputs
   function handleAdd(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.type === "number") {
       setCreateBooking({ ...createBooking, [e.target.name]: +e.target.value });
@@ -66,7 +71,8 @@ function Admin() {
     }
   }
 
-  function handleAddSubmit(e: ChangeEvent<HTMLFormElement>) {
+  // Add booking: Submit
+  function AddSubmit(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     axios
       .post("http://localhost:8000/bookings/create", createBooking)
@@ -79,7 +85,19 @@ function Admin() {
       });
   }
 
-  // Update
+  // Edit booking: Get current booking
+  function editCurrBook(id: string) {
+    for (let i = 0; i < bookings.length; i++) {
+      if (bookings[i]._id === id) {
+        setEditBooking(bookings[i]);
+        console.log(bookings[i], "Booking[i]");
+      } else {
+        console.log("error");
+      }
+    }
+  }
+
+  // Edit booking: Inputs
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.type === "number") {
       setEditBooking({ ...editBooking, [e.target.name]: +e.target.value });
@@ -88,78 +106,69 @@ function Admin() {
     }
   }
 
-  function handleEditSubmit(e: ChangeEvent<HTMLFormElement>) {
+  // Edit booking: Submit form
+  function EditSubmit(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
-    // const jsonEditBook = JSON.stringify(editBooking);
     axios
       .put("http://localhost:8000/bookings/update/" + e.target.id, editBooking)
       .then((res) => {
-        //setEditBooking(res.data);
         setEditBooking(editBooking);
         console.log(res);
-        // console.log(jsonEditBook);
-        console.log(editBooking);
-
         refreshPage();
       })
       .catch((e) => {
         console.log(e);
-        console.log(editBooking);
       });
   }
-
-  // const bookingEdit = bookings.map((booking) => {
-  //   return (
-  //     <AdminEditBook
-  //       bookings={booking}
-  //       key={booking._id as string}
-  //     ></AdminEditBook>
-  //   );
-  // });
 
   return (
     <div>
       <div className="flex flex-col mx-auto w-[85%]">
         <div className="flex">
-          {bookings.map((booking, index) => (
-            <>
-              <div key={index} className="bg-slate-400 p-4 rounded-lg">
-                <p>Bokad av: {booking.name}</p>
-                <p>Email: {booking.email}</p>
-                <p>Telefon: {booking.telephone_number}</p>
-                <p>Datum {booking.date}</p>
-                <p>Klockan: {booking.time}</p>
-                <p>Antal Gäster: {booking.guest_amount.toString()}</p>
-                <button
-                  onClick={removeBooking}
-                  id={booking._id.toString()}
-                  className="flex items-center cursor-pointer bg-white"
-                >
-                  Remove
-                  <HiX />
-                </button>
-                <button
-                  className="flex items-center"
-                  onClick={() => setShowEditForm(true)}
-                >
-                  Edit
-                  <HiX />
-                </button>
-              </div>
-            </>
+          {bookings.map((booking) => (
+            <div
+              key={booking._id.toString()}
+              className="bg-slate-400 p-4 rounded-lg"
+            >
+              <p>Bokad av: {booking.name}</p>
+              <p>Email: {booking.email}</p>
+              <p>Telefon: {booking.telephone_number}</p>
+              <p>Datum {booking.date}</p>
+              <p>Tid: {booking.time}</p>
+              <p>Antal Gäster: {booking.guest_amount.toString()}</p>
+              <button
+                onClick={removeBooking}
+                id={booking._id.toString()}
+                className="flex items-center cursor-pointer bg-white"
+              >
+                Remove
+                <HiX />
+              </button>
+
+              <button
+                className="flex items-center cursor-pointer bg-white"
+                onClick={() => {
+                  setShowEditForm(true);
+                  editCurrBook(booking._id.toString());
+                }}
+              >
+                Edit
+                <HiX />
+              </button>
+            </div>
           ))}
         </div>
       </div>
       <AdminAdd
         key={createBooking._id as string}
-        handleAddSubmit={handleAddSubmit}
+        AddSubmit={AddSubmit}
         handleAdd={handleAdd}
       />
 
       {/* Edit a booking */}
       {showUpdateForm ? (
         <>
-          <form onSubmit={(e) => handleEditSubmit}>
+          <form onSubmit={EditSubmit} id={editBooking._id.toString()}>
             <div>
               <label>
                 Namn
@@ -168,7 +177,6 @@ function Admin() {
                   className="border-solid border-2 border-sky-500"
                   name="name"
                   onChange={handleChange}
-                  // value={editBooking.name}
                   value={editBooking.name as string}
                 />
               </label>
@@ -230,7 +238,7 @@ function Admin() {
                 />
               </label>
             </div>
-            <button type="submit">Submit</button>
+            <input type="submit" value={"Submit"} className="cursor-pointer" />
             <br />
             <button onClick={() => setShowEditForm(false)}>Close</button>
           </form>
