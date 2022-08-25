@@ -10,17 +10,8 @@ export default function DateAndGuest() {
     (state: RootState) => state.bookings.value
   );
 
-  const [newBooking, setNewBooking] = useState<IBooking>();
   const [newDate, setNewDate] = useState("");
   const [newGuestAmount, setNewGuestAmount] = useState(1);
-  const [availableTables, setAvailableTables] = useState<IAvailableTables>({
-    time18: {
-      amount: 15,
-    },
-    time21: {
-      amount: 15,
-    },
-  });
 
   function handleDate(e: ChangeEvent<HTMLInputElement>) {
     setNewDate(e.target.value);
@@ -30,21 +21,13 @@ export default function DateAndGuest() {
     setNewGuestAmount(parseInt(e.target.value));
   }
 
-  function compareData(e: MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    let arr = [];
-    for (let i = 0; i < currentBookings.length; i++) {
-      if (currentBookings[i].date === newDate) {
-        arr.push(currentBookings[i]);
-      }
-    }
-    console.log(arr);
-    console.log(availableTables);
-  }
-
   return (
     <>
-      <form action="" className="flex flex-col items-center justify-center">
+      <form
+        action="http://localhost:8000/searchAvailabilty/"
+        method="get"
+        className="flex flex-col items-center justify-center"
+      >
         <label htmlFor="date">Date:</label>
         <input
           type="date"
@@ -53,7 +36,7 @@ export default function DateAndGuest() {
           value={newDate}
           onChange={handleDate}
         />
-        <label htmlFor="guestAmount">Select amount of guests:</label>
+        {/* <label htmlFor="guestAmount">Select amount of guests:</label>
         <select
           name="guestAmount"
           defaultValue={1}
@@ -66,8 +49,8 @@ export default function DateAndGuest() {
           <option value={4}>4</option>
           <option value={5}>5</option>
           <option value={6}>6</option>
-        </select>
-        <button onClick={compareData}>Jämför</button>
+        </select> */}
+        <button type="submit">Sök</button>
       </form>
     </>
   );

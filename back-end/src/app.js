@@ -3,6 +3,7 @@ require("./data/mongoose");
 const express = require("express");
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const cors = require("cors");
 const BookingsModel = require("./models/BookingsModel");
 const bookRoute = require("./routes/bookRoutes");
@@ -22,6 +23,11 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/bookings", bookRoute);
+
+app.get("/searchAvailabilty/:date", (req, res) => {
+  const date = req.params.date;
+  res.send(date);
+});
 
 // Clean MongoDB Data \\
 app.delete("/removeAll", async (req, res) => {
