@@ -11,7 +11,7 @@ export default function ErrorPage() {
         />
       </div>
       <h1 className="mt-6 text-2xl font-libre">
-        Uh Oh! This page dose not exist
+        Uh Oh! This page does not exist
       </h1>
       <h1 className="text-2xl font-libre">
         Maybe you clicked an old link or misspelled. Please try again…{" "}
