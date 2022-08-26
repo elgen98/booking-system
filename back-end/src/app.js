@@ -24,11 +24,34 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/bookings", bookRoute);
 
-app.post("/searchAvailabilty", async (req, res) => {
+app.post("/searchAvailabilty", async (req, res, next) => {
+  let arrOne = [];
+  let arrTwo = [];
+  let booleans = { seatingOne: true, seatingTwo: true };
   const data = req.body;
   console.log(data.data);
   const availableBookings = await BookingsModel.find({ date: data.date });
   console.log(availableBookings);
+  if (availableBookings.length === 0) {
+    res.send(booleans);
+  } else {
+    for (let i = 0; i < availableBookings.length; i++) {
+      if (availableBookings[i].time === "1800") {
+        arrOne.push("booking");
+      }
+      if (availableBookings[i].time === "2100") {
+        arrTwo.push("booking");
+      }
+      console.log("1800: ", arrOne, "2100: ", arrTwo);
+    }
+    if (arrOne.length >= 15) {
+      booleans.seatingOne = false;
+    }
+    if (arrTwo.length >= 15) {
+      booleans.seatingTwo = false;
+    }
+    res.send(booleans);
+  }
 });
 
 // Clean MongoDB Data \\
