@@ -11,3 +11,8 @@ export interface ISearchOptions {
   date: string;
   guests: number;
 }
+
+export interface ISeatingOptions {
+  seatingOne: boolean;
+  seatingTwo: boolean;
+}

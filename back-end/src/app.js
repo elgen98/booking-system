@@ -25,13 +25,15 @@ app.get("/", (req, res) => {
 app.use("/bookings", bookRoute);
 
 app.post("/searchAvailabilty", async (req, res, next) => {
+  //Arrays representing the two seating periods: 21:00 and 18:00
   let arrOne = [];
   let arrTwo = [];
+  //Booleans object that gets sent back to client
   let booleans = { seatingOne: true, seatingTwo: true };
+  //Data from client and the bookings matching that date
   const data = req.body;
-  console.log(data.data);
   const availableBookings = await BookingsModel.find({ date: data.date });
-  console.log(availableBookings);
+  //Validation
   if (availableBookings.length === 0) {
     res.send(booleans);
   } else {
@@ -42,7 +44,6 @@ app.post("/searchAvailabilty", async (req, res, next) => {
       if (availableBookings[i].time === "2100") {
         arrTwo.push("booking");
       }
-      console.log("1800: ", arrOne, "2100: ", arrTwo);
     }
     if (arrOne.length >= 15) {
       booleans.seatingOne = false;

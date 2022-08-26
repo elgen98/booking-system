@@ -1,14 +1,10 @@
 import axios from "axios";
 import React, { MouseEvent, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
+import { addAvailableSeatings } from "../features/SeatingOptionsSlice";
 import DatePicker from "./DatePicker";
 import GuestPicker from "./GuestPicker";
-
-type IGuest = {
-  date: string;
-  guests: string;
-};
 
 type booleanResponse = {
   seatingOne: boolean;
@@ -16,6 +12,8 @@ type booleanResponse = {
 };
 
 function BookingModalOne() {
+  const dispatch = useDispatch();
+
   const [seatings, setSeatings] = useState<booleanResponse>({
     seatingOne: false,
     seatingTwo: false,
@@ -23,7 +21,7 @@ function BookingModalOne() {
 
   const date = useSelector((state: RootState) => state.searchOption.value);
 
-  function lol(e: MouseEvent<HTMLButtonElement>) {
+  function checkSeatings(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     if (date.date && date.guests) {
       axios
@@ -42,7 +40,7 @@ function BookingModalOne() {
         )
         .then((response) => {
           console.log(response.data);
-          setSeatings(response.data);
+          dispatch(addAvailableSeatings(response.data));
         });
     }
   }
@@ -62,7 +60,7 @@ function BookingModalOne() {
       <form action="" method="GET">
         <DatePicker />
         <GuestPicker />
-        <button onClick={lol}>Gå vidare</button>
+        <button onClick={checkSeatings}>Gå vidare</button>
       </form>
       {buttonOne}
       {buttonTwo}
