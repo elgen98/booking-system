@@ -2,6 +2,9 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    fontFamily: {
+      libre: ["Libre Caslon Display"],
+    },
     extend: {},
   },
   plugins: [],
