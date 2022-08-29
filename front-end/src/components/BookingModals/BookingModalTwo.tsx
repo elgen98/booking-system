@@ -94,7 +94,16 @@ function BookingModalTwo() {
           </div>
         </div>
 
-        <br />
+        <div>
+          {validateMsg.length > 0 && <span>Validation Summary</span>}
+          <ul>
+            {validateMsg.map((vm) => (
+              <li key={vm} className="text-red-500">
+                {vm}
+              </li>
+            ))}
+          </ul>
+        </div>
         <input
           className="cursor-pointer "
           type="submit"
@@ -105,17 +114,6 @@ function BookingModalTwo() {
         <button className="cursor-pointer ">Avbryt</button>
       </form>
       <br />
-
-      <div>
-        {validateMsg.length > 0 && <span>Validation Summary</span>}
-        <ul>
-          {validateMsg.map((vm) => (
-            <li key={vm} className="text-red-500">
-              {vm}
-            </li>
-          ))}
-        </ul>
-      </div>
     </>
   );
 }
