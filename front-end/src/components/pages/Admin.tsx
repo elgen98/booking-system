@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import { HiX } from "react-icons/hi";
+import { FiEdit3 } from "react-icons/fi";
 import AdminAdd from "./AdminAdd";
 
 export interface IBookings {
@@ -123,130 +124,148 @@ function Admin() {
   }
 
   return (
-    <div>
-      <div className="flex flex-col mx-auto w-[85%]">
-        <div className="flex">
-          {bookings.map((booking) => (
-            <div
-              key={booking._id.toString()}
-              className="bg-slate-400 p-4 rounded-lg"
-            >
-              <p>Bokad av: {booking.name}</p>
-              <p>Email: {booking.email}</p>
-              <p>Telefon: {booking.telephone_number}</p>
-              <p>Datum {booking.date}</p>
-              <p>Tid: {booking.time}</p>
-              <p>Antal Gäster: {booking.guest_amount.toString()}</p>
-              <button
-                onClick={(e) => removeBooking(e, booking._id.toString())}
-                id={booking._id.toString()}
-                className="flex items-center cursor-pointer bg-white"
+    <div className="grid grid-cols-4 gap-4 mx-auto w-[85%]">
+      <div className=" col-span-3">
+        <div className="flex ">
+          <div className="grid grid-cols-4 gap-4">
+            {bookings.map((booking) => (
+              <div
+                key={booking._id.toString()}
+                className="bg-blue-50 border border-blue-300 p-4 rounded-lg"
               >
-                Remove
-                <HiX />
-              </button>
+                <div className="flex justify-between mb-2">
+                  <p>{booking.date}</p>
+                  <p className=" text-right">
+                    {booking.time.slice(0, 2) + ":" + booking.time.slice(2, 4)}
+                    <p>Gäster: {booking.guest_amount.toString()}</p>
+                  </p>
+                </div>
+                <div className="border border-blue-100 bg-white p-2 rounded-md mb-2">
+                  <p>Bokad av: {booking.name}</p>
+                  <p>Email: {booking.email}</p>
+                  <p>Telefon: {booking.telephone_number}</p>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={(e) => removeBooking(e, booking._id.toString())}
+                    id={booking._id.toString()}
+                    className="flex items-center cursor-pointer bg-red-100 border-red-300 rounded-md p-1"
+                  >
+                    Remove
+                    <HiX />
+                  </button>
 
-              <button
-                className="flex items-center cursor-pointer bg-white"
-                onClick={() => {
-                  setShowEditForm(true);
-                  editCurrBook(booking._id.toString());
-                }}
-              >
-                Edit
-                <HiX />
-              </button>
-            </div>
-          ))}
+                  <button
+                    className="flex items-center cursor-pointer bg-green-100 rounded-md p-1"
+                    onClick={() => {
+                      setShowEditForm(true);
+                      editCurrBook(booking._id.toString());
+                    }}
+                  >
+                    Edit
+                    <FiEdit3 />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+
+        {/* Edit a booking */}
+        {showUpdateForm ? (
+          <>
+            <form
+              className="bg-green-100 p-4 rounded-md mt-4"
+              onSubmit={EditSubmit}
+              id={editBooking._id.toString()}
+            >
+              <div>
+                <label>
+                  Namn
+                  <input
+                    type="text"
+                    className="border-solid border-2 border-sky-500"
+                    name="name"
+                    onChange={handleChange}
+                    value={editBooking.name as string}
+                  />
+                </label>
+
+                <label>
+                  Email
+                  <input
+                    type="text"
+                    className="border-solid border-2 border-sky-500"
+                    name="email"
+                    onChange={handleChange}
+                    value={editBooking.email as string}
+                  />
+                </label>
+
+                <label>
+                  Nummer
+                  <input
+                    type="text"
+                    className="border-solid border-2 border-sky-500"
+                    name="telephone_number"
+                    onChange={handleChange}
+                    value={editBooking.telephone_number as string}
+                  />
+                </label>
+              </div>
+
+              <div>
+                <label>
+                  Gäster
+                  <input
+                    type="number"
+                    className="border-solid border-2 border-sky-500"
+                    name="guest_amount"
+                    onChange={handleChange}
+                    value={editBooking.guest_amount as number}
+                  />
+                </label>
+
+                <label>
+                  Tid
+                  <input
+                    type="text"
+                    className="border-solid border-2 border-sky-500"
+                    name="time"
+                    onChange={handleChange}
+                    value={editBooking.time as string}
+                  />
+                </label>
+
+                <label>
+                  Datum
+                  <input
+                    type="date"
+                    className="border-solid border-2 border-sky-500"
+                    name="date"
+                    onChange={handleChange}
+                    value={editBooking.date as string}
+                  />
+                </label>
+              </div>
+              <input
+                type="submit"
+                value={"Submit"}
+                className="cursor-pointer"
+              />
+              <br />
+              <button onClick={() => setShowEditForm(false)}>Close</button>
+            </form>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
       <AdminAdd
         key={createBooking._id as string}
         AddSubmit={AddSubmit}
         handleAdd={handleAdd}
       />
-
-      {/* Edit a booking */}
-      {showUpdateForm ? (
-        <>
-          <form onSubmit={EditSubmit} id={editBooking._id.toString()}>
-            <div>
-              <label>
-                Namn
-                <input
-                  type="text"
-                  className="border-solid border-2 border-sky-500"
-                  name="name"
-                  onChange={handleChange}
-                  value={editBooking.name as string}
-                />
-              </label>
-
-              <label>
-                Email
-                <input
-                  type="text"
-                  className="border-solid border-2 border-sky-500"
-                  name="email"
-                  onChange={handleChange}
-                  value={editBooking.email as string}
-                />
-              </label>
-
-              <label>
-                Nummer
-                <input
-                  type="text"
-                  className="border-solid border-2 border-sky-500"
-                  name="telephone_number"
-                  onChange={handleChange}
-                  value={editBooking.telephone_number as string}
-                />
-              </label>
-            </div>
-
-            <div>
-              <label>
-                Gäster
-                <input
-                  type="number"
-                  className="border-solid border-2 border-sky-500"
-                  name="guest_amount"
-                  onChange={handleChange}
-                  value={editBooking.guest_amount as number}
-                />
-              </label>
-
-              <label>
-                Tid
-                <input
-                  type="text"
-                  className="border-solid border-2 border-sky-500"
-                  name="time"
-                  onChange={handleChange}
-                  value={editBooking.time as string}
-                />
-              </label>
-
-              <label>
-                Datum
-                <input
-                  type="date"
-                  className="border-solid border-2 border-sky-500"
-                  name="date"
-                  onChange={handleChange}
-                  value={editBooking.date as string}
-                />
-              </label>
-            </div>
-            <input type="submit" value={"Submit"} className="cursor-pointer" />
-            <br />
-            <button onClick={() => setShowEditForm(false)}>Close</button>
-          </form>
-        </>
-      ) : (
-        <></>
-      )}
     </div>
   );
 }
