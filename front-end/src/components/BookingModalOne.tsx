@@ -14,11 +14,6 @@ type booleanResponse = {
 function BookingModalOne() {
   const dispatch = useDispatch();
 
-  const [seatings, setSeatings] = useState<booleanResponse>({
-    seatingOne: false,
-    seatingTwo: false,
-  });
-
   const date = useSelector((state: RootState) => state.searchOption.value);
 
   function checkSeatings(e: MouseEvent<HTMLButtonElement>) {
@@ -45,16 +40,6 @@ function BookingModalOne() {
     }
   }
 
-  let buttonOne = <div></div>;
-  let buttonTwo = <div></div>;
-
-  if (seatings.seatingOne === true) {
-    buttonOne = <button>1800</button>;
-  }
-  if (seatings.seatingTwo === true) {
-    buttonTwo = <button>2100</button>;
-  }
-
   return (
     <div>
       <form action="" method="GET">
@@ -62,8 +47,6 @@ function BookingModalOne() {
         <GuestPicker />
         <button onClick={checkSeatings}>Gå vidare</button>
       </form>
-      {buttonOne}
-      {buttonTwo}
     </div>
   );
 }
