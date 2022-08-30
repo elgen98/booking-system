@@ -8,7 +8,7 @@ import {
   addBookingNumber,
 } from "../../features/BookingSlice";
 
-function BookingModalTwo() {
+function BookingModalThree() {
   const dispatch = useDispatch();
 
   const [userInfo, setUserInfo] = useState({
@@ -139,4 +139,4 @@ function BookingModalTwo() {
     </>
   );
 }
-export default BookingModalTwo;
+export default BookingModalThree;
