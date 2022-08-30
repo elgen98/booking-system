@@ -1,40 +1,42 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { addCurrentBookings } from "../../features/BookingSlice";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import BookingModalFour from "../BookingModals/BookingModalFour";
 import BookingModalOne from "../BookingModals/BookingModalOne";
 import BookingModalThree from "../BookingModals/BookingModalThree";
 import BookingModalTwo from "../BookingModals/BookingModalTwo";
 
 export default function Booking() {
-  const dispatch = useDispatch();
   // Test boolean
   const [otherModals, setShowModals] = useState(false);
-
-  return (
-    <div className="flex max-w-max m-auto">
-      <div className=" border p-10 rounded-lg">
-        <h2 className="text-xl mb-5">
-          Börja med att välja datum & antal gäster!
-        </h2>
-        {!otherModals ? (
-          <>
-            <BookingModalOne />
-            <button onClick={() => setShowModals(true)}>
-              Show other modals
-            </button>
-          </>
-        ) : (
-          <>
-            <BookingModalTwo />
-            <BookingModalThree />
-            <button onClick={() => setShowModals(false)}>
-              Hide other modals
-            </button>
-          </>
-        )}
-      </div>
-    </div>
+  const availableSeatings = useSelector(
+    (state: RootState) => state.seatingOptions.value
   );
+
+  if (availableSeatings.seatingOne || availableSeatings.seatingTwo === true) {
+    return <BookingModalTwo />;
+  } else {
+    return (
+      <div className="flex max-w-max m-auto">
+        <div className=" bg-gray-200">
+          {!otherModals ? (
+            <>
+              <BookingModalOne />
+              <button onClick={() => setShowModals(true)}>
+                Show other modals
+              </button>
+            </>
+          ) : (
+            <>
+              <BookingModalThree />
+              <BookingModalFour />
+              <button onClick={() => setShowModals(false)}>
+                Hide other modals
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    );
+  }
 }

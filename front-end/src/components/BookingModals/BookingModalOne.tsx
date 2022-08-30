@@ -1,34 +1,44 @@
 import axios from "axios";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { MouseEvent, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
+import { addAvailableSeatings } from "../../features/SeatingOptionsSlice";
 import DatePicker from "../DatePicker";
 import GuestPicker from "../GuestPicker";
 
-type IGuest = {
-  date: string;
-  guests: string;
+type booleanResponse = {
+  seatingOne: boolean;
+  seatingTwo: boolean;
 };
 
 function BookingModalOne() {
+  const dispatch = useDispatch();
+
   const date = useSelector((state: RootState) => state.searchOption.value);
-  useEffect(() => {
+
+  function checkSeatings(e: MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
     if (date.date && date.guests) {
-      axios.post<IGuest>(
-        "localhost:8000/searchAvailability",
-        {
-          date: date.date,
-          guests: date.guests,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+      axios
+        .post<booleanResponse>(
+          "http://localhost:8000/searchAvailabilty",
+          {
+            date: date.date,
+            guests: date.guests,
           },
-        }
-      );
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data);
+          dispatch(addAvailableSeatings(response.data));
+        });
     }
-  });
+  }
 
   return (
     <div>
