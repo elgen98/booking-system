@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import BookingModalFour from "../BookingModals/BookingModalFour";
@@ -7,36 +7,29 @@ import BookingModalThree from "../BookingModals/BookingModalThree";
 import BookingModalTwo from "../BookingModals/BookingModalTwo";
 
 export default function Booking() {
-  // Test boolean
-  const [otherModals, setShowModals] = useState(false);
-  const availableSeatings = useSelector(
-    (state: RootState) => state.seatingOptions.value
-  );
+  const [bookingProgress, setBookingProgress] = useState(0);
 
-  if (availableSeatings.seatingOne || availableSeatings.seatingTwo === true) {
-    return <BookingModalTwo />;
-  } else {
-    return (
-      <div className="flex max-w-max m-auto">
-        <div className=" bg-gray-200">
-          {!otherModals ? (
-            <>
-              <BookingModalOne />
-              <button onClick={() => setShowModals(true)}>
-                Show other modals
-              </button>
-            </>
-          ) : (
-            <>
-              <BookingModalThree />
-              <BookingModalFour />
-              <button onClick={() => setShowModals(false)}>
-                Hide other modals
-              </button>
-            </>
-          )}
-        </div>
-      </div>
-    );
+  const booking = useSelector((state: RootState) => state.bookings.value);
+
+  useEffect(() => {
+    if (booking.date === "" && booking.guest_amount === 0) {
+      setBookingProgress(0);
+    }
+    if (booking.date !== "" && booking.guest_amount !== 0) {
+      setBookingProgress(1);
+    }
+  }, [booking.date, booking.guest_amount]);
+
+  if (bookingProgress === 0) {
+    return <BookingModalOne />;
   }
+  if (bookingProgress === 1) {
+    return <BookingModalTwo />;
+  }
+  if (bookingProgress === 2) {
+    return <BookingModalThree />;
+  }
+  if (bookingProgress === 3) {
+    return <BookingModalFour />;
+  } else return <BookingModalOne />;
 }

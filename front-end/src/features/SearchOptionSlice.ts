@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IBooking, ISearchOptions } from "../models/IBooking";
+import { ISearchOptions } from "../models/IBooking";
 
 interface SearchOptionState {
   value: ISearchOptions;

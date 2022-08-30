@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IBooking, ISearchOptions } from "../models/IBooking";
+import { IBooking } from "../models/IBooking";
 
 interface BookingState {
   value: IBooking;
@@ -25,13 +25,21 @@ export const bookingSlice = createSlice({
     addBookingGuestAmount: (state, action: PayloadAction<number>) => {
       state.value.guest_amount = action.payload;
     },
+    removeBookingGuestAndDate: (state) => {
+      state.value.guest_amount = 0;
+      state.value.date = "";
+    },
     addBookingTime: (state, action: PayloadAction<string>) => {
       state.value.time = action.payload;
     },
   },
 });
 
-export const { addBookingDate, addBookingGuestAmount, addBookingTime } =
-  bookingSlice.actions;
+export const {
+  addBookingDate,
+  addBookingGuestAmount,
+  removeBookingGuestAndDate,
+  addBookingTime,
+} = bookingSlice.actions;
 
 export default bookingSlice.reducer;
