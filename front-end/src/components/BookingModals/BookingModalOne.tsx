@@ -25,7 +25,7 @@ function BookingModalOne() {
     if (date.date && date.guests) {
       axios
         .post<booleanResponse>(
-          "http://localhost:8000/searchAvailabilty",
+          "http://localhost:8000/bookings/searchAvailabilty",
           {
             date: date.date,
             guests: date.guests,

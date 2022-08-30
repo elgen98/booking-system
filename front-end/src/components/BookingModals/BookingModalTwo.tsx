@@ -31,13 +31,14 @@ export default function BookingModalTwo() {
     );
   }
 
-  if (availableSeatings.seatingTwo) {
+  if (availableSeatings.seatingTwo === true) {
     seating2100Btn = (
       <button value={"2100"} onClick={addBookingDetails}>
         2100
       </button>
     );
   }
+
   return (
     <div>
       <h2>Available seatings:</h2>
