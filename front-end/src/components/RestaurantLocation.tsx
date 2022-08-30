@@ -1,25 +1,40 @@
-import React from "react";
 import { IconContext } from "react-icons";
 import { ImInstagram, ImFacebook2, ImTwitter } from "react-icons/im";
 export default function RestaurantLocation() {
   return (
     <>
       <IconContext.Provider value={{ size: "50" }}>
-        <main className=" grid grid-cols-5">
-          <section className=" col-span-2 flex flex-col justify-evenly">
-            <h1>Kontaktinformation</h1>
-            <p>Email: info@vuxenjuice.se</p>
-            <p>Telefon: 0734556789</p>
-          </section>
-          <section className=" col-span-3 m-8 h-3/5">
-            <div className=" flex flex-row">
-              <div className=" flex flex-col gap-3 justify-center">
-                <p>Adress: Sveavägen 46</p>
-                <p>Telefon: 0864567</p>
-                <p>Email: myndighetskallaren@vuxenjuice.se</p>
+        <main className=" flex flex-col md:flex-row">
+          <section className="flex flex-col justify-center border-b-2 border-black md:border-r-2  md:border-b-0">
+            <div className="mb-2 md:mb-0 md:mr-10 md:ml-10">
+              <h1 className="font-medium leading-tight text-4xl mb-2">
+                Kontakt
+              </h1>
+              <p>Email: info@vuxenjuice.se</p>
+              <p>Telefon: 0734556789</p>
+              <div className=" flex items-center justify-center gap-3 mt-3 ">
+                <ImInstagram color="#C13584" />
+                <ImFacebook2 color="#4267B2" />
+                <ImTwitter color="#1DA1F2" />
               </div>
-              <div className=" w-3/4 p-2">
-                <h3>VuxenJuice Stockholm: Myndighetskällaren</h3>
+            </div>
+          </section>
+          <section className=" col-span-4 h-3/5">
+            <div className=" flex flex-col md:flex-row">
+              <div className="flex flex-col gap-2 justify-center border-b-2 border-black md:border-b-0 md:ml-16">
+                <div className="mb-2 md:mb-0">
+                  <h1 className="font-medium leading-tight text-4xl mb-2 ">
+                    Plats
+                  </h1>
+                  <p>Sveavägen 46</p>
+                  <p>Telefon: 0864567</p>
+                  <p>myndighetskallaren@vuxenjuice.se</p>
+                </div>
+              </div>
+              <div className=" w-2/3 p-2 ml-16 md:ml-8">
+                <h2 className="font-medium leading-tight text-2xl mb-2">
+                  VuxenJuice Stockholm: Myndighetskällaren
+                </h2>
                 <img
                   className=" w-full"
                   src="../assets/pasadena-gallery-6.jpg"
@@ -29,11 +44,6 @@ export default function RestaurantLocation() {
             </div>
           </section>
         </main>
-        <div className=" flex items-center justify-center gap-3">
-          <ImInstagram />
-          <ImFacebook2 />
-          <ImTwitter />
-        </div>
       </IconContext.Provider>
     </>
   );
