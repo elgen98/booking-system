@@ -18,7 +18,7 @@ export default function Booking() {
   } else {
     return (
       <div className="flex max-w-max m-auto">
-        <div className=" bg-gray-200">
+        <div className=" border border-gray-200 rounded-lg p-10">
           {!otherModals ? (
             <>
               <BookingModalOne />

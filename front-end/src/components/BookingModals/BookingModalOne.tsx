@@ -43,7 +43,7 @@ function BookingModalOne() {
   return (
     <div>
       <form action="" method="GET">
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center justify-between gap-5 mb-5">
           <DatePicker />
           <GuestPicker />
         </div>
