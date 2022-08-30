@@ -1,14 +1,10 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { addCurrentBookings } from "../../features/BookingSlice";
 import BookingModalOne from "../BookingModals/BookingModalOne";
 import BookingModalThree from "../BookingModals/BookingModalThree";
 import BookingModalTwo from "../BookingModals/BookingModalTwo";
 
 export default function Booking() {
-  const dispatch = useDispatch();
   // Test boolean
   const [otherModals, setShowModals] = useState(false);
 
