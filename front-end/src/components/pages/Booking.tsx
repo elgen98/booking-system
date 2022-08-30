@@ -1,25 +1,36 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../app/store";
-import BookingModalOne from "../BookingModalOne";
-import BookingModalTwo from "../BookingModalTwo";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import BookingModalOne from "../BookingModals/BookingModalOne";
+import BookingModalThree from "../BookingModals/BookingModalThree";
+import BookingModalTwo from "../BookingModals/BookingModalTwo";
 
 export default function Booking() {
-  const availableSeatings = useSelector(
-    (state: RootState) => state.seatingOptions.value
-  );
+  const dispatch = useDispatch();
+  // Test boolean
+  const [otherModals, setShowModals] = useState(false);
 
-  console.log(availableSeatings);
-  if (availableSeatings.seatingOne || availableSeatings.seatingTwo === true) {
-    return <BookingModalTwo />;
-  } else {
-    return (
-      <div className="flex max-w-max m-auto">
-        <div className=" bg-gray-200">
-          <BookingModalOne />
-        </div>
+  return (
+    <div className="flex max-w-max m-auto">
+      <div className=" bg-gray-200">
+        {!otherModals ? (
+          <>
+            <BookingModalOne />
+            <button onClick={() => setShowModals(true)}>
+              Show other modals
+            </button>
+          </>
+        ) : (
+          <>
+            <BookingModalTwo />
+            <BookingModalThree />
+            <button onClick={() => setShowModals(false)}>
+              Hide other modals
+            </button>
+          </>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 }

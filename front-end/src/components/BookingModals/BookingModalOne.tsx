@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { MouseEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../app/store";
-import { addAvailableSeatings } from "../features/SeatingOptionsSlice";
-import DatePicker from "./DatePicker";
-import GuestPicker from "./GuestPicker";
+import { RootState } from "../../app/store";
+import { addAvailableSeatings } from "../../features/SeatingOptionsSlice";
+import DatePicker from "../DatePicker";
+import GuestPicker from "../GuestPicker";
 
 type booleanResponse = {
   seatingOne: boolean;
