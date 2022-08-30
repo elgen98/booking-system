@@ -21,7 +21,17 @@ export default function Booking() {
     if (booking.time !== "") {
       setBookingProgress(2);
     }
-  }, [booking.date, booking.guest_amount, booking.time]);
+    if (booking.name && booking.email && booking.telephone_number !== "") {
+      setBookingProgress(3);
+    }
+  }, [
+    booking.date,
+    booking.guest_amount,
+    booking.time,
+    booking.email,
+    booking.name,
+    booking.telephone_number,
+  ]);
 
   if (bookingProgress === 0) {
     return <BookingModalOne />;

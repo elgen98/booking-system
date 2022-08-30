@@ -6,6 +6,7 @@ import {
   addBookingEmail,
   addBookingName,
   addBookingNumber,
+  addBookingTime,
 } from "../../features/BookingSlice";
 
 function BookingModalThree() {
@@ -134,8 +135,15 @@ function BookingModalThree() {
           onClick={(e) => handleClick(e)}
         />
         <br />
-        <button className="cursor-pointer ">Avbryt</button>
       </form>
+      <button
+        className="cursor-pointer "
+        onClick={() => {
+          dispatch(addBookingTime(""));
+        }}
+      >
+        Tillbaka
+      </button>
     </>
   );
 }
