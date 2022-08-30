@@ -20,7 +20,10 @@ export default function DateAndGuest() {
 
   return (
     <>
-      <form action="" className="flex flex-col items-center justify-center">
+      <form
+        action=""
+        className="flex flex-col items-center justify-center border"
+      >
         <label htmlFor="date">Date:</label>
         <input
           type="date"
@@ -29,7 +32,7 @@ export default function DateAndGuest() {
           value={date}
           onChange={handleDate}
         />
-        <label htmlFor="guestAmount">Select amount of guests:</label>
+        <label htmlFor="guestAmount">Amount of guests:</label>
         <select
           name="guestAmount"
           defaultValue={1}

@@ -33,9 +33,11 @@ function BookingModalOne() {
   return (
     <div>
       <form action="" method="GET">
-        <DatePicker />
-        <GuestPicker />
-        <button>Gå vidare</button>
+        <div className="flex items-center justify-between mb-5">
+          <DatePicker />
+          <GuestPicker />
+        </div>
+        <button className="bg-green-500 px-4 py-2 rounded-lg">Gå vidare</button>
       </form>
     </div>
   );

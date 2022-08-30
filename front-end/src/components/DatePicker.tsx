@@ -12,7 +12,6 @@ function DatePicker() {
 
   return (
     <div>
-      <label htmlFor="date">Date:</label>
       <input
         type="date"
         id="date"

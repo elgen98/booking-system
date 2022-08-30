@@ -17,7 +17,7 @@ function GuestPicker() {
 
   return (
     <div>
-      <label htmlFor="guestAmount">Select amount of guests:</label>
+      <label htmlFor="guestAmount">Amount of guests:</label>
       <select
         name="guestAmount"
         id="guestAmount"

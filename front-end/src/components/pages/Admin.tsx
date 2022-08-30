@@ -225,21 +225,27 @@ function Admin() {
               {bookings.map((booking) => (
                 <div
                   key={booking._id.toString()}
-                  className="bg-blue-50 border border-blue-300 p-4 rounded-lg"
+                  className="border border-gray-300 rounded-lg"
                 >
-                  <div className="flex justify-between mb-2">
+                  <div className="flex justify-between p-3 text-sm border-b border-gray-200">
                     <p>{booking.date}</p>
                     <p className=" text-right">
                       {booking.time.slice(0, 2) +
                         ":" +
                         booking.time.slice(2, 4)}
-                      <p>Gäster: {booking.guest_amount.toString()}</p>
+                    </p>
+                  </div>
+                  <div className="flexmb-2 justify-center bg-gray-800 text-white font-semibold">
+                    <p className="text-center">
+                      {booking.guest_amount.toString()} gäster
                     </p>
                   </div>
                   <div className="border border-blue-100 bg-white p-2 rounded-md mb-2">
-                    <p>Bokad av: {booking.name}</p>
-                    <p>Email: {booking.email}</p>
-                    <p>Telefon: {booking.telephone_number}</p>
+                    <div className="grid grid-cols-2">
+                      <p>{booking.name}</p>
+                      <p>{booking.email}</p>
+                      <p>{booking.telephone_number}</p>
+                    </div>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <button

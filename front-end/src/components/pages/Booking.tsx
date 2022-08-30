@@ -14,7 +14,10 @@ export default function Booking() {
 
   return (
     <div className="flex max-w-max m-auto">
-      <div className=" bg-gray-200">
+      <div className=" border p-10 rounded-lg">
+        <h2 className="text-xl mb-5">
+          Börja med att välja datum & antal gäster!
+        </h2>
         {!otherModals ? (
           <>
             <BookingModalOne />
