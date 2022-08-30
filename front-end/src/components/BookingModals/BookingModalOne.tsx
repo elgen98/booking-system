@@ -47,7 +47,12 @@ function BookingModalOne() {
           <DatePicker />
           <GuestPicker />
         </div>
-        <button className="bg-green-500 px-4 py-2 rounded-lg">Gå vidare</button>
+        <button
+          onClick={checkSeatings}
+          className="bg-green-500 px-4 py-2 rounded-lg"
+        >
+          Gå vidare
+        </button>
       </form>
     </div>
   );

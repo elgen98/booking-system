@@ -14,7 +14,13 @@ export default function Booking() {
   );
 
   if (availableSeatings.seatingOne || availableSeatings.seatingTwo === true) {
-    return <BookingModalTwo />;
+    return (
+      <div className="flex max-w-max m-auto">
+        <div className=" border border-gray-200 rounded-lg p-10">
+          <BookingModalTwo />
+        </div>
+      </div>
+    );
   } else {
     return (
       <div className="flex max-w-max m-auto">

@@ -27,7 +27,11 @@ export default function BookingModalTwo() {
 
   if (availableSeatings.seatingOne === true) {
     seating1800Btn = (
-      <button value={"1800"} onClick={addBookingDetails}>
+      <button
+        value={"1800"}
+        onClick={addBookingDetails}
+        className="border border-gray-200 py-2 px-4 rounded-lg"
+      >
         1800
       </button>
     );
@@ -35,16 +39,22 @@ export default function BookingModalTwo() {
 
   if (availableSeatings.seatingTwo) {
     seating2100Btn = (
-      <button value={"2100"} onClick={addBookingDetails}>
+      <button
+        value={"2100"}
+        onClick={addBookingDetails}
+        className="border border-gray-200 py-2 px-4 rounded-lg"
+      >
         2100
       </button>
     );
   }
   return (
     <div>
-      <h2>Available seatings:</h2>
-      {seating1800Btn}
-      {seating2100Btn}
+      <h2 className="text-xl mb-4">Available timeslots</h2>
+      <div className="flex gap-4">
+        {seating1800Btn}
+        {seating2100Btn}
+      </div>
     </div>
   );
 }
