@@ -12,6 +12,7 @@ const initialState: BookingState = {
     guest_amount: 0,
     date: "",
     time: "",
+    telephone_number: "",
   },
 };
 
@@ -25,12 +26,17 @@ export const bookingSlice = createSlice({
     addBookingGuestAmount: (state, action: PayloadAction<number>) => {
       state.value.guest_amount = action.payload;
     },
-    removeBookingGuestAndDate: (state) => {
-      state.value.guest_amount = 0;
-      state.value.date = "";
-    },
     addBookingTime: (state, action: PayloadAction<string>) => {
       state.value.time = action.payload;
+    },
+    addBookingName: (state, action: PayloadAction<string>) => {
+      state.value.name = action.payload;
+    },
+    addBookingNumber: (state, action: PayloadAction<string>) => {
+      state.value.telephone_number = action.payload;
+    },
+    addBookingEmail: (state, action: PayloadAction<string>) => {
+      state.value.email = action.payload;
     },
   },
 });
@@ -38,8 +44,10 @@ export const bookingSlice = createSlice({
 export const {
   addBookingDate,
   addBookingGuestAmount,
-  removeBookingGuestAndDate,
   addBookingTime,
+  addBookingName,
+  addBookingNumber,
+  addBookingEmail,
 } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

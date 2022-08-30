@@ -18,7 +18,10 @@ export default function Booking() {
     if (booking.date !== "" && booking.guest_amount !== 0) {
       setBookingProgress(1);
     }
-  }, [booking.date, booking.guest_amount]);
+    if (booking.time !== "") {
+      setBookingProgress(2);
+    }
+  }, [booking.date, booking.guest_amount, booking.time]);
 
   if (bookingProgress === 0) {
     return <BookingModalOne />;

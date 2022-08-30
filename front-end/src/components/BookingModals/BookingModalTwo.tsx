@@ -2,8 +2,9 @@ import React, { MouseEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import {
+  addBookingDate,
+  addBookingGuestAmount,
   addBookingTime,
-  removeBookingGuestAndDate,
 } from "../../features/BookingSlice";
 
 export default function BookingModalTwo() {
@@ -45,7 +46,8 @@ export default function BookingModalTwo() {
       <br />
       <button
         onClick={() => {
-          dispatch(removeBookingGuestAndDate);
+          dispatch(addBookingGuestAmount(0));
+          dispatch(addBookingDate(""));
         }}
       >
         Tillbaka

@@ -4,6 +4,7 @@ export interface IBooking {
   guest_amount: number;
   date: string;
   time: string;
+  telephone_number: string;
 }
 
 export interface ISearchOptions {

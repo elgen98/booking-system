@@ -1,6 +1,16 @@
+import axios from "axios";
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import { RootState } from "../../app/store";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addBookingEmail,
+  addBookingName,
+  addBookingNumber,
+} from "../../features/BookingSlice";
 
 function BookingModalTwo() {
+  const dispatch = useDispatch();
+
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -9,16 +19,38 @@ function BookingModalTwo() {
   const [validateMsg, setValidateMsg] = useState([""]);
   const [goodValidate, setGoodValidate] = useState(false);
 
+  const newbooking = useSelector((state: RootState) => state.bookings.value);
+
   function handleUserInput(e: ChangeEvent<HTMLInputElement>) {
     const name = e.target.name;
     const value = e.target.value;
     setUserInfo({ ...userInfo, [name]: value });
   }
 
-  function handleClick(e: MouseEvent<HTMLInputElement>) {
+  async function handleClick(e: MouseEvent<HTMLInputElement>) {
     validateForm();
+    e.preventDefault();
     if (validateMsg.length > 0) {
-      e.preventDefault();
+      dispatch(addBookingName(userInfo.name));
+      dispatch(addBookingNumber(userInfo.telephone));
+      dispatch(addBookingEmail(userInfo.email));
+      await axios.post(
+        "http://localhost:8000/bookings/create/",
+        {
+          name: userInfo.name,
+          email: userInfo.email,
+          telephone_number: userInfo.telephone,
+          date: newbooking.date,
+          guest_amount: newbooking.guest_amount,
+          time: newbooking.time,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
     }
   }
 
@@ -83,15 +115,6 @@ function BookingModalTwo() {
               />
             </label>
           </div>
-          <div className="">
-            <textarea
-              name=""
-              cols={20}
-              rows={9}
-              placeholder="Frågor, önskemål eller allergier"
-              className=""
-            ></textarea>
-          </div>
         </div>
 
         <div>
@@ -113,9 +136,7 @@ function BookingModalTwo() {
         <br />
         <button className="cursor-pointer ">Avbryt</button>
       </form>
-      <br />
     </>
   );
 }
-
 export default BookingModalTwo;
