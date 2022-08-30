@@ -11,9 +11,9 @@ function AdminAdd(props: IAdminAdd) {
     <>
       {showAddForm ? (
         <>
-          <div>
+          <div className="">
             <form onSubmit={props.AddSubmit}>
-              <div className="flex flex-col gap-2 bg-green-300 p-4 rounded-md">
+              <div className="flex flex-col gap-2 p-4 rounded-md">
                 <label>
                   <input
                     type="text"
@@ -93,12 +93,14 @@ function AdminAdd(props: IAdminAdd) {
         </>
       ) : (
         <>
-          <button
-            onClick={() => setShowAddForm(true)}
-            className="cursor-pointer bg-green-200 rounded-md hover:bg-green-300"
-          >
-            Add booking
-          </button>
+          <div>
+            <button
+              onClick={() => setShowAddForm(true)}
+              className="cursor-pointer bg-green-200  w-full rounded-md hover:bg-green-300"
+            >
+              Add booking
+            </button>
+          </div>
         </>
       )}
     </>
