@@ -3,6 +3,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { HiX } from "react-icons/hi";
 import { FiEdit3 } from "react-icons/fi";
 import AdminAdd from "./AdminAdd";
+import AdminEdit from "./AdminEdit";
 
 export interface IBookings {
   _id: String;
@@ -36,6 +37,7 @@ function Admin() {
   });
 
   const [showUpdateForm, setShowEditForm] = useState(false);
+  const [validateMsg, setValidateMsg] = useState([""]);
 
   function refreshPage() {
     window.location.reload();
@@ -69,22 +71,58 @@ function Admin() {
     if (e.target.type === "number") {
       setCreateBooking({ ...createBooking, [e.target.name]: +e.target.value });
     } else {
+      console.log("gppd");
       setCreateBooking({ ...createBooking, [e.target.name]: e.target.value });
     }
   }
 
   // Add booking: Submit
   function AddSubmit(e: ChangeEvent<HTMLFormElement>) {
-    e.preventDefault();
-    axios
-      .post("http://localhost:8000/bookings/create", createBooking)
-      .then((res) => {
-        console.log(res);
-        refreshPage();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // Checks validation
+    validateForm();
+    if (validateMsg.length > 0) {
+      e.preventDefault();
+      console.log("Validation error");
+    } else {
+      e.preventDefault();
+      console.log("Validation good");
+      axios
+        .post("http://localhost:8000/bookings/create", createBooking)
+        .then((res) => {
+          console.log(res);
+          refreshPage();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }
+
+  // Validation to prevent empty values when adding a new booking
+  function validateForm() {
+    const { name, email, telephone_number, guest_amount, time, date } =
+      createBooking;
+    setValidateMsg([]);
+    const msg = [];
+    if (!name) {
+      msg.push("Name is required");
+    }
+    if (!email) {
+      msg.push("Email is required");
+    }
+    if (!telephone_number) {
+      msg.push("Telephone number is required");
+    }
+    if (!guest_amount) {
+      msg.push("Guest amount is required");
+    }
+    if (!time) {
+      msg.push("Time is required");
+    }
+    if (!date) {
+      msg.push("Date is required");
+    }
+    setValidateMsg(msg);
   }
 
   // Edit booking: Get current booking
@@ -122,102 +160,22 @@ function Admin() {
         console.log(e);
       });
   }
-
   return (
     <>
-      {/* Edit a booking */}
-      {showUpdateForm ? (
-        <>
-          <form
-            className="relative w-[95%] md:w-[85%] m-auto mb-6 grid grid-cols-2 border border-gray-200 p-4 rounded-md gap-4"
-            onSubmit={EditSubmit}
-            id={editBooking._id.toString()}
-          >
-            <label className="col-span-2 lg:col-span-1 flex flex-col text-left">
-              <span className=" font-light text-sm mb-1">Namn</span>
-              <input
-                type="text"
-                className="border-solid border-2 border-sky-500 rounded-md py-2 px-2"
-                name="name"
-                onChange={handleChange}
-                value={editBooking.name as string}
-              />
-            </label>
-
-            <label className="col-span-2 lg:col-span-1 flex flex-col text-left ">
-              <span className=" font-light text-sm mb-1">Email</span>
-              <input
-                type="text"
-                className="border-solid border-2 border-sky-500 rounded-md py-2 px-2"
-                name="email"
-                onChange={handleChange}
-                value={editBooking.email as string}
-              />
-            </label>
-
-            <label className="col-span-2 lg:col-span-1 flex flex-col text-left">
-              <span className=" font-light text-sm mb-1">Nummer</span>
-              <input
-                type="text"
-                className="border-solid border-2 border-sky-500 rounded-md py-2 px-2 border border-b-slate"
-                name="telephone_number"
-                onChange={handleChange}
-                value={editBooking.telephone_number as string}
-              />
-            </label>
-
-            <label className="col-span-2 lg:col-span-1 flex flex-col text-left">
-              <span className=" font-light text-sm mb-1">Gäster</span>
-              <input
-                type="number"
-                className="border-solid border-2 border-sky-500 rounded-md py-2 px-2"
-                name="guest_amount"
-                onChange={handleChange}
-                value={editBooking.guest_amount as number}
-              />
-            </label>
-
-            <label className="col-span-2 md:col-span-1 flex flex-col text-left">
-              <span className=" font-light text-sm mb-1">Tid</span>
-              <input
-                type="text"
-                className="border-solid border-2 border-sky-500 rounded-md py-2 px-2"
-                name="time"
-                onChange={handleChange}
-                value={editBooking.time as string}
-              />
-              <input type="button" value={"18:00"} />
-              <input type="button" value={"12:00"} disabled />
-            </label>
-
-            <label className="col-span-2 md:col-span-1 flex flex-col text-left">
-              <span className=" font-light text-sm mb-1">Datum</span>
-              <input
-                type="date"
-                className="border-solid border-2 border-sky-500 rounded-md py-2 px-2"
-                name="date"
-                onChange={handleChange}
-                value={editBooking.date as string}
-              />
-            </label>
-
-            <input
-              type="submit"
-              value={"Spara"}
-              className="cursor-pointer col-span-2 py-4 bg-slate-100 border border-gray-200 rounded-md"
-            />
-
-            <button
-              className="cursor-pointer absolute right-0 bg-red-500 text-white rounded-md"
-              onClick={() => setShowEditForm(false)}
-            >
-              <HiX />
-            </button>
-          </form>
-        </>
-      ) : (
-        <></>
-      )}
+      <AdminEdit
+        // id as key
+        key={editBooking._id as string}
+        // Object as prop
+        editBooking={editBooking}
+        // Boolean as prop
+        showUpdateForm={showUpdateForm}
+        // State as prop
+        setShowEditForm={setShowEditForm}
+        // Function as prop
+        handleChange={handleChange}
+        // Function as prop
+        EditSubmit={EditSubmit}
+      />
       <div className="grid sm:grid-cols-1 md:grid-cols-4 mt-8 gap-4 mx-auto w-[85%]">
         <div className=" col-span-3">
           <div className="">
@@ -268,9 +226,16 @@ function Admin() {
           </div>
         </div>
         <AdminAdd
+          // Id as key
           key={createBooking._id as string}
+          // Function as prop
           AddSubmit={AddSubmit}
+          // Function as prop
           handleAdd={handleAdd}
+          // Object as prop
+          createBooking={createBooking}
+          // Function as prop
+          validateMsg={validateMsg}
         />
       </div>
     </>
