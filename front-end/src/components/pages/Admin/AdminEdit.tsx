@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { HiX } from "react-icons/hi";
-import { IBookings } from "./Admin";
+import { IBookings } from "../../Admin";
 
 interface IAdminEdit {
   // Object

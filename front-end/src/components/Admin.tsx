@@ -1,9 +1,8 @@
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
-import { HiX } from "react-icons/hi";
-import { FiEdit3 } from "react-icons/fi";
-import AdminAdd from "./AdminAdd";
-import AdminEdit from "./AdminEdit";
+import AdminAdd from "./pages/Admin/AdminAdd";
+import AdminEdit from "./pages/Admin/AdminEdit";
+import AdminPrint from "./pages/Admin/AdminPrint";
 
 export interface IBookings {
   _id: String;
@@ -177,54 +176,16 @@ function Admin() {
         EditSubmit={EditSubmit}
       />
       <div className="grid sm:grid-cols-1 md:grid-cols-4 mt-8 gap-4 mx-auto w-[85%]">
-        <div className=" col-span-3">
-          <div className="">
-            <div className="grid lg:grid-cols-3 gap-4 md:grid-cols-2">
-              {bookings.map((booking) => (
-                <div
-                  key={booking._id.toString()}
-                  className="bg-blue-50 border border-blue-300 p-4 rounded-lg"
-                >
-                  <div className="flex justify-between mb-2">
-                    <p>{booking.date}</p>
-                    <p className=" text-right">
-                      {booking.time.slice(0, 2) +
-                        ":" +
-                        booking.time.slice(2, 4)}
-                      <p>Gäster: {booking.guest_amount.toString()}</p>
-                    </p>
-                  </div>
-                  <div className="border border-blue-100 bg-white p-2 rounded-md mb-2">
-                    <p>Bokad av: {booking.name}</p>
-                    <p>Email: {booking.email}</p>
-                    <p>Telefon: {booking.telephone_number}</p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <button
-                      onClick={(e) => removeBooking(e, booking._id.toString())}
-                      id={booking._id.toString()}
-                      className="flex items-center cursor-pointer bg-red-100 border-red-300 rounded-md p-1"
-                    >
-                      Remove
-                      <HiX />
-                    </button>
-
-                    <button
-                      className="flex items-center cursor-pointer bg-green-100 rounded-md p-1"
-                      onClick={() => {
-                        setShowEditForm(true);
-                        editCurrBook(booking._id.toString());
-                      }}
-                    >
-                      Edit
-                      <FiEdit3 />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <AdminPrint
+          // Array as prop
+          bookings={bookings}
+          // Function as prop
+          removeBooking={removeBooking}
+          // Function as prop
+          editCurrBook={editCurrBook}
+          // useState as prop
+          setShowEditForm={setShowEditForm}
+        />
         <AdminAdd
           // Id as key
           key={createBooking._id as string}

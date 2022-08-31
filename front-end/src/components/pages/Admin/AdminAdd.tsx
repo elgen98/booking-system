@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { IBookings } from "./Admin";
+import { IBookings } from "../../Admin";
 
 interface IAdminAdd {
   // Submit form function
