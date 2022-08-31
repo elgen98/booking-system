@@ -1,8 +1,12 @@
 import axios from "axios";
-import React, { MouseEvent, useEffect, useState } from "react";
+import React, { MouseEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { addAvailableSeatings } from "../../features/SeatingOptionsSlice";
+import {
+  addBookingDate,
+  addBookingGuestAmount,
+} from "../../features/BookingSlice";
 import DatePicker from "../DatePicker";
 import GuestPicker from "../GuestPicker";
 
@@ -21,7 +25,7 @@ function BookingModalOne() {
     if (date.date && date.guests) {
       axios
         .post<booleanResponse>(
-          "http://localhost:8000/searchAvailabilty",
+          "http://localhost:8000/bookings/searchAvailabilty",
           {
             date: date.date,
             guests: date.guests,
@@ -36,6 +40,8 @@ function BookingModalOne() {
         .then((response) => {
           console.log(response.data);
           dispatch(addAvailableSeatings(response.data));
+          dispatch(addBookingDate(date.date));
+          dispatch(addBookingGuestAmount(date.guests));
         });
     }
   }

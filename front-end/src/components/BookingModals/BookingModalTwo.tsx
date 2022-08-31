@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React, { MouseEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import {
@@ -8,18 +8,16 @@ import {
 } from "../../features/BookingSlice";
 
 export default function BookingModalTwo() {
+  const [selectedTime, setSelectedTime] = useState("");
+
   const dispatch = useDispatch();
 
   const availableSeatings = useSelector(
     (state: RootState) => state.seatingOptions.value
   );
 
-  const date = useSelector((state: RootState) => state.searchOption);
-
   function addBookingDetails(e: MouseEvent<HTMLButtonElement>) {
-    dispatch(addBookingDate(date.value.date));
-    dispatch(addBookingGuestAmount(date.value.guests));
-    dispatch(addBookingTime(e.currentTarget.value));
+    setSelectedTime(e.currentTarget.value);
   }
 
   let seating1800Btn = <div></div>;
@@ -33,18 +31,35 @@ export default function BookingModalTwo() {
     );
   }
 
-  if (availableSeatings.seatingTwo) {
+  if (availableSeatings.seatingTwo === true) {
     seating2100Btn = (
       <button value={"2100"} onClick={addBookingDetails}>
         2100
       </button>
     );
   }
+
   return (
     <div>
       <h2>Available seatings:</h2>
       {seating1800Btn}
       {seating2100Btn}
+      <br />
+      <button
+        onClick={() => {
+          dispatch(addBookingGuestAmount(0));
+          dispatch(addBookingDate(""));
+        }}
+      >
+        Tillbaka
+      </button>
+      <button
+        onClick={() => {
+          dispatch(addBookingTime(selectedTime));
+        }}
+      >
+        Gå vidare
+      </button>
     </div>
   );
 }

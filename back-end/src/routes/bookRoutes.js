@@ -23,6 +23,37 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST
+router.post("/searchAvailabilty", async (req, res) => {
+  //Arrays representing the two seating periods: 21:00 and 18:00
+  let arrOne = [];
+  let arrTwo = [];
+  //Booleans object that gets sent back to client
+  let booleans = { seatingOne: true, seatingTwo: true };
+  //Data from client and the bookings matching that date
+  const data = req.body;
+  const availableBookings = await BookingsModel.find({ date: data.date });
+  //Validation
+  if (availableBookings.length === 0) {
+    res.send(booleans);
+  } else {
+    for (let i = 0; i < availableBookings.length; i++) {
+      if (availableBookings[i].time === "1800") {
+        arrOne.push("booking");
+      }
+      if (availableBookings[i].time === "2100") {
+        arrTwo.push("booking");
+      }
+    }
+    if (arrOne.length >= 15) {
+      booleans.seatingOne = false;
+    }
+    if (arrTwo.length >= 15) {
+      booleans.seatingTwo = false;
+    }
+    res.send(booleans);
+  }
+});
+
 router.post("/create", async (req, res) => {
   const { name, email, telephone_number, guest_amount, date, time } = req.body;
 
