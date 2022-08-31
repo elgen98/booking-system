@@ -2,9 +2,13 @@ import { ChangeEvent, useState } from "react";
 import { IBookings } from "./Admin";
 
 interface IAdminAdd {
+  // Submit form function
   AddSubmit(e: ChangeEvent<HTMLFormElement>): void;
+  // Input handler function
   handleAdd(e: ChangeEvent<HTMLInputElement>): void;
+  // Object
   createBooking: IBookings;
+  // From useState
   validateMsg: string[];
 }
 
