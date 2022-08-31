@@ -3,8 +3,7 @@ require("../data/mongoose");
 const express = require("express");
 const BookingsModel = require("../models/BookingsModel");
 const router = express.Router();
-var nodemailer = require("nodemailer");
-let transporter = nodemailer.createTransport(transport[, defaults])
+const nodemailer = require("nodemailer");
 
 module.exports = router;
 
@@ -68,15 +67,55 @@ router.post("/create", async (req, res) => {
     email: email,
     telephone_number: telephone_number,
   });
-  await newBooking.save();
+  let booking = await newBooking.save();
+
+  console.log(booking);
+
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "charles.krook@gmail.com",
+      pass: "eqdopsssoderxeoa",
+    },
+  });
+
   res.status(200).send("New Booking added");
-  console.log("Booking created");
+  var mailOptions = {
+    from: "vuxenjuice@gmail.com",
+    to: email,
+    subject: "Booking Confirmation for order " + booking._id,
+    text:
+      "Hello " +
+      name +
+      "! We welcome you to Cena at " +
+      time +
+      "o'clock on the " +
+      date +
+      ". Where a table of " +
+      guest_amount +
+      " will be waiting for you. To cancel your reservation, please follow the link: http://localhost:8000/bookings/cancel/" +
+      booking._id,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
 });
 
 // DElETE
 router.delete("/delete/:id", async (req, res) => {
   await BookingsModel.findByIdAndDelete(req.params.id);
   res.status(200).send("Booking removed");
+  console.log("Booking removed");
+});
+
+router.get("/cancel/:id", async (req, res) => {
+  await BookingsModel.findByIdAndDelete(req.params.id);
+  res.status(200).redirect("http://localhost:3000/success");
   console.log("Booking removed");
 });
 
