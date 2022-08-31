@@ -1,8 +1,11 @@
 import { ChangeEvent, useState } from "react";
+import { IBookings } from "./Admin";
 
 interface IAdminAdd {
   AddSubmit(e: ChangeEvent<HTMLFormElement>): void;
   handleAdd(e: ChangeEvent<HTMLInputElement>): void;
+  createBooking: IBookings;
+  validateMsg: string[];
 }
 
 function AdminAdd(props: IAdminAdd) {
@@ -14,63 +17,70 @@ function AdminAdd(props: IAdminAdd) {
           <div className="">
             <form onSubmit={props.AddSubmit}>
               <div className="flex flex-col gap-2 p-4 rounded-md">
-                <label>
+                <label htmlFor="name">
                   <input
                     type="text"
                     placeholder="Namn"
                     className="border-solid border-2 border-sky-500"
                     name="name"
-                    onChange={props.handleAdd}
+                    value={props.createBooking.name as string}
+                    // value={props.createBooking.name as string}
+                    onChange={(e) => props.handleAdd(e)}
                   />
                 </label>
 
-                <label>
+                <label htmlFor="email">
                   <input
                     placeholder="Email"
                     type="text"
                     className="border-solid border-2 border-sky-500"
                     name="email"
-                    onChange={props.handleAdd}
+                    value={props.createBooking.email as string}
+                    onChange={(e) => props.handleAdd(e)}
                   />
                 </label>
 
-                <label>
+                <label htmlFor="telephone_number">
                   <input
                     placeholder="Nummer"
                     type="text"
                     className="border-solid border-2 border-sky-500"
                     name="telephone_number"
-                    onChange={props.handleAdd}
+                    value={props.createBooking.telephone_number as string}
+                    onChange={(e) => props.handleAdd(e)}
                   />
                 </label>
 
-                <label>
+                <label htmlFor="guest_amount">
                   <input
                     placeholder="Gäster"
                     type="number"
                     className="border-solid border-2 border-sky-500"
                     name="guest_amount"
-                    onChange={props.handleAdd}
+                    value={props.createBooking.guest_amount as number}
+                    onChange={(e) => props.handleAdd(e)}
                   />
                 </label>
 
-                <label>
+                <label htmlFor="time">
                   <input
                     placeholder="Tid"
                     type="text"
                     className="border-solid border-2 border-sky-500"
                     name="time"
-                    onChange={props.handleAdd}
+                    value={props.createBooking.time as string}
+                    onChange={(e) => props.handleAdd(e)}
                   />
                 </label>
 
-                <label>
+                <label htmlFor="date">
                   <input
                     placeholder="Datum"
                     type="date"
                     className="border-solid border-2 border-sky-500"
                     name="date"
-                    onChange={props.handleAdd}
+                    value={props.createBooking.date as string}
+                    onChange={(e) => props.handleAdd(e)}
                   />
                 </label>
                 <div className="grid grid-cols-2 gap-4 p-4">
@@ -89,6 +99,16 @@ function AdminAdd(props: IAdminAdd) {
                 </div>
               </div>
             </form>
+            <div>
+              {props.validateMsg.length > 0 && <span>Validation Summary</span>}
+              <ul>
+                {props.validateMsg.map((vm) => (
+                  <li key={vm} className="text-red-500">
+                    {vm}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </>
       ) : (

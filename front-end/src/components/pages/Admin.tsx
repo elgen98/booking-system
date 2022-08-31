@@ -36,6 +36,7 @@ function Admin() {
   });
 
   const [showUpdateForm, setShowEditForm] = useState(false);
+  const [validateMsg, setValidateMsg] = useState([""]);
 
   function refreshPage() {
     window.location.reload();
@@ -69,22 +70,58 @@ function Admin() {
     if (e.target.type === "number") {
       setCreateBooking({ ...createBooking, [e.target.name]: +e.target.value });
     } else {
+      console.log("gppd");
       setCreateBooking({ ...createBooking, [e.target.name]: e.target.value });
     }
   }
 
   // Add booking: Submit
   function AddSubmit(e: ChangeEvent<HTMLFormElement>) {
-    e.preventDefault();
-    axios
-      .post("http://localhost:8000/bookings/create", createBooking)
-      .then((res) => {
-        console.log(res);
-        refreshPage();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // Checks validation
+    validateForm();
+    if (validateMsg.length > 0) {
+      e.preventDefault();
+      console.log("Validation error");
+    } else {
+      e.preventDefault();
+      console.log("Validation good");
+      axios
+        .post("http://localhost:8000/bookings/create", createBooking)
+        .then((res) => {
+          console.log(res);
+          refreshPage();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }
+
+  // Validation to prevent empty values when adding a new booking
+  function validateForm() {
+    const { name, email, telephone_number, guest_amount, time, date } =
+      createBooking;
+    setValidateMsg([]);
+    const msg = [];
+    if (!name) {
+      msg.push("Name is required");
+    }
+    if (!email) {
+      msg.push("Email is required");
+    }
+    if (!telephone_number) {
+      msg.push("Telephone number is required");
+    }
+    if (!guest_amount) {
+      msg.push("Guest amount is required");
+    }
+    if (!time) {
+      msg.push("Time is required");
+    }
+    if (!date) {
+      msg.push("Date is required");
+    }
+    setValidateMsg(msg);
   }
 
   // Edit booking: Get current booking
@@ -271,6 +308,8 @@ function Admin() {
           key={createBooking._id as string}
           AddSubmit={AddSubmit}
           handleAdd={handleAdd}
+          createBooking={createBooking}
+          validateMsg={validateMsg}
         />
       </div>
     </>
