@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { MouseEvent } from "react";
+import React, { MouseEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { addAvailableSeatings } from "../../features/SeatingOptionsSlice";
@@ -16,6 +16,11 @@ type booleanResponse = {
 };
 
 function BookingModalOne() {
+  const [searchResult, setSearchResult] = useState<booleanResponse>({
+    seatingOne: false,
+    seatingTwo: false,
+  });
+
   const dispatch = useDispatch();
 
   const date = useSelector((state: RootState) => state.searchOption.value);
@@ -38,13 +43,24 @@ function BookingModalOne() {
           }
         )
         .then((response) => {
-          console.log(response.data);
-          dispatch(addAvailableSeatings(response.data));
+          setSearchResult(response.data);
+          /* dispatch(addAvailableSeatings(response.data));
           dispatch(addBookingDate(date.date));
-          dispatch(addBookingGuestAmount(date.guests));
+          dispatch(addBookingGuestAmount(date.guests)); */
         });
     }
   }
+
+  useEffect(() => {
+    console.log(searchResult);
+
+    if (searchResult.seatingOne || searchResult.seatingTwo === true) {
+      dispatch(addAvailableSeatings(searchResult));
+      dispatch(addBookingDate(date.date));
+      dispatch(addBookingGuestAmount(date.guests));
+      console.log("hello");
+    } else console.log("No seats available");
+  }, [searchResult]);
 
   return (
     <div>
