@@ -4,6 +4,8 @@ const express = require("express");
 const BookingsModel = require("../models/BookingsModel");
 const router = express.Router();
 var nodemailer = require("nodemailer");
+let transporter = nodemailer.createTransport(transport[, defaults])
+
 module.exports = router;
 
 // BOOKINGS \\
