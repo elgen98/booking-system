@@ -3,6 +3,7 @@ require("../data/mongoose");
 const express = require("express");
 const BookingsModel = require("../models/BookingsModel");
 const router = express.Router();
+var nodemailer = require("nodemailer");
 module.exports = router;
 
 // BOOKINGS \\
