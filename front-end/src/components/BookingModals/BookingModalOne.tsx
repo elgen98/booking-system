@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { MouseEvent, useEffect, useState } from "react";
+import React, { MouseEvent, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { addAvailableSeatings } from "../../features/SeatingOptionsSlice";
@@ -16,6 +16,8 @@ type booleanResponse = {
 };
 
 function BookingModalOne() {
+  const mountedRef = useRef(false);
+
   const [searchResult, setSearchResult] = useState<booleanResponse>({
     seatingOne: false,
     seatingTwo: false,
@@ -43,15 +45,36 @@ function BookingModalOne() {
           }
         )
         .then((response) => {
+          mountedRef.current = true;
           setSearchResult(response.data);
-          /* dispatch(addAvailableSeatings(response.data));
-          dispatch(addBookingDate(date.date));
-          dispatch(addBookingGuestAmount(date.guests)); */
         });
     }
   }
 
   useEffect(() => {
+    if (mountedRef.current) {
+      console.log(searchResult);
+
+      if (searchResult.seatingOne || searchResult.seatingTwo === true) {
+        dispatch(addAvailableSeatings(searchResult));
+        dispatch(addBookingDate(date.date));
+        dispatch(addBookingGuestAmount(date.guests));
+        console.log("hello");
+      } else
+        alert("Inga bord tillgängliga för detta datum, prova ett annat datum.");
+      // ← the trick
+      console.log("trick: changed");
+    }
+  }, [searchResult]);
+
+  /*   useEffect(() => {
+    console.log("rendered");
+    mountedRef.current = true;
+    // update the state after some time
+    setTimeout(setValue, 1000, true);
+  }, []); */
+
+  /* useEffect(() => {
     console.log(searchResult);
 
     if (searchResult.seatingOne || searchResult.seatingTwo === true) {
@@ -61,7 +84,7 @@ function BookingModalOne() {
       console.log("hello");
     } else console.log("No seats available");
   }, [searchResult]);
-
+ */
   return (
     <div>
       <form action="" method="GET">
