@@ -23,6 +23,8 @@ function BookingModalOne() {
     seatingTwo: false,
   });
 
+  const [show, setShow] = useState(false);
+
   const dispatch = useDispatch();
 
   const date = useSelector((state: RootState) => state.searchOption.value);
@@ -60,39 +62,39 @@ function BookingModalOne() {
         dispatch(addBookingDate(date.date));
         dispatch(addBookingGuestAmount(date.guests));
         console.log("hello");
-      } else
-        alert("Inga bord tillgängliga för detta datum, prova ett annat datum.");
+      } else {
+        setShow(!show);
+      }
       // ← the trick
       console.log("trick: changed");
     }
   }, [searchResult]);
 
-  /*   useEffect(() => {
-    console.log("rendered");
-    mountedRef.current = true;
-    // update the state after some time
-    setTimeout(setValue, 1000, true);
-  }, []); */
-
-  /* useEffect(() => {
-    console.log(searchResult);
-
-    if (searchResult.seatingOne || searchResult.seatingTwo === true) {
-      dispatch(addAvailableSeatings(searchResult));
-      dispatch(addBookingDate(date.date));
-      dispatch(addBookingGuestAmount(date.guests));
-      console.log("hello");
-    } else console.log("No seats available");
-  }, [searchResult]);
- */
   return (
-    <div>
-      <form action="" method="GET">
+    <main className=" h-3/5 grid grid-cols-7 grid-rows-3">
+      <div className="col-start-3 col-end-6">
+        <h1 className=" text-xl ">
+          Välj datum och antal gäster för ditt besök
+        </h1>
+        {show ? (
+          <p className=" text-red-600 col-start-3 col-end-6 row-start-2">
+            Tyvärr är vi fullbokade den dagen, prova ett annat datum.
+          </p>
+        ) : (
+          <p></p>
+        )}
+      </div>
+      <form action="" method="GET" className="col-start-4">
         <DatePicker />
         <GuestPicker />
-        <button onClick={checkSeatings}>Gå vidare</button>
       </form>
-    </div>
+      <button
+        className=" btn-green col-start-6 row-start-3"
+        onClick={checkSeatings}
+      >
+        Gå vidare
+      </button>
+    </main>
   );
 }
 

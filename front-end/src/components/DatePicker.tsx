@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { addDate } from "../features/SearchOptionSlice";
 
 function DatePicker() {
+  var today = new Date().toISOString().split("T")[0];
   const [date, setDate] = useState("");
   const dispatch = useDispatch();
 
@@ -11,13 +12,17 @@ function DatePicker() {
   }, [date]);
 
   return (
-    <div>
-      <label htmlFor="date">Date:</label>
+    <div className=" col-start-3 col-end-6 flex flex-col items-center">
+      <label htmlFor="date" className=" text-lg">
+        Datum:
+      </label>
       <input
+        className="border-2 border-black rounded-lg"
         type="date"
         id="date"
         name="date"
         value={date}
+        min={today}
         onChange={(e) => setDate(e.target.value)}
       />
     </div>

@@ -25,7 +25,11 @@ export default function BookingModalTwo() {
 
   if (availableSeatings.seatingOne === true) {
     seating1800Btn = (
-      <button value={"1800"} onClick={addBookingDetails}>
+      <button
+        className=" w-28 h-14 col-start-3 text-2xl mb-8 focus:bg-slate-500 rounded-lg"
+        value={"1800"}
+        onClick={addBookingDetails}
+      >
         1800
       </button>
     );
@@ -33,19 +37,26 @@ export default function BookingModalTwo() {
 
   if (availableSeatings.seatingTwo === true) {
     seating2100Btn = (
-      <button value={"2100"} onClick={addBookingDetails}>
+      <button
+        className=" w-28 h-14 col-start-5 text-2xl mb-8 focus:bg-slate-500 rounded-lg"
+        value={"2100"}
+        onClick={addBookingDetails}
+      >
         2100
       </button>
     );
   }
 
   return (
-    <div>
-      <h2>Available seatings:</h2>
+    <main className=" h-3/5 grid grid-cols-7 gap-6">
+      <h1 className=" text-xl col-start-3 col-end-6">
+        Välj tid för din sittning
+      </h1>
       {seating1800Btn}
       {seating2100Btn}
       <br />
       <button
+        className=" btn-red col-start-2"
         onClick={() => {
           dispatch(addBookingGuestAmount(0));
           dispatch(addBookingDate(""));
@@ -54,12 +65,13 @@ export default function BookingModalTwo() {
         Tillbaka
       </button>
       <button
+        className=" btn-green col-start-6 "
         onClick={() => {
           dispatch(addBookingTime(selectedTime));
         }}
       >
         Gå vidare
       </button>
-    </div>
+    </main>
   );
 }
