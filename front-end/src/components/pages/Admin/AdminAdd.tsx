@@ -22,13 +22,16 @@ function AdminAdd(props: IAdminAdd) {
             <form onSubmit={props.AddSubmit}>
               <div className="flex flex-col gap-2 p-4 rounded-md">
                 <label htmlFor="name">
+                  <span className=" font-light text-sm mb-1">
+                    Format: Min = 2 characters
+                  </span>
                   <input
                     type="text"
-                    placeholder="Namn"
+                    placeholder="Bob"
+                    pattern="[a-ä]{2,}"
                     className="border-solid border-2 border-sky-500"
                     name="name"
                     value={props.createBooking.name as string}
-                    // value={props.createBooking.name as string}
                     onChange={(e) => props.handleAdd(e)}
                   />
                 </label>
@@ -61,27 +64,34 @@ function AdminAdd(props: IAdminAdd) {
                 </label>
 
                 <label htmlFor="guest_amount">
+                  <span className=" font-light text-sm mb-1">
+                    Format: Min = 1, Max = 15
+                  </span>
                   <input
-                    placeholder="Gäster"
+                    placeholder="6"
                     type="number"
                     className="border-solid border-2 border-sky-500"
+                    min={"1"}
+                    max={"15"}
                     name="guest_amount"
                     value={props.createBooking.guest_amount as number}
                     onChange={(e) => props.handleAdd(e)}
                   />
                 </label>
-
                 <label htmlFor="time">
+                  <span className=" font-light text-sm mb-1">
+                    Format: 18 or 21
+                  </span>
                   <input
-                    placeholder="Tid"
-                    type="time"
+                    placeholder="18"
+                    type="text"
                     className="border-solid border-2 border-sky-500"
                     name="time"
-                    value={props.createBooking.time as string}
+                    pattern="([1]{1}[8]{1})||([2]{1}[1]{1})"
+                    defaultValue={props.createBooking.time as string}
                     onChange={(e) => props.handleAdd(e)}
                   />
                 </label>
-
                 <label htmlFor="date">
                   <input
                     placeholder="Datum"
