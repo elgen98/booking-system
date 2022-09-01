@@ -20,15 +20,24 @@ export default function BookingModalTwo() {
     setSelectedTime(e.currentTarget.value);
   }
 
-  let seating1800Btn = <div></div>;
-  let seating2100Btn = <div></div>;
+  let seating1800Btn = <button></button>;
+  let seating2100Btn = <button></button>;
 
   if (availableSeatings.seatingOne === true) {
     seating1800Btn = (
       <button
-        className=" w-28 h-14 col-start-3 text-2xl mb-8 focus:bg-slate-500 rounded-lg"
+        className=" w-28 h-14 col-start-2 sm:col-start-4 sm:mx-20 text-2xl mb-8 border focus:bg-orange-300 rounded-lg"
         value={"1800"}
         onClick={addBookingDetails}
+      >
+        1800
+      </button>
+    );
+  } else {
+    seating1800Btn = (
+      <button
+        className=" w-28 h-14 col-start-2 sm:col-start-4 sm:mx-20 text-2xl mb-8 border rounded-lg opacity-20"
+        disabled
       >
         1800
       </button>
@@ -38,9 +47,18 @@ export default function BookingModalTwo() {
   if (availableSeatings.seatingTwo === true) {
     seating2100Btn = (
       <button
-        className=" w-28 h-14 col-start-5 text-2xl mb-8 focus:bg-slate-500 rounded-lg"
+        className=" w-28 h-14 col-start-5 sm:col-start-6 text-2xl mb-8 border focus:bg-orange-300 rounded-lg"
         value={"2100"}
         onClick={addBookingDetails}
+      >
+        2100
+      </button>
+    );
+  } else {
+    seating2100Btn = (
+      <button
+        className=" w-28 h-14 col-start-5 sm:col-start-6 text-2xl mb-8 border rounded-lg opacity-20"
+        disabled
       >
         2100
       </button>
@@ -48,15 +66,15 @@ export default function BookingModalTwo() {
   }
 
   return (
-    <main className=" h-3/5 grid grid-cols-7 gap-6">
-      <h1 className=" text-xl col-start-3 col-end-6">
+    <main className=" h-3/5 grid grid-cols-7 sm:grid-cols-9">
+      <h1 className=" text-xl col-start-2 col-end-7 sm:col-start-4 sm:col-end-7 ">
         Välj tid för din sittning
       </h1>
       {seating1800Btn}
       {seating2100Btn}
       <br />
       <button
-        className=" btn-red col-start-2"
+        className=" btn-red col-start-1 sm:col-start-4 sm:mx-20"
         onClick={() => {
           dispatch(addBookingGuestAmount(0));
           dispatch(addBookingDate(""));

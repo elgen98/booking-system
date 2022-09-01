@@ -71,25 +71,25 @@ function BookingModalOne() {
   }, [searchResult]);
 
   return (
-    <main className=" h-3/5 grid grid-cols-7 grid-rows-3">
-      <div className="col-start-3 col-end-6">
-        <h1 className=" text-xl ">
-          Välj datum och antal gäster för ditt besök
+    <main className=" h-3/5 grid grid-cols-7 grid-rows-4">
+      <div className=" col-start-2 col-end-7 sm:col-start-3 sm:col-end-6 ">
+        <h1 className=" text-lg sm:text-xl ">
+          Välj datum och antal gäster
         </h1>
         {show ? (
-          <p className=" text-red-600 col-start-3 col-end-6 row-start-2">
+          <p className=" text-red-600 text-sm col-start-3 col-end-6 row-start-2">
             Tyvärr är vi fullbokade den dagen, prova ett annat datum.
           </p>
         ) : (
           <p></p>
         )}
       </div>
-      <form action="" method="GET" className="col-start-4">
+      <form action="" method="GET" className="col-start-3 col-end-6 flex flex-col gap-4">
         <DatePicker />
         <GuestPicker />
       </form>
       <button
-        className=" btn-green col-start-6 row-start-3"
+        className=" btn-green col-start-6 sm:col-start-5 row-start-4"
         onClick={checkSeatings}
       >
         Gå vidare

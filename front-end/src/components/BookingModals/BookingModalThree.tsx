@@ -73,9 +73,8 @@ function BookingModalThree() {
 
   return (
     <main className=" h-3/5 grid grid-cols-7">
-      <h1 className=" text-2xl col-start-4">Kundinformation</h1>
-      <form action="" className=" col-start-4">
-        <div className="">
+      <h1 className=" text-2xl col-start-3 sm:col-start-4">Kundinformation</h1>
+      <form action="" className=" col-start-3 col-end-7 w-3/4 flex flex-col gap-5 items-center">
           <div className="">
             <label htmlFor="name" className="">
               Namn
@@ -95,7 +94,7 @@ function BookingModalThree() {
               <input
                 type="email"
                 name="email"
-                placeholder="namn@example.se"
+                placeholder="namn@exempel.se"
                 className=" border-2 border-black rounded-lg"
                 value={userInfo.email}
                 onChange={(e) => handleUserInput(e)}
@@ -115,8 +114,6 @@ function BookingModalThree() {
               />
             </label>
           </div>
-        </div>
-
         <div>
           {validateMsg.length > 0 && <span>Validation Summary</span>}
           <ul>
@@ -136,7 +133,7 @@ function BookingModalThree() {
         <br />
       </form>
       <button
-        className="cursor-pointer btn-red col-start-2"
+        className="cursor-pointer btn-red col-start-2 sm:col-start-3"
         onClick={() => {
           dispatch(addBookingTime(""));
         }}
