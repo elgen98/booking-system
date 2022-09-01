@@ -13,6 +13,8 @@ interface IAdminEdit {
   EditSubmit(e: ChangeEvent<HTMLFormElement>): void;
   // UseState
   setShowEditForm: Dispatch<SetStateAction<boolean>>;
+  // Boolean from state
+  validateEditMsg: string[];
 }
 
 function AdminEdit(props: IAdminEdit) {
@@ -39,7 +41,7 @@ function AdminEdit(props: IAdminEdit) {
             <label className="col-span-2 lg:col-span-1 flex flex-col text-left ">
               <span className=" font-light text-sm mb-1">Email</span>
               <input
-                type="text"
+                type="email"
                 className="border-solid border-2 border-sky-500 rounded-md py-2 px-2"
                 name="email"
                 onChange={props.handleChange}
@@ -48,9 +50,13 @@ function AdminEdit(props: IAdminEdit) {
             </label>
 
             <label className="col-span-2 lg:col-span-1 flex flex-col text-left">
-              <span className=" font-light text-sm mb-1">Nummer</span>
+              <span className=" font-light text-sm mb-1">
+                Format: 123-456-78-91
+              </span>
               <input
-                type="text"
+                placeholder="123-456-78-91"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
+                type="tel"
                 className="border-solid border-2 border-sky-500 rounded-md py-2 px-2 border border-b-slate"
                 name="telephone_number"
                 onChange={props.handleChange}
@@ -106,6 +112,18 @@ function AdminEdit(props: IAdminEdit) {
               <HiX />
             </button>
           </form>
+          <div>
+            {props.validateEditMsg.length > 0 && (
+              <span>Validation Summary</span>
+            )}
+            <ul>
+              {props.validateEditMsg.map((vm) => (
+                <li key={vm} className="text-red-500">
+                  {vm}
+                </li>
+              ))}
+            </ul>
+          </div>
         </>
       ) : (
         <></>

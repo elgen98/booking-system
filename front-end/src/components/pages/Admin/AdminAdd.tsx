@@ -8,8 +8,8 @@ interface IAdminAdd {
   handleAdd(e: ChangeEvent<HTMLInputElement>): void;
   // Object
   createBooking: IBookings;
-  // From useState
-  validateMsg: string[];
+  // Boolean from state
+  validateAddMsg: string[];
 }
 
 function AdminAdd(props: IAdminAdd) {
@@ -34,9 +34,10 @@ function AdminAdd(props: IAdminAdd) {
                 </label>
 
                 <label htmlFor="email">
+                  <span className=" font-light text-sm mb-1">Format: s@s</span>
                   <input
-                    placeholder="Email"
-                    type="text"
+                    placeholder="s@s"
+                    type="email"
                     className="border-solid border-2 border-sky-500"
                     name="email"
                     value={props.createBooking.email as string}
@@ -45,9 +46,13 @@ function AdminAdd(props: IAdminAdd) {
                 </label>
 
                 <label htmlFor="telephone_number">
+                  <span className=" font-light text-sm mb-1">
+                    Format: 123-456-78-91
+                  </span>
                   <input
-                    placeholder="Nummer"
-                    type="text"
+                    placeholder="123-456-78-91"
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
+                    type="tel"
                     className="border-solid border-2 border-sky-500"
                     name="telephone_number"
                     value={props.createBooking.telephone_number as string}
@@ -69,7 +74,7 @@ function AdminAdd(props: IAdminAdd) {
                 <label htmlFor="time">
                   <input
                     placeholder="Tid"
-                    type="text"
+                    type="time"
                     className="border-solid border-2 border-sky-500"
                     name="time"
                     value={props.createBooking.time as string}
@@ -104,9 +109,11 @@ function AdminAdd(props: IAdminAdd) {
               </div>
             </form>
             <div>
-              {props.validateMsg.length > 0 && <span>Validation Summary</span>}
+              {props.validateAddMsg.length > 0 && (
+                <span>Validation Summary</span>
+              )}
               <ul>
-                {props.validateMsg.map((vm) => (
+                {props.validateAddMsg.map((vm) => (
                   <li key={vm} className="text-red-500">
                     {vm}
                   </li>
