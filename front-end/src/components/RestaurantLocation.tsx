@@ -31,7 +31,7 @@ export default function RestaurantLocation() {
                   <p>myndighetskallaren@vuxenjuice.se</p>
                 </div>
               </div>
-              <div className=" w-2/3 p-2 ml-16 md:ml-8">
+              <div className=" w-2/3 p-2 ml-18 md:ml-8">
                 <h2 className="font-medium leading-tight text-2xl mb-2">
                   VuxenJuice Stockholm: Myndighetskällaren
                 </h2>
