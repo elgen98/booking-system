@@ -71,7 +71,7 @@ function AdminEdit(props: IAdminEdit) {
 
             <label className="col-span-2 lg:col-span-1 flex flex-col text-left">
               <span className=" font-light text-sm mb-1">
-                Format: Min = 1, Max = 15
+                Format: Min = 1, Max = 6
               </span>
               <input
                 type="number"
@@ -79,7 +79,7 @@ function AdminEdit(props: IAdminEdit) {
                 name="guest_amount"
                 placeholder="6"
                 min={"1"}
-                max={"15"}
+                max={"6"}
                 onChange={props.handleChange}
                 value={props.editBooking.guest_amount as number}
               />

@@ -65,14 +65,14 @@ function AdminAdd(props: IAdminAdd) {
 
                 <label htmlFor="guest_amount">
                   <span className=" font-light text-sm mb-1">
-                    Format: Min = 1, Max = 15
+                    Format: Min = 1, Max = 6
                   </span>
                   <input
                     placeholder="6"
                     type="number"
                     className="border-solid border-2 border-sky-500"
                     min={"1"}
-                    max={"15"}
+                    max={"6"}
                     name="guest_amount"
                     value={props.createBooking.guest_amount as number}
                     onChange={(e) => props.handleAdd(e)}
