@@ -13,6 +13,8 @@ interface IAdminEdit {
   EditSubmit(e: ChangeEvent<HTMLFormElement>): void;
   // UseState
   setShowEditForm: Dispatch<SetStateAction<boolean>>;
+  // Boolean from state
+  validateEditMsg: string[];
 }
 
 function AdminEdit(props: IAdminEdit) {
@@ -26,9 +28,13 @@ function AdminEdit(props: IAdminEdit) {
             id={props.editBooking._id.toString()}
           >
             <label className="col-span-2 lg:col-span-1 flex flex-col text-left">
-              <span className=" font-light text-sm mb-1">Namn</span>
+              <span className=" font-light text-sm mb-1">
+                Format: Min = 2 characters
+              </span>
               <input
                 type="text"
+                placeholder="Bob"
+                pattern="[a-ä]{2,}"
                 className="border-solid border-2 border-sky-500 rounded-md py-2 px-2"
                 name="name"
                 onChange={props.handleChange}
@@ -37,9 +43,10 @@ function AdminEdit(props: IAdminEdit) {
             </label>
 
             <label className="col-span-2 lg:col-span-1 flex flex-col text-left ">
-              <span className=" font-light text-sm mb-1">Email</span>
+              <span className=" font-light text-sm mb-1">Format: s@s</span>
               <input
-                type="text"
+                type="email"
+                placeholder="s@s"
                 className="border-solid border-2 border-sky-500 rounded-md py-2 px-2"
                 name="email"
                 onChange={props.handleChange}
@@ -48,9 +55,13 @@ function AdminEdit(props: IAdminEdit) {
             </label>
 
             <label className="col-span-2 lg:col-span-1 flex flex-col text-left">
-              <span className=" font-light text-sm mb-1">Nummer</span>
+              <span className=" font-light text-sm mb-1">
+                Format: 123-456-78-91
+              </span>
               <input
-                type="text"
+                placeholder="123-456-78-91"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
+                type="tel"
                 className="border-solid border-2 border-sky-500 rounded-md py-2 px-2 border border-b-slate"
                 name="telephone_number"
                 onChange={props.handleChange}
@@ -59,29 +70,32 @@ function AdminEdit(props: IAdminEdit) {
             </label>
 
             <label className="col-span-2 lg:col-span-1 flex flex-col text-left">
-              <span className=" font-light text-sm mb-1">Gäster</span>
+              <span className=" font-light text-sm mb-1">
+                Format: Min = 1, Max = 15
+              </span>
               <input
                 type="number"
                 className="border-solid border-2 border-sky-500 rounded-md py-2 px-2"
                 name="guest_amount"
+                placeholder="6"
+                min={"1"}
+                max={"15"}
                 onChange={props.handleChange}
                 value={props.editBooking.guest_amount as number}
               />
             </label>
 
             <label className="col-span-2 md:col-span-1 flex flex-col text-left">
-              <span className=" font-light text-sm mb-1">Tid</span>
+              <span className=" font-light text-sm mb-1">Format: 18 or 21</span>
               <input
                 type="text"
                 className="border-solid border-2 border-sky-500 rounded-md py-2 px-2"
                 name="time"
+                pattern="([1]{1}[8]{1})||([2]{1}[1]{1})"
                 onChange={props.handleChange}
                 value={props.editBooking.time as string}
               />
-              <input type="button" value={"18:00"} />
-              <input type="button" value={"12:00"} disabled />
             </label>
-
             <label className="col-span-2 md:col-span-1 flex flex-col text-left">
               <span className=" font-light text-sm mb-1">Datum</span>
               <input
@@ -106,6 +120,18 @@ function AdminEdit(props: IAdminEdit) {
               <HiX />
             </button>
           </form>
+          <div>
+            {props.validateEditMsg.length > 0 && (
+              <span>Validation Summary</span>
+            )}
+            <ul>
+              {props.validateEditMsg.map((vm) => (
+                <li key={vm} className="text-red-500">
+                  {vm}
+                </li>
+              ))}
+            </ul>
+          </div>
         </>
       ) : (
         <></>
