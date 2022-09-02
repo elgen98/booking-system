@@ -72,19 +72,17 @@ function BookingModalThree() {
   }
 
   return (
-    <>
-      <h1>Modal Two</h1>
-      <h1>Kundinformation</h1>
-      <form action="" className="">
-        <div className="">
+    <main className=" h-3/5 grid grid-cols-7">
+      <h1 className=" text-2xl col-start-3 sm:col-start-4">Kundinformation</h1>
+      <form action="" className=" col-start-3 col-end-7 w-3/4 flex flex-col gap-5 items-center">
           <div className="">
             <label htmlFor="name" className="">
               Namn
               <input
                 type="text"
                 name="name"
-                placeholder="Name"
-                className=""
+                placeholder="Namn"
+                className=" border-2 border-black rounded-lg"
                 value={userInfo.name}
                 onChange={(e) => handleUserInput(e)}
               />
@@ -96,8 +94,8 @@ function BookingModalThree() {
               <input
                 type="email"
                 name="email"
-                placeholder="name@example.se"
-                className=""
+                placeholder="namn@exempel.se"
+                className=" border-2 border-black rounded-lg"
                 value={userInfo.email}
                 onChange={(e) => handleUserInput(e)}
               />
@@ -110,14 +108,12 @@ function BookingModalThree() {
                 type="tel"
                 name="telephone"
                 placeholder="1234567028"
-                className=""
+                className=" border-2 border-black rounded-lg"
                 value={userInfo.telephone}
                 onChange={(e) => handleUserInput(e)}
               />
             </label>
           </div>
-        </div>
-
         <div>
           {validateMsg.length > 0 && <span>Validation Summary</span>}
           <ul>
@@ -129,22 +125,22 @@ function BookingModalThree() {
           </ul>
         </div>
         <input
-          className="cursor-pointer "
+          className="cursor-pointer btn-green mt-4 w-36"
           type="submit"
-          value="Spara"
+          value="Skapa Bokning"
           onClick={(e) => handleClick(e)}
         />
         <br />
       </form>
       <button
-        className="cursor-pointer "
+        className="cursor-pointer btn-red col-start-2 sm:col-start-3"
         onClick={() => {
           dispatch(addBookingTime(""));
         }}
       >
         Tillbaka
       </button>
-    </>
+    </main>
   );
 }
 export default BookingModalThree;
