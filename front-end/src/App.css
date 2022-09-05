@@ -9,9 +9,18 @@
 
 @layer components {
   .btn-green {
-    @apply py-2 px-4 bg-green-500 text-white font-semibold rounded-sm shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 w-28 h-12;
+    @apply bg-green-500 text-white font-semibold rounded-sm shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 w-24 h-12 mt-4;
   }
   .btn-red {
-    @apply py-2 px-4 bg-red-500 text-white font-semibold rounded-sm shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 w-28 h-12;
+    @apply bg-red-500 text-white font-semibold rounded-sm shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 w-24 h-12 mt-4;
+  }
+  .modal-title {
+    @apply col-start-1 col-end-8 sm:col-start-3 sm:col-end-6 row-end-1 bg-gray-50 rounded-t-xl border flex items-center justify-center text-lg sm:text-xl;
+  }
+  .modal-content {
+    @apply col-start-1 col-end-8 sm:col-start-3 sm:col-end-6 flex flex-col items-center justify-center bg-gray-200 rounded-b-xl;
+  }
+  .modal-added-content {
+    @apply col-start-1 col-end-8 sm:col-start-3 sm:col-end-6 flex flex-col items-center justify-center bg-gray-200 rounded-xl;
   }
 }

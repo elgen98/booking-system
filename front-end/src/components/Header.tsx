@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <header className="flex justify-evenly p-7 h-1/5">
+    <header className="flex justify-evenly p-7 h-fit">
       <nav>
         <ul className="flex flex-row gap-7 font-bold">
           <li>

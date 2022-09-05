@@ -16,12 +16,12 @@ function GuestPicker() {
   });
 
   return (
-    <div className=" col-start-4 col-end-5 flex flex-col items-center">
+    <div className=" h-3/6 modal-added-content">
       <label htmlFor="guestAmount" className=" text-lg">
-        Antal gäster:
+        Antal gäster
       </label>
       <select
-        className=" w-10 border-2 border-black rounded-lg"
+        className=" w-24  border-4 border-gray-500 rounded-md shadow-lg"
         name="guestAmount"
         id="guestAmount"
         value={guests}
