@@ -36,7 +36,8 @@ function Admin() {
   });
 
   const [showUpdateForm, setShowEditForm] = useState(false);
-  const [validateMsg, setValidateMsg] = useState([""]);
+  const [validateAddMsg, setValidateAddMsg] = useState([""]);
+  const [validateEditMsg, setValidateEditMsg] = useState([""]);
 
   function refreshPage() {
     window.location.reload();
@@ -78,8 +79,8 @@ function Admin() {
   // Add booking: Submit
   function AddSubmit(e: ChangeEvent<HTMLFormElement>) {
     // Checks validation
-    validateForm();
-    if (validateMsg.length > 0) {
+    validateAddForm();
+    if (validateAddMsg.length > 0) {
       e.preventDefault();
       console.log("Validation error");
     } else {
@@ -98,10 +99,10 @@ function Admin() {
   }
 
   // Validation to prevent empty values when adding a new booking
-  function validateForm() {
+  function validateAddForm() {
     const { name, email, telephone_number, guest_amount, time, date } =
       createBooking;
-    setValidateMsg([]);
+    setValidateAddMsg([]);
     const msg = [];
     if (!name) {
       msg.push("Name is required");
@@ -121,7 +122,7 @@ function Admin() {
     if (!date) {
       msg.push("Date is required");
     }
-    setValidateMsg(msg);
+    setValidateAddMsg(msg);
   }
 
   // Edit booking: Get current booking
@@ -147,18 +148,57 @@ function Admin() {
 
   // Edit booking: Submit form
   function EditSubmit(e: ChangeEvent<HTMLFormElement>) {
-    e.preventDefault();
-    axios
-      .put("http://localhost:8000/bookings/update/" + e.target.id, editBooking)
-      .then((res) => {
-        setEditBooking(editBooking);
-        console.log(res);
-        refreshPage();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // Checks validation
+    validateEditForm();
+    if (validateEditMsg.length > 0) {
+      e.preventDefault();
+      console.log("Validation error");
+    } else {
+      e.preventDefault();
+      console.log("Validation good");
+      axios
+        .put(
+          "http://localhost:8000/bookings/update/" + e.target.id,
+          editBooking
+        )
+        .then((res) => {
+          setEditBooking(editBooking);
+          console.log(res);
+          refreshPage();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
   }
+
+  // Validation to prevent empty values when editing a new booking
+  function validateEditForm() {
+    const { name, email, telephone_number, guest_amount, time, date } =
+      editBooking;
+    setValidateEditMsg([]);
+    const msg = [];
+    if (!name) {
+      msg.push("Name is required");
+    }
+    if (!email) {
+      msg.push("Email is required");
+    }
+    if (!telephone_number) {
+      msg.push("Telephone number is required");
+    }
+    if (!guest_amount) {
+      msg.push("Guest amount is required");
+    }
+    if (!time) {
+      msg.push("Time is required");
+    }
+    if (!date) {
+      msg.push("Date is required");
+    }
+    setValidateEditMsg(msg);
+  }
+
   return (
     <>
       <AdminEdit
@@ -174,6 +214,7 @@ function Admin() {
         handleChange={handleChange}
         // Function as prop
         EditSubmit={EditSubmit}
+        validateEditMsg={validateEditMsg}
       />
       <div className="grid sm:grid-cols-1 md:grid-cols-4 mt-8 gap-4 mx-auto w-[85%]">
         <AdminPrint
@@ -196,7 +237,7 @@ function Admin() {
           // Object as prop
           createBooking={createBooking}
           // Function as prop
-          validateMsg={validateMsg}
+          validateAddMsg={validateAddMsg}
         />
       </div>
     </>
