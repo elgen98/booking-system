@@ -26,7 +26,7 @@ export default function BookingModalTwo() {
   if (availableSeatings.seatingOne === true) {
     seating1800Btn = (
       <button
-        className=" w-28 h-14 col-start-2 sm:col-start-4 sm:mx-20 text-2xl border border-gray-500 focus:bg-orange-300 rounded-lg"
+        className=" w-28 h-14 col-start-2 sm:col-start-4 sm:mx-20 text-2xl border border-gray-500 focus:bg-purple-400 rounded-lg"
         value={"1800"}
         onClick={addBookingDetails}
       >
@@ -47,7 +47,7 @@ export default function BookingModalTwo() {
   if (availableSeatings.seatingTwo === true) {
     seating2100Btn = (
       <button
-        className=" w-28 h-14 col-start-5 sm:col-start-6 text-2xl  border border-gray-500 focus:bg-orange-300 rounded-lg"
+        className=" w-28 h-14 col-start-5 sm:col-start-6 text-2xl  border border-gray-500 focus:bg-purple-400 rounded-lg"
         value={"2100"}
         onClick={addBookingDetails}
       >
