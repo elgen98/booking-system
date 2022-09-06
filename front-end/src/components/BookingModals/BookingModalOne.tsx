@@ -72,7 +72,10 @@ function BookingModalOne() {
 
   return (
     <main className=" modal-wrapper ">
-      <img src="../assets/ProgressBar1.png" alt="progressBar" className=" modal-title sm:w-full mt-16 mb-16"></img>
+      <div className="modal-title mb-10">
+        <img src="../assets/ProgressBar1.png" alt="progressBar" className="hidden sm:block" />
+        <img src="../assets/ProgressBar1Mobile.png" alt="progressBar" className=" sm:hidden" />
+      </div>
       <form
         action=""
         method="GET"
@@ -89,7 +92,7 @@ function BookingModalOne() {
         <GuestPicker />
       </form>
       <button
-        className=" btn-green col-end-7 row-start-4"
+        className=" btn-green col-end-7 row-start-5"
         onClick={checkSeatings}
       >
         Gå vidare

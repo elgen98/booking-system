@@ -73,10 +73,12 @@ function BookingModalThree() {
 
   return (
     <main className=" modal-wrapper">
-      <img src="../assets/ProgressBar2.png" alt="progressBar" className=" modal-title sm:w-full mt-16 mb-16"></img>
-      
+      <div className="modal-title mb-10">
+        <img src="../assets/ProgressBar3.png" alt="progressBar" className="hidden sm:block" />
+        <img src="../assets/ProgressBar3Mobile.png" alt="progressBar" className=" sm:hidden" />
+      </div>
       <form action="" className=" modal-content gap-1 row-start-1 row-end-5">
-      <h1 className=" text-xl font-bold">Kundinformation</h1>
+      <h1 className="hidden sm:block text-xl font-bold">Kundinformation</h1>
         <div className="">
           <label htmlFor="name" className=" block">Namn</label>
           <input

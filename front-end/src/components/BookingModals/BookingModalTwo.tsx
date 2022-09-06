@@ -67,15 +67,18 @@ export default function BookingModalTwo() {
 
   return (
     <main className=" modal-wrapper">
-      <img src="../assets/ProgressBar2.png" alt="progressBar" className=" modal-title sm:w-full mt-16 mb-16"></img>
+      <div className="modal-title mb-10">
+        <img src="../assets/ProgressBar2.png" alt="progressBar" className="hidden sm:block" />
+        <img src="../assets/ProgressBar2Mobile.png" alt="progressBar" className=" sm:hidden" />
+      </div>
       <div className=" modal-content h-full gap-3 sm:flex-row row-start-1 row-end-4 ">
-        <h1 className="text-xl font-bold">Välj tid</h1>
+        <h1 className="hidden sm:block text-xl font-bold">Välj tid</h1>
         {seating1800Btn}
         {seating2100Btn}
       </div>
       <br />
       <button
-        className=" btn-red col-start-1 sm:col-start-3 row-start-4"
+        className=" btn-red col-start-1 sm:col-start-3 row-start-5"
         onClick={() => {
           dispatch(addBookingGuestAmount(0));
           dispatch(addBookingDate(""));
@@ -84,7 +87,7 @@ export default function BookingModalTwo() {
         Tillbaka
       </button>
       <button
-        className=" btn-green col-start-6 row-start-4 "
+        className=" btn-green col-start-6 row-start-5"
         onClick={() => {
           dispatch(addBookingTime(selectedTime));
         }}
