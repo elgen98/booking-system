@@ -2,24 +2,26 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <header className="flex justify-evenly p-7 h-fit">
+    <header className="wrap flex justify-between items-center p-3 bg-[#F4F3E7]">
       <nav>
-        <ul className="flex flex-row gap-7 font-bold">
+        <ul className="flex flex-row gap-12">
           <li>
             <Link to="/">Hem</Link>
           </li>
           <li>Meny</li>
-          <li>
-            <img className=" w-12" src="../assets\logo.png" alt="logo" />
-          </li>
-          <li>
-            <Link to="booking">Bord</Link>
-          </li>
+
           <li>
             <Link to="contact">Kontakt</Link>
           </li>
         </ul>
       </nav>
+      <div>
+        <Link to="booking">
+          <button className="px-4 py-1 bg-[#00473B] text-[#E6FF55] rounded-full">
+            Boka bord
+          </button>
+        </Link>
+      </div>
     </header>
   );
 }
