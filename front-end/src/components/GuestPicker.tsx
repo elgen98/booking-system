@@ -16,7 +16,7 @@ function GuestPicker() {
   });
 
   return (
-    <div className=" h-3/6 modal-added-content">
+    <div className=" h-3/6 modal-content">
       <label htmlFor="guestAmount" className=" text-lg">
         Antal gäster
       </label>

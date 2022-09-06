@@ -72,19 +72,21 @@ function BookingModalOne() {
 
   return (
     <main className="  h-5/6 grid grid-cols-7 p-3 ">
-      <h1 className=" modal-title  ">Välj datum och antal gäster</h1>
-      {show ? (
-        <p className=" text-red-600 text-sm ">
-          Tyvärr är vi fullbokade den dagen, prova ett annat datum.
-        </p>
-      ) : (
-        <p></p>
-      )}
+      <div className="col-span-7 sm:col-span-3 sm:col-start-3 row-end-1">
+        <img src="../assets/ProgressBar1.png" alt="progressBar" className=" modal-title sm:w-full "></img>
+        {show ? (
+          <p className=" text-red-600 text-sm ">
+            Tyvärr är vi fullbokade den dagen, prova ett annat datum.
+          </p>
+        ) : (
+          <p></p>
+        )}
+      </div>
 
       <form
         action=""
         method="GET"
-        className="w-full col-span-7 sm:col-span-3 sm:col-start-3 row-start-1 row-end-5 flex flex-col gap-4"
+        className="col-span-7 sm:col-span-3 sm:col-start-3 row-start-1 row-end-5 flex flex-col gap-4"
       >
         <DatePicker />
         <GuestPicker />
