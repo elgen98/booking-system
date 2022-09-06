@@ -46,10 +46,10 @@ router.post("/searchAvailabilty", async (req, res) => {
         arrTwo.push("booking");
       }
     }
-    if (arrOne.length >= 15) {
+    if (arrOne.length >= 0) {
       booleans.seatingOne = false;
     }
-    if (arrTwo.length >= 15) {
+    if (arrTwo.length >= 0) {
       booleans.seatingTwo = false;
     }
     res.send(booleans);

@@ -77,41 +77,41 @@ function BookingModalThree() {
         <img src="../assets/ProgressBar3.png" alt="progressBar" className="hidden sm:block" />
         <img src="../assets/ProgressBar3Mobile.png" alt="progressBar" className=" sm:hidden" />
       </div>
-      <form action="" className=" modal-content gap-1 row-start-1 row-end-5">
-      <h1 className="hidden sm:block text-xl font-bold">Kundinformation</h1>
-        <div className="">
-          <label htmlFor="name" className=" block">Namn</label>
+      <form action="" className=" modal-content gap-1 sm:gap-5 row-start-1 row-end-5">
+      <h1 className="hidden sm:block text-xl sm:text-3xl font-bold">Kundinformation</h1>
+        <div className=" sm:w-1/4">
+          <label htmlFor="name" className=" block sm:text-xl">Namn</label>
           <input
               type="text"
               name="name"
               placeholder="Namn"
-              className=" border-2 border-black rounded-lg"
+              className=" border-2 border-black rounded-lg sm:w-full"
               value={userInfo.name}
               onChange={(e) => handleUserInput(e)}
           />
         </div>
-        <div className="">
-          <label htmlFor="email" className="block">
+        <div className="sm:w-1/4">
+          <label htmlFor="email" className="block sm:text-xl">
             E-postadress
           </label>
             <input
               type="email"
               name="email"
               placeholder="namn@exempel.se"
-              className=" border-2 border-black rounded-lg"
+              className=" border-2 border-black rounded-lg sm:w-full"
               value={userInfo.email}
               onChange={(e) => handleUserInput(e)}
             />
         </div>
-        <div className="">
-          <label htmlFor="telephone" className="block">
+        <div className="sm:w-1/4">
+          <label htmlFor="telephone" className="block sm:text-xl">
             Telefonnummer
           </label>
             <input
               type="tel"
               name="telephone"
               placeholder="1234567028"
-              className=" border-2 border-black rounded-lg"
+              className=" border-2 border-black rounded-lg sm:w-full"
               value={userInfo.telephone}
               onChange={(e) => handleUserInput(e)}
             />
@@ -126,21 +126,21 @@ function BookingModalThree() {
             ))}
           </ul>
         </div>
-        <input
-          className="cursor-pointer btn-green mt-4 w-36"
-          type="submit"
-          value="Skapa Bokning"
-          onClick={(e) => handleClick(e)}
-        />
       </form>
       <button
-        className="cursor-pointer btn-red col-start-1 sm:col-start-3"
+        className="cursor-pointer btn-red col-span-4 sm:col-start-3 sm:col-span-2"
         onClick={() => {
           dispatch(addBookingTime(""));
         }}
       >
         Tillbaka
       </button>
+        <input
+          className="cursor-pointer btn-green col-span-4 sm:col-span-2"
+          type="submit"
+          value="Skapa Bokning"
+          onClick={(e) => handleClick(e)}
+        />
     </main>
   );
 }

@@ -79,10 +79,10 @@ function BookingModalOne() {
       <form
         action=""
         method="GET"
-        className="col-span-7 sm:col-span-3 sm:col-start-3 row-span-3 flex flex-col gap-4"
+        className="col-span-8 sm:col-span-4 sm:col-start-3 row-span-4 flex flex-col gap-4"
       >
         {show ? (
-          <p className=" text-red-600 text-sm ">
+          <p className=" text-red-600 text-sm sm:text-xl ">
             Tyvärr är vi fullbokade den dagen, prova ett annat datum.
           </p>
         ) : (
@@ -92,7 +92,7 @@ function BookingModalOne() {
         <GuestPicker />
       </form>
       <button
-        className=" btn-green col-end-7 row-start-5"
+        className=" btn-green col-start-3 col-end-7 row-start-5"
         onClick={checkSeatings}
       >
         Gå vidare
