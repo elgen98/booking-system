@@ -7,18 +7,18 @@ export default function ErrorPage() {
         <img
           src="../assets/404.png"
           alt="404 error code"
-          className="flex items-center w-1/5"
+          className="flex items-center w-3/5 md:w-1/5"
         />
       </div>
-      <h1 className="mt-6 text-2xl font-libre">
-        Uh Oh! This page does not exist
+      <h1 className="mt-6 text-xl font-libre md:text-2xl">
+        Oh Nej! Denna sida existerar inte!
       </h1>
-      <h1 className="text-2xl font-libre">
-        Maybe you clicked an old link or misspelled. Please try again…{" "}
+      <h1 className="text-xl font-libre ml-12 w-4/5 md:text-2xl md:w-full md:ml-0">
+        Du kanske tryckte på en gammal länk eller skrev fel.
       </h1>
-      <Link to="/" className="mt-4 text-xl underline">
-        Back to Home
-      </Link>
+      <h1 className="text-xl font-libre underline md:text-2xl">
+        <Link to="/">Försök gärna igen.</Link>
+      </h1>
     </div>
   );
 }
