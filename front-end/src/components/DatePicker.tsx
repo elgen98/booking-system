@@ -12,8 +12,8 @@ function DatePicker() {
   }, [date]);
 
   return (
-    <div className=" h-3/6 modal-content ">
-      <label htmlFor="date" className=" text-lg">
+    <div className=" h-4/6 modal-content ">
+      <label htmlFor="date" className=" text-xl font-bold">
         Datum
       </label>
       <input

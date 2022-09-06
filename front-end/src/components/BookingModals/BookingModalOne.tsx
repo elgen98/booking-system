@@ -71,9 +71,13 @@ function BookingModalOne() {
   }, [searchResult]);
 
   return (
-    <main className="  h-5/6 grid grid-cols-7 p-3 ">
-      <div className="col-span-7 sm:col-span-3 sm:col-start-3 row-end-1">
-        <img src="../assets/ProgressBar1.png" alt="progressBar" className=" modal-title sm:w-full "></img>
+    <main className=" modal-wrapper ">
+      <img src="../assets/ProgressBar1.png" alt="progressBar" className=" modal-title sm:w-full mt-16 mb-16"></img>
+      <form
+        action=""
+        method="GET"
+        className="col-span-7 sm:col-span-3 sm:col-start-3 row-span-3 flex flex-col gap-4"
+      >
         {show ? (
           <p className=" text-red-600 text-sm ">
             Tyvärr är vi fullbokade den dagen, prova ett annat datum.
@@ -81,18 +85,11 @@ function BookingModalOne() {
         ) : (
           <p></p>
         )}
-      </div>
-
-      <form
-        action=""
-        method="GET"
-        className="col-span-7 sm:col-span-3 sm:col-start-3 row-start-1 row-end-5 flex flex-col gap-4"
-      >
         <DatePicker />
         <GuestPicker />
       </form>
       <button
-        className=" btn-green col-end-7 row-start-5"
+        className=" btn-green col-end-7 row-start-4"
         onClick={checkSeatings}
       >
         Gå vidare

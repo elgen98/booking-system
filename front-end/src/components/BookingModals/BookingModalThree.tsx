@@ -72,25 +72,26 @@ function BookingModalThree() {
   }
 
   return (
-    <main className=" h-5/6 grid grid-cols-7 p-3">
-      <h1 className=" text-2xl  modal-title">Kundinformation</h1>
-      <form action="" className=" modal-content gap-1">
+    <main className=" modal-wrapper">
+      <img src="../assets/ProgressBar2.png" alt="progressBar" className=" modal-title sm:w-full mt-16 mb-16"></img>
+      
+      <form action="" className=" modal-content gap-1 row-start-1 row-end-5">
+      <h1 className=" text-xl font-bold">Kundinformation</h1>
         <div className="">
-          <label htmlFor="name" className="">
-            Namn
-            <input
+          <label htmlFor="name" className=" block">Namn</label>
+          <input
               type="text"
               name="name"
               placeholder="Namn"
               className=" border-2 border-black rounded-lg"
               value={userInfo.name}
               onChange={(e) => handleUserInput(e)}
-            />
-          </label>
+          />
         </div>
         <div className="">
-          <label htmlFor="email" className="">
+          <label htmlFor="email" className="block">
             E-postadress
+          </label>
             <input
               type="email"
               name="email"
@@ -99,11 +100,11 @@ function BookingModalThree() {
               value={userInfo.email}
               onChange={(e) => handleUserInput(e)}
             />
-          </label>
         </div>
         <div className="">
-          <label htmlFor="telephone" className="">
+          <label htmlFor="telephone" className="block">
             Telefonnummer
+          </label>
             <input
               type="tel"
               name="telephone"
@@ -112,7 +113,6 @@ function BookingModalThree() {
               value={userInfo.telephone}
               onChange={(e) => handleUserInput(e)}
             />
-          </label>
         </div>
         <div>
           {validateMsg.length > 0 && <span>Validation Summary</span>}

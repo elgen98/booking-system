@@ -26,7 +26,7 @@ export default function BookingModalTwo() {
   if (availableSeatings.seatingOne === true) {
     seating1800Btn = (
       <button
-        className=" w-28 h-14 col-start-2 sm:col-start-4 sm:mx-20 text-2xl mb-8 border border-gray-500 focus:bg-orange-300 rounded-lg"
+        className=" w-28 h-14 col-start-2 sm:col-start-4 sm:mx-20 text-2xl border border-gray-500 focus:bg-orange-300 rounded-lg"
         value={"1800"}
         onClick={addBookingDetails}
       >
@@ -36,7 +36,7 @@ export default function BookingModalTwo() {
   } else {
     seating1800Btn = (
       <button
-        className=" w-28 h-14 col-start-2 sm:col-start-4 sm:mx-20 text-2xl mb-8 border rounded-lg opacity-20"
+        className=" w-28 h-14 col-start-2 sm:col-start-4 sm:mx-20 text-2xl  border rounded-lg opacity-20"
         disabled
       >
         1800
@@ -47,7 +47,7 @@ export default function BookingModalTwo() {
   if (availableSeatings.seatingTwo === true) {
     seating2100Btn = (
       <button
-        className=" w-28 h-14 col-start-5 sm:col-start-6 text-2xl mb-8 border border-gray-500 focus:bg-orange-300 rounded-lg"
+        className=" w-28 h-14 col-start-5 sm:col-start-6 text-2xl  border border-gray-500 focus:bg-orange-300 rounded-lg"
         value={"2100"}
         onClick={addBookingDetails}
       >
@@ -57,7 +57,7 @@ export default function BookingModalTwo() {
   } else {
     seating2100Btn = (
       <button
-        className=" w-28 h-14 col-start-5 sm:col-start-6 text-2xl mb-8 border rounded-lg opacity-20"
+        className=" w-28 h-14 col-start-5 sm:col-start-6 text-2xl  border rounded-lg opacity-20"
         disabled
       >
         2100
@@ -66,15 +66,16 @@ export default function BookingModalTwo() {
   }
 
   return (
-    <main className=" h-5/6 grid grid-cols-7 p-3 ">
-      <h1 className=" modal-title">Välj tid</h1>
-      <div className=" modal-content h-6/6">
+    <main className=" modal-wrapper">
+      <img src="../assets/ProgressBar2.png" alt="progressBar" className=" modal-title sm:w-full mt-16 mb-16"></img>
+      <div className=" modal-content h-full gap-3 sm:flex-row row-start-1 row-end-4 ">
+        <h1 className="text-xl font-bold">Välj tid</h1>
         {seating1800Btn}
         {seating2100Btn}
       </div>
       <br />
       <button
-        className=" btn-red col-start-1 sm:col-start-3 "
+        className=" btn-red col-start-1 sm:col-start-3 row-start-4"
         onClick={() => {
           dispatch(addBookingGuestAmount(0));
           dispatch(addBookingDate(""));
@@ -83,7 +84,7 @@ export default function BookingModalTwo() {
         Tillbaka
       </button>
       <button
-        className=" btn-green col-start-6 "
+        className=" btn-green col-start-6 row-start-4 "
         onClick={() => {
           dispatch(addBookingTime(selectedTime));
         }}
