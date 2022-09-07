@@ -49,6 +49,9 @@ function BookingModalOne() {
         .then((response) => {
           mountedRef.current = true;
           setSearchResult(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
   }
@@ -73,9 +76,7 @@ function BookingModalOne() {
   return (
     <main className=" h-3/5 grid grid-cols-7 grid-rows-4">
       <div className=" col-start-2 col-end-7 sm:col-start-3 sm:col-end-6 ">
-        <h1 className=" text-lg sm:text-xl ">
-          Välj datum och antal gäster
-        </h1>
+        <h1 className=" text-lg sm:text-xl ">Välj datum och antal gäster</h1>
         {show ? (
           <p className=" text-red-600 text-sm col-start-3 col-end-6 row-start-2">
             Tyvärr är vi fullbokade den dagen, prova ett annat datum.
@@ -84,7 +85,11 @@ function BookingModalOne() {
           <p></p>
         )}
       </div>
-      <form action="" method="GET" className="col-start-3 col-end-6 flex flex-col gap-4">
+      <form
+        action=""
+        method="GET"
+        className="col-start-3 col-end-6 flex flex-col gap-4"
+      >
         <DatePicker />
         <GuestPicker />
       </form>

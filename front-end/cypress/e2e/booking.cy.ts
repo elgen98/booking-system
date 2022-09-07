@@ -3,10 +3,29 @@
 describe("Add new booking", () => {
   it("should add a new user", () => {
     cy.visit("/admin");
-    cy.get("#book-cont").children().as("before");
+
+    // A booking must exist for test to work
+    let countBefore = 0;
+    cy.get("#book-cont")
+      .children()
+      .then(($elements) => {
+        countBefore = $elements.length;
+        cy.log("Before", countBefore);
+      });
+
+    // if (cy.get("#book-cont").children().should("not.exist")) {
+    //   countBefore = 0;
+    // } else {
+    //   cy.get("#book-cont")
+    //     .children()
+    //     .then(($elements) => {
+    //       countBefore = $elements.length;
+    //       cy.log("Before", countBefore);
+    //     });
+    // }
 
     // load booking page
-    cy.visit("booking");
+    cy.visit("/booking");
 
     // Specifies date and guest amount
     cy.get("#date").click().type("2022-09-09");
@@ -14,7 +33,6 @@ describe("Add new booking", () => {
     cy.contains("Gå vidare").click();
 
     // Clicks time
-
     const firstTime = cy.contains("1800");
 
     if (firstTime) {
@@ -34,13 +52,22 @@ describe("Add new booking", () => {
 
     // Checks if user exist
     cy.contains("här").click();
-    cy.get("#book-cont").children().as("after");
-    // if ("@after" > "@before") {
-    //   cy.log("This", "@after");
-    //   cy.log("That", "@before");
-    // } else {
-    //   cy.log("This", "@after");
-    //   cy.log("That", "@after");
-    // }
+
+    let countAfter = 0;
+    cy.get("#book-cont")
+      .children()
+      .then(($elements) => {
+        countAfter = $elements.length;
+        cy.log("After", countAfter);
+        cy.log("before", countBefore);
+
+        if (countAfter > countBefore) {
+          cy.log(`${countAfter} is more than ${countBefore}`);
+          cy.log("A new booking has been added");
+        } else {
+          cy.log(`${countAfter} is less than or equal to ${countBefore}`);
+          cy.log("Something went wrong");
+        }
+      });
   });
 });
