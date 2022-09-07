@@ -14,7 +14,7 @@ describe("Add new booking", () => {
       });
 
     // if (cy.get("#book-cont").children().should("not.exist")) {
-    //   countBefore = 0;
+    //   cy.log("s");
     // } else {
     //   cy.get("#book-cont")
     //     .children()
@@ -58,8 +58,6 @@ describe("Add new booking", () => {
       .children()
       .then(($elements) => {
         countAfter = $elements.length;
-        cy.log("After", countAfter);
-        cy.log("before", countBefore);
 
         if (countAfter > countBefore) {
           cy.log(`${countAfter} is more than ${countBefore}`);
