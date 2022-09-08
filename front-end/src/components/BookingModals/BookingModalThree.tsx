@@ -23,6 +23,7 @@ function BookingModalThree() {
   const newbooking = useSelector((state: RootState) => state.bookings.value);
 
   function handleUserInput(e: ChangeEvent<HTMLInputElement>) {
+    // handle user input
     const name = e.target.name;
     const value = e.target.value;
     setUserInfo({ ...userInfo, [name]: value });
@@ -56,6 +57,7 @@ function BookingModalThree() {
   }
 
   function validateForm() {
+    // validate form
     const { name, email, telephone } = userInfo;
     setValidateMsg([]);
     let messages = [];
@@ -64,6 +66,11 @@ function BookingModalThree() {
     }
     if (!email) {
       messages.push("Email is required");
+    }
+    console.log(email.includes("@"));
+
+    if (email.includes("@") === false) {
+      messages.push("Email is not valid");
     }
     if (!telephone) {
       messages.push("Telephone number is required");

@@ -13,7 +13,7 @@ export default function Footer() {
         Rotselleri - Själkselleri - Morötter - Palsternacka - Potatis
       </Marquee>
       <div className="flex items-center justify-between p-2 bg-[#F4F3E7]">
-        <div className="grid grid-cols-6 text-left">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 text-left gap-10">
           <div>
             <h3 className="mb-2 uppercase">Om oss</h3>
             <ol className=" text-sm">

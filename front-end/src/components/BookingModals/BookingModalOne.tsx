@@ -30,6 +30,7 @@ function BookingModalOne() {
   const date = useSelector((state: RootState) => state.searchOption.value);
 
   function checkSeatings(e: MouseEvent<HTMLButtonElement>) {
+    // check if there are available seatings
     e.preventDefault();
     if (date.date && date.guests) {
       axios
@@ -49,6 +50,9 @@ function BookingModalOne() {
         .then((response) => {
           mountedRef.current = true;
           setSearchResult(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
   }
@@ -58,6 +62,7 @@ function BookingModalOne() {
       console.log(searchResult);
 
       if (searchResult.seatingOne || searchResult.seatingTwo === true) {
+        // if there are available seatings
         dispatch(addAvailableSeatings(searchResult));
         dispatch(addBookingDate(date.date));
         dispatch(addBookingGuestAmount(date.guests));

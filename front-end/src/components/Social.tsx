@@ -3,18 +3,13 @@ import React from "react";
 function Social() {
   return (
     <div className="bg-[#E8DBC5] text-left">
-      <div className="grid grid-cols-2">
-        <div className="p-10">
+      <div className="grid grid-cols-4">
+        <div className="p-10 md:col-span-2 col-span-4">
           <span className=" text-5xl">
             Kliv in i en värld fulla av recept på vår TikTok
           </span>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet saepe
-            minus obcaecati explicabo non in sint, soluta ipsa voluptas maiores
-            vero et voluptates nostrum ad animi minima est accusamus iure!
-          </p>
         </div>
-        <div>
+        <div className="md:col-span-2 col-span-4">
           <video autoPlay loop muted>
             <source src={require("../assets/cooking.mp4")} type="video/mp4" />
           </video>

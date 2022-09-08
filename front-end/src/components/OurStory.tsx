@@ -4,7 +4,7 @@ function OurStory() {
   return (
     <div className="bg-[#A9C1A9] text-left">
       <div className="">
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="p-10">
             <h2 className="uppercase text-xl">Våran historia</h2>
             <span className=" text-5xl">Från druvor till juice för vuxna</span>

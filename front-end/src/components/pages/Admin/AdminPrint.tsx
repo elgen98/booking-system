@@ -15,7 +15,10 @@ function AdminPrint(props: IAdminPrint) {
     <>
       <div className=" col-span-3">
         <div className="">
-          <div className="grid lg:grid-cols-3 gap-4 md:grid-cols-2">
+          <div
+            className="grid lg:grid-cols-3 gap-4 md:grid-cols-2"
+            id="book-cont"
+          >
             {props.bookings.map((booking) => (
               <div
                 key={booking._id.toString()}
