@@ -37,7 +37,11 @@ describe("Add new booking", () => {
     cy.contains("Submit").click().click();
 
     // Remove booking
-    cy.contains("Remove").first().click();
+    // cy.contains("Remove").click();
+
+    cy.contains("Remove").each(($btn, index) => {
+      if (index >= 1) cy.wrap($btn).click();
+    });
 
     let countAfter = 0;
     cy.get("#book-cont")
@@ -55,7 +59,8 @@ describe("Add new booking", () => {
       });
 
     // Edit booking
-    cy.contains("Edit").first().click();
+    cy.contains("Edit").click();
+
     cy.get("input[name='name']").clear();
     cy.get("input[name='name']").type("edit");
 
