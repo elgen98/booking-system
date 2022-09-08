@@ -23,6 +23,7 @@ function BookingModalThree() {
   const newbooking = useSelector((state: RootState) => state.bookings.value);
 
   function handleUserInput(e: ChangeEvent<HTMLInputElement>) {
+    // handle user input
     const name = e.target.name;
     const value = e.target.value;
     setUserInfo({ ...userInfo, [name]: value });
@@ -56,6 +57,7 @@ function BookingModalThree() {
   }
 
   function validateForm() {
+    // validate form
     const { name, email, telephone } = userInfo;
     setValidateMsg([]);
     let messages = [];
@@ -64,6 +66,11 @@ function BookingModalThree() {
     }
     if (!email) {
       messages.push("Email is required");
+    }
+    console.log(email.includes("@"));
+
+    if (email.includes("@") === false) {
+      messages.push("Email is not valid");
     }
     if (!telephone) {
       messages.push("Telephone number is required");
@@ -74,46 +81,49 @@ function BookingModalThree() {
   return (
     <main className=" h-3/5 grid grid-cols-7">
       <h1 className=" text-2xl col-start-3 sm:col-start-4">Kundinformation</h1>
-      <form action="" className=" col-start-3 col-end-7 w-3/4 flex flex-col gap-5 items-center">
-          <div className="">
-            <label htmlFor="name" className="">
-              Namn
-              <input
-                type="text"
-                name="name"
-                placeholder="Namn"
-                className=" border-2 border-black rounded-lg"
-                value={userInfo.name}
-                onChange={(e) => handleUserInput(e)}
-              />
-            </label>
-          </div>
-          <div className="">
-            <label htmlFor="email" className="">
-              E-postadress
-              <input
-                type="email"
-                name="email"
-                placeholder="namn@exempel.se"
-                className=" border-2 border-black rounded-lg"
-                value={userInfo.email}
-                onChange={(e) => handleUserInput(e)}
-              />
-            </label>
-          </div>
-          <div className="">
-            <label htmlFor="telephone" className="">
-              Telefonnummer
-              <input
-                type="tel"
-                name="telephone"
-                placeholder="1234567028"
-                className=" border-2 border-black rounded-lg"
-                value={userInfo.telephone}
-                onChange={(e) => handleUserInput(e)}
-              />
-            </label>
-          </div>
+      <form
+        action=""
+        className=" col-start-3 col-end-7 w-3/4 flex flex-col gap-5 items-center"
+      >
+        <div className="">
+          <label htmlFor="name" className="">
+            Namn
+            <input
+              type="text"
+              name="name"
+              placeholder="Namn"
+              className=" border-2 border-black rounded-lg"
+              value={userInfo.name}
+              onChange={(e) => handleUserInput(e)}
+            />
+          </label>
+        </div>
+        <div className="">
+          <label htmlFor="email" className="">
+            E-postadress
+            <input
+              type="email"
+              name="email"
+              placeholder="namn@exempel.se"
+              className=" border-2 border-black rounded-lg"
+              value={userInfo.email}
+              onChange={(e) => handleUserInput(e)}
+            />
+          </label>
+        </div>
+        <div className="">
+          <label htmlFor="telephone" className="">
+            Telefonnummer
+            <input
+              type="tel"
+              name="telephone"
+              placeholder="1234567028"
+              className=" border-2 border-black rounded-lg"
+              value={userInfo.telephone}
+              onChange={(e) => handleUserInput(e)}
+            />
+          </label>
+        </div>
         <div>
           {validateMsg.length > 0 && <span>Validation Summary</span>}
           <ul>

@@ -30,6 +30,7 @@ function BookingModalOne() {
   const date = useSelector((state: RootState) => state.searchOption.value);
 
   function checkSeatings(e: MouseEvent<HTMLButtonElement>) {
+    // check if there are available seatings
     e.preventDefault();
     if (date.date && date.guests) {
       axios
@@ -58,6 +59,7 @@ function BookingModalOne() {
       console.log(searchResult);
 
       if (searchResult.seatingOne || searchResult.seatingTwo === true) {
+        // if there are available seatings
         dispatch(addAvailableSeatings(searchResult));
         dispatch(addBookingDate(date.date));
         dispatch(addBookingGuestAmount(date.guests));
@@ -73,9 +75,7 @@ function BookingModalOne() {
   return (
     <main className=" h-3/5 grid grid-cols-7 grid-rows-4">
       <div className=" col-start-2 col-end-7 sm:col-start-3 sm:col-end-6 ">
-        <h1 className=" text-lg sm:text-xl ">
-          Välj datum och antal gäster
-        </h1>
+        <h1 className=" text-lg sm:text-xl ">Välj datum och antal gäster</h1>
         {show ? (
           <p className=" text-red-600 text-sm col-start-3 col-end-6 row-start-2">
             Tyvärr är vi fullbokade den dagen, prova ett annat datum.
@@ -84,7 +84,11 @@ function BookingModalOne() {
           <p></p>
         )}
       </div>
-      <form action="" method="GET" className="col-start-3 col-end-6 flex flex-col gap-4">
+      <form
+        action=""
+        method="GET"
+        className="col-start-3 col-end-6 flex flex-col gap-4"
+      >
         <DatePicker />
         <GuestPicker />
       </form>
