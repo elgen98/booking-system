@@ -61,6 +61,7 @@ function BookingModalOne() {
   }
 
   useEffect(() => {
+    //prevent useEffect on initial render
     if (mountedRef.current) {
       console.log(searchResult);
 
@@ -69,7 +70,6 @@ function BookingModalOne() {
         dispatch(addAvailableSeatings(searchResult));
         dispatch(addBookingDate(date.date));
         dispatch(addBookingGuestAmount(date.guests));
-        console.log("hello");
       } else {
         setShowSearchError(!showSearchError);
       }

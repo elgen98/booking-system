@@ -16,8 +16,11 @@ function BookingModalThree() {
     name: "",
     email: "",
     telephone: "",
+    GDPR: false,
   });
+
   const [validateMsg, setValidateMsg] = useState([""]);
+  const [show, setShow] = useState(false)
 
   const newbooking = useSelector((state: RootState) => state.bookings.value);
 
@@ -29,7 +32,6 @@ function BookingModalThree() {
   }
 
   async function handleClick(e: MouseEvent<HTMLInputElement>) {
-    validateForm();
     e.preventDefault();
     if (validateMsg.length <= 0) {
       dispatch(addBookingName(userInfo.name));
@@ -52,12 +54,11 @@ function BookingModalThree() {
           },
         }
       );
-    }
+    } else setShow(!show)
   }
 
-  function validateForm() {
-    // validate form
-    const { name, email, telephone } = userInfo;
+  useEffect(() => {
+    const { name, email, telephone, GDPR } = userInfo;
     setValidateMsg([]);
     let messages = [];
     if (!name) {
@@ -66,18 +67,17 @@ function BookingModalThree() {
     if (!email) {
       messages.push("Email is required");
     }
-    console.log(email.includes("@"));
-
     if (email.includes("@") === false) {
       messages.push("Email is not valid");
-      console.log(messages);
     }
     if (!telephone) {
       messages.push("Telephone number is required");
     }
+    if(GDPR === false) {
+      messages.push("You need to accept the terms and conditions")
+    }
     setValidateMsg(messages);
-  }
-  console.log(validateMsg);
+  }, [userInfo])
 
   return (
     <main className=" modal-wrapper">
@@ -138,20 +138,29 @@ function BookingModalThree() {
             value={userInfo.telephone}
             onChange={(e) => handleUserInput(e)}
           />
-          <label>
-            Accept GDPR
-            <input type="checkbox" name="" id="" />
+        </div>
+        <div className="sm:w-3/4 text-sm sm:text-base">
+          <label htmlFor="GDPR">
+            Jag accepterar villkoren och att min information samlas enligt GDPR
           </label>
+            <input type="checkbox" name="GDPR" onClick={() => {
+              if(userInfo.GDPR === false){
+                setUserInfo({...userInfo, GDPR: true})
+              }else {
+                setUserInfo({...userInfo, GDPR: false})
+              }
+
+            }}/>
         </div>
         <div>
-          {validateMsg.length > 0}
-          <ul>
+          {show && <ul>
             {validateMsg.map((vm) => (
               <li key={vm} className="text-red-500">
                 {vm}
               </li>
             ))}
-          </ul>
+          </ul>}
+          
         </div>
       </form>
       <button
