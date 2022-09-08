@@ -18,7 +18,6 @@ function BookingModalThree() {
     telephone: "",
   });
   const [validateMsg, setValidateMsg] = useState([""]);
-  const [goodValidate, setGoodValidate] = useState(false);
 
   const newbooking = useSelector((state: RootState) => state.bookings.value);
 
@@ -32,7 +31,7 @@ function BookingModalThree() {
   async function handleClick(e: MouseEvent<HTMLInputElement>) {
     validateForm();
     e.preventDefault();
-    if (validateMsg.length > 0) {
+    if (validateMsg.length <= 0) {
       dispatch(addBookingName(userInfo.name));
       dispatch(addBookingNumber(userInfo.telephone));
       dispatch(addBookingEmail(userInfo.email));
@@ -71,57 +70,78 @@ function BookingModalThree() {
 
     if (email.includes("@") === false) {
       messages.push("Email is not valid");
+      console.log(messages);
     }
     if (!telephone) {
       messages.push("Telephone number is required");
     }
     setValidateMsg(messages);
   }
+  console.log(validateMsg);
 
   return (
     <main className=" modal-wrapper">
       <div className="modal-title mb-10">
-        <img src="../assets/ProgressBar3.png" alt="progressBar" className="hidden sm:block" />
-        <img src="../assets/ProgressBar3Mobile.png" alt="progressBar" className=" sm:hidden" />
+        <img
+          src="../assets/ProgressBar3.png"
+          alt="progressBar"
+          className="hidden sm:block"
+        />
+        <img
+          src="../assets/ProgressBar3Mobile.png"
+          alt="progressBar"
+          className=" sm:hidden"
+        />
       </div>
-      <form action="" className=" modal-content gap-1 sm:gap-5 row-start-1 row-end-5">
-      <h1 className="hidden sm:block text-xl sm:text-3xl font-bold">Kundinformation</h1>
+      <form
+        action=""
+        className=" modal-content gap-1 sm:gap-5 row-start-1 row-end-5"
+      >
+        <h1 className="hidden sm:block text-xl sm:text-3xl font-bold">
+          Kundinformation
+        </h1>
         <div className=" sm:w-1/4">
-          <label htmlFor="name" className=" block sm:text-xl">Namn</label>
+          <label htmlFor="name" className=" block sm:text-xl">
+            Namn
+          </label>
           <input
-              type="text"
-              name="name"
-              placeholder="Namn"
-              className=" border-2 border-black rounded-lg sm:w-full"
-              value={userInfo.name}
-              onChange={(e) => handleUserInput(e)}
+            type="text"
+            name="name"
+            placeholder="Namn"
+            className=" border-2 border-black rounded-lg sm:w-full"
+            value={userInfo.name}
+            onChange={(e) => handleUserInput(e)}
           />
         </div>
         <div className="sm:w-1/4">
           <label htmlFor="email" className="block sm:text-xl">
             E-postadress
           </label>
-            <input
-              type="email"
-              name="email"
-              placeholder="namn@exempel.se"
-              className=" border-2 border-black rounded-lg sm:w-full"
-              value={userInfo.email}
-              onChange={(e) => handleUserInput(e)}
-            />
+          <input
+            type="email"
+            name="email"
+            placeholder="namn@exempel.se"
+            className=" border-2 border-black rounded-lg sm:w-full"
+            value={userInfo.email}
+            onChange={(e) => handleUserInput(e)}
+          />
         </div>
         <div className="sm:w-1/4">
           <label htmlFor="telephone" className="block sm:text-xl">
             Telefonnummer
           </label>
-            <input
-              type="tel"
-              name="telephone"
-              placeholder="1234567028"
-              className=" border-2 border-black rounded-lg sm:w-full"
-              value={userInfo.telephone}
-              onChange={(e) => handleUserInput(e)}
-            />
+          <input
+            type="tel"
+            name="telephone"
+            placeholder="1234567028"
+            className=" border-2 border-black rounded-lg sm:w-full"
+            value={userInfo.telephone}
+            onChange={(e) => handleUserInput(e)}
+          />
+          <label>
+            Accept GDPR
+            <input type="checkbox" name="" id="" />
+          </label>
         </div>
         <div>
           {validateMsg.length > 0}
@@ -142,12 +162,12 @@ function BookingModalThree() {
       >
         Tillbaka
       </button>
-        <input
-          className="cursor-pointer btn-green col-span-4 sm:col-span-2"
-          type="submit"
-          value="Skapa Bokning"
-          onClick={(e) => handleClick(e)}
-        />
+      <input
+        className="cursor-pointer btn-green col-span-4 sm:col-span-2"
+        type="submit"
+        value="Skapa Bokning"
+        onClick={(e) => handleClick(e)}
+      />
     </main>
   );
 }

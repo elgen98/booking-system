@@ -14,6 +14,7 @@ interface IAdminAdd {
 
 function AdminAdd(props: IAdminAdd) {
   const [showAddForm, setShowAddForm] = useState(false);
+  var today = new Date().toISOString().split("T")[0];
   return (
     <>
       {showAddForm ? (
@@ -98,6 +99,7 @@ function AdminAdd(props: IAdminAdd) {
                     type="date"
                     className="border-solid border-2 border-sky-500"
                     name="date"
+                    min={today}
                     value={props.createBooking.date as string}
                     onChange={(e) => props.handleAdd(e)}
                   />
