@@ -50,6 +50,9 @@ function BookingModalOne() {
         .then((response) => {
           mountedRef.current = true;
           setSearchResult(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
   }

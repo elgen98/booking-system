@@ -33,7 +33,7 @@ function AdminEdit(props: IAdminEdit) {
               </span>
               <input
                 type="text"
-                placeholder="Bob"
+                placeholder="bob"
                 pattern="[a-ä]{2,}"
                 className="border-solid border-2 border-sky-500 rounded-md py-2 px-2"
                 name="name"
@@ -56,11 +56,11 @@ function AdminEdit(props: IAdminEdit) {
 
             <label className="col-span-2 lg:col-span-1 flex flex-col text-left">
               <span className=" font-light text-sm mb-1">
-                Format: 123-456-78-91
+                {/* Format: 123-456-78-91 */}
               </span>
               <input
                 placeholder="123-456-78-91"
-                pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
+                // pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
                 type="tel"
                 className="border-solid border-2 border-sky-500 rounded-md py-2 px-2 border border-b-slate"
                 name="telephone_number"
@@ -86,12 +86,12 @@ function AdminEdit(props: IAdminEdit) {
             </label>
 
             <label className="col-span-2 md:col-span-1 flex flex-col text-left">
-              <span className=" font-light text-sm mb-1">Format: 18 or 21</span>
+              {/* <span className=" font-light text-sm mb-1">Format: 18 or 21</span> */}
               <input
                 type="text"
                 className="border-solid border-2 border-sky-500 rounded-md py-2 px-2"
                 name="time"
-                pattern="([1]{1}[8]{1})||([2]{1}[1]{1})"
+                // pattern="([1]{1}[8]{1})||([2]{1}[1]{1})"
                 onChange={props.handleChange}
                 value={props.editBooking.time as string}
               />
