@@ -8,8 +8,6 @@ export default function Header() {
           <li>
             <Link to="/">Hem</Link>
           </li>
-          <li>Meny</li>
-
           <li>
             <Link to="contact">Kontakt</Link>
           </li>

@@ -87,7 +87,7 @@ router.post("/create", async (req, res) => {
     text:
       "Hello " +
       name +
-      "! We welcome you to Cena at " +
+      "! We welcome you to VuxenJuice at " +
       time +
       "o'clock on the " +
       date +

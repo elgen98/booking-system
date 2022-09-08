@@ -23,7 +23,8 @@ function BookingModalOne() {
     seatingTwo: false,
   });
 
-  const [show, setShow] = useState(false);
+  const [showSearchError, setShowSearchError] = useState(false);
+  const [showDateError, setShowDateError] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -54,6 +55,8 @@ function BookingModalOne() {
         .catch((err) => {
           console.log(err);
         });
+    } else {
+        setShowDateError(!showDateError)
     }
   }
 
@@ -68,35 +71,37 @@ function BookingModalOne() {
         dispatch(addBookingGuestAmount(date.guests));
         console.log("hello");
       } else {
-        setShow(!show);
+        setShowSearchError(!showSearchError);
       }
-      // ← the trick
-      console.log("trick: changed");
     }
   }, [searchResult]);
 
   return (
-    <main className=" h-3/5 grid grid-cols-7 grid-rows-4">
-      <div className=" col-start-2 col-end-7 sm:col-start-3 sm:col-end-6 ">
-        <h1 className=" text-lg sm:text-xl ">Välj datum och antal gäster</h1>
-        {show ? (
-          <p className=" text-red-600 text-sm col-start-3 col-end-6 row-start-2">
-            Tyvärr är vi fullbokade den dagen, prova ett annat datum.
-          </p>
-        ) : (
-          <p></p>
-        )}
+    <main className=" modal-wrapper ">
+      <div className="modal-title mb-10">
+        <img src="../assets/ProgressBar1.png" alt="progressBar" className="hidden sm:block" />
+        <img src="../assets/ProgressBar1Mobile.png" alt="progressBar" className=" sm:hidden" />
       </div>
       <form
         action=""
         method="GET"
-        className="col-start-3 col-end-6 flex flex-col gap-4"
+        className="col-span-8 sm:col-span-4 sm:col-start-3 row-span-4 flex flex-col gap-4"
       >
+        {showSearchError ? (
+          <p className=" text-red-600 text-sm sm:text-xl ">
+            Tyvärr är vi fullbokade den dagen, prova ett annat datum.
+          </p>
+        ) : (
+          <></>
+        )}
+        {showDateError ? (<p className=" text-red-600 text-sm sm:text-xl ">
+            Du behöver välja ett datum först.
+          </p>) : (<></>)}
         <DatePicker />
         <GuestPicker />
       </form>
       <button
-        className=" btn-green col-start-6 sm:col-start-5 row-start-4"
+        className=" btn-green col-start-3 col-end-7 row-start-5"
         onClick={checkSeatings}
       >
         Gå vidare

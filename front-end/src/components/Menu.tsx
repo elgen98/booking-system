@@ -2,7 +2,7 @@ import React from "react";
 
 function Menu() {
   return (
-    <div className="wrap py-10 text-left">
+    <div className="wrap py-10 text-left" id="menu">
       <h2 className="uppercase mb-5 text-xl">Vår meny</h2>
       <div>
         <ol className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">

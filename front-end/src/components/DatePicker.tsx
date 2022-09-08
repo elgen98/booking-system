@@ -12,12 +12,12 @@ function DatePicker() {
   }, [date]);
 
   return (
-    <div className=" col-start-3 col-end-6 flex flex-col items-center">
-      <label htmlFor="date" className=" text-lg">
-        Datum:
+    <div className=" h-full modal-content ">
+      <label htmlFor="date" className=" text-xl sm:text-2xl font-bold">
+        Datum
       </label>
       <input
-        className="border-2 border-black rounded-lg"
+        className="border-4 border-gray-500 rounded-md shadow-lg sm:w-1/5 "
         type="date"
         id="date"
         name="date"

@@ -12,6 +12,8 @@ export default function BookingModalTwo() {
 
   const dispatch = useDispatch();
 
+  const [showTimeError, setShowTimeError] = useState(false);
+
   const availableSeatings = useSelector(
     (state: RootState) => state.seatingOptions.value
   );
@@ -26,7 +28,7 @@ export default function BookingModalTwo() {
   if (availableSeatings.seatingOne === true) {
     seating1800Btn = (
       <button
-        className=" w-28 h-14 col-start-2 sm:col-start-4 sm:mx-20 text-2xl mb-8 border focus:bg-orange-300 rounded-lg"
+        className=" w-28 h-14 col-start-2 sm:col-start-4 sm:mx-20 text-2xl sm:text-4xl border border-gray-500 focus:bg-gray-500 rounded-lg sm:w-1/5 sm:h-1/5"
         value={"1800"}
         onClick={addBookingDetails}
       >
@@ -36,7 +38,7 @@ export default function BookingModalTwo() {
   } else {
     seating1800Btn = (
       <button
-        className=" w-28 h-14 col-start-2 sm:col-start-4 sm:mx-20 text-2xl mb-8 border rounded-lg opacity-20"
+        className=" w-28 h-14 col-start-2 sm:col-start-4 sm:mx-20 text-2xl sm:text-4xl border rounded-lg opacity-20 sm:w-1/5 sm:h-1/5"
         disabled
       >
         1800
@@ -47,7 +49,7 @@ export default function BookingModalTwo() {
   if (availableSeatings.seatingTwo === true) {
     seating2100Btn = (
       <button
-        className=" w-28 h-14 col-start-5 sm:col-start-6 text-2xl mb-8 border focus:bg-orange-300 rounded-lg"
+        className=" w-28 h-14 col-start-5 sm:col-start-6 text-2xl sm:text-4xl border border-gray-500 focus:bg-gray-500 rounded-lg sm:w-1/5 sm:h-1/5"
         value={"2100"}
         onClick={addBookingDetails}
       >
@@ -57,7 +59,7 @@ export default function BookingModalTwo() {
   } else {
     seating2100Btn = (
       <button
-        className=" w-28 h-14 col-start-5 sm:col-start-6 text-2xl mb-8 border rounded-lg opacity-20"
+        className=" w-28 h-14 col-start-5 sm:col-start-6 text-2xl sm:text-4xl border rounded-lg opacity-20 sm:w-1/5 sm:h-1/5"
         disabled
       >
         2100
@@ -66,15 +68,21 @@ export default function BookingModalTwo() {
   }
 
   return (
-    <main className=" h-3/5 grid grid-cols-7 sm:grid-cols-9">
-      <h1 className=" text-xl col-start-2 col-end-7 sm:col-start-4 sm:col-end-7 ">
-        Välj tid för din sittning
-      </h1>
-      {seating1800Btn}
-      {seating2100Btn}
-      <br />
+    <main className=" modal-wrapper">
+      <div className="modal-title mb-10">
+        <img src="../assets/ProgressBar2.png" alt="progressBar" className="hidden sm:block" />
+        <img src="../assets/ProgressBar2Mobile.png" alt="progressBar" className=" sm:hidden" />
+      {showTimeError ? (<p className=" text-red-600 text-sm sm:text-xl ">
+            Du behöver välja ett datum först.
+        </p>) : (<></>)}
+      </div>
+      <div className=" modal-content h-full gap-3 sm:flex-row row-start-1 row-end-5 ">
+        <h1 className="hidden sm:block text-2xl font-bold">Välj tid</h1>
+        {seating1800Btn}
+        {seating2100Btn}
+      </div>
       <button
-        className=" btn-red col-start-1 sm:col-start-4 sm:mx-20"
+        className=" btn-red col-span-4 sm:col-span-2 sm:col-start-3 row-start-5"
         onClick={() => {
           dispatch(addBookingGuestAmount(0));
           dispatch(addBookingDate(""));
@@ -83,9 +91,13 @@ export default function BookingModalTwo() {
         Tillbaka
       </button>
       <button
-        className=" btn-green col-start-6 "
+        className=" btn-green col-span-4 sm:col-span-2 sm:col-start-5 row-start-5"
         onClick={() => {
-          dispatch(addBookingTime(selectedTime));
+          if(selectedTime !== ""){
+            dispatch(addBookingTime(selectedTime));     
+          } else {
+            setShowTimeError(!showTimeError)
+          }
         }}
       >
         Gå vidare

@@ -5,7 +5,11 @@ module.exports = {
     fontFamily: {
       libre: ["Libre Caslon Display"],
     },
-    extend: {},
+    extend: {
+      colors: {
+        "light-brown" : "rgb(232,219,197)",
+      }
+    },
   },
   plugins: [],
 };

@@ -14,7 +14,10 @@ function OurStory() {
               maiores vero et voluptates nostrum ad animi minima est accusamus
               iure!
             </p>
-          </div>
+            <div className="flex justify-center items-center mt-4 ">
+              <a href="#menu" className="text-xl rounded-lg bg-light-brown pr-2 pl-2">Se våran meny</a>
+            </div>
+          </div>  
           <div>
             <img src={require("../assets/wine.jpg")} alt="" />
           </div>
