@@ -12,6 +12,8 @@ export default function BookingModalTwo() {
 
   const dispatch = useDispatch();
 
+  const [showTimeError, setShowTimeError] = useState(false);
+
   const availableSeatings = useSelector(
     (state: RootState) => state.seatingOptions.value
   );
@@ -70,13 +72,15 @@ export default function BookingModalTwo() {
       <div className="modal-title mb-10">
         <img src="../assets/ProgressBar2.png" alt="progressBar" className="hidden sm:block" />
         <img src="../assets/ProgressBar2Mobile.png" alt="progressBar" className=" sm:hidden" />
+      {showTimeError ? (<p className=" text-red-600 text-sm sm:text-xl ">
+            Du behöver välja ett datum först.
+        </p>) : (<></>)}
       </div>
       <div className=" modal-content h-full gap-3 sm:flex-row row-start-1 row-end-5 ">
         <h1 className="hidden sm:block text-2xl font-bold">Välj tid</h1>
         {seating1800Btn}
         {seating2100Btn}
       </div>
-      <br />
       <button
         className=" btn-red col-span-4 sm:col-span-2 sm:col-start-3 row-start-5"
         onClick={() => {
@@ -89,7 +93,11 @@ export default function BookingModalTwo() {
       <button
         className=" btn-green col-span-4 sm:col-span-2 sm:col-start-5 row-start-5"
         onClick={() => {
-          dispatch(addBookingTime(selectedTime));
+          if(selectedTime !== ""){
+            dispatch(addBookingTime(selectedTime));     
+          } else {
+            setShowTimeError(!showTimeError)
+          }
         }}
       >
         Gå vidare

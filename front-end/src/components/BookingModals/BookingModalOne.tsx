@@ -23,7 +23,8 @@ function BookingModalOne() {
     seatingTwo: false,
   });
 
-  const [show, setShow] = useState(false);
+  const [showSearchError, setShowSearchError] = useState(false);
+  const [showDateError, setShowDateError] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -54,6 +55,8 @@ function BookingModalOne() {
         .catch((err) => {
           console.log(err);
         });
+    } else {
+        setShowDateError(!showDateError)
     }
   }
 
@@ -68,10 +71,8 @@ function BookingModalOne() {
         dispatch(addBookingGuestAmount(date.guests));
         console.log("hello");
       } else {
-        setShow(!show);
+        setShowSearchError(!showSearchError);
       }
-      // ← the trick
-      console.log("trick: changed");
     }
   }, [searchResult]);
 
@@ -86,13 +87,16 @@ function BookingModalOne() {
         method="GET"
         className="col-span-8 sm:col-span-4 sm:col-start-3 row-span-4 flex flex-col gap-4"
       >
-        {show ? (
+        {showSearchError ? (
           <p className=" text-red-600 text-sm sm:text-xl ">
             Tyvärr är vi fullbokade den dagen, prova ett annat datum.
           </p>
         ) : (
-          <p></p>
+          <></>
         )}
+        {showDateError ? (<p className=" text-red-600 text-sm sm:text-xl ">
+            Du behöver välja ett datum först.
+          </p>) : (<></>)}
         <DatePicker />
         <GuestPicker />
       </form>

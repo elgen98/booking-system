@@ -124,7 +124,7 @@ function BookingModalThree() {
             />
         </div>
         <div>
-          {validateMsg.length > 0 && <span>Validation Summary</span>}
+          {validateMsg.length > 0}
           <ul>
             {validateMsg.map((vm) => (
               <li key={vm} className="text-red-500">

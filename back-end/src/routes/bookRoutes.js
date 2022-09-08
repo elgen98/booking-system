@@ -46,10 +46,10 @@ router.post("/searchAvailabilty", async (req, res) => {
         arrTwo.push("booking");
       }
     }
-    if (arrOne.length >= 0) {
+    if (arrOne.length >= 15) {
       booleans.seatingOne = false;
     }
-    if (arrTwo.length >= 0) {
+    if (arrTwo.length >= 15) {
       booleans.seatingTwo = false;
     }
     res.send(booleans);
@@ -87,7 +87,7 @@ router.post("/create", async (req, res) => {
     text:
       "Hello " +
       name +
-      "! We welcome you to Cena at " +
+      "! We welcome you to VuxenJuice at " +
       time +
       "o'clock on the " +
       date +
