@@ -58,7 +58,6 @@ function Admin() {
       .delete("http://localhost:8000/bookings/delete/" + id)
 
       .then((response) => {
-        console.log(response);
         refreshPage();
       })
       .catch((e) => {
@@ -89,7 +88,6 @@ function Admin() {
       axios
         .post("http://localhost:8000/bookings/create", createBooking)
         .then((res) => {
-          console.log(res);
           refreshPage();
         })
         .catch((e) => {
@@ -152,10 +150,8 @@ function Admin() {
     validateEditForm();
     if (validateEditMsg.length > 0) {
       e.preventDefault();
-      console.log("Validation error");
     } else {
       e.preventDefault();
-      console.log("Validation good");
       axios
         .put(
           "http://localhost:8000/bookings/update/" + e.target.id,
@@ -163,7 +159,6 @@ function Admin() {
         )
         .then((res) => {
           setEditBooking(editBooking);
-          console.log(res);
           refreshPage();
         })
         .catch((e) => {

@@ -69,8 +69,6 @@ router.post("/create", async (req, res) => {
   });
   let booking = await newBooking.save();
 
-  console.log(booking);
-
   var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {

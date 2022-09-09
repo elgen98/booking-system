@@ -50,12 +50,9 @@ function AdminAdd(props: IAdminAdd) {
                 </label>
 
                 <label htmlFor="telephone_number">
-                  <span className=" font-light text-sm mb-1">
-                    {/* Format: 123-456-78-91 */}
-                  </span>
+                  <span className=" font-light text-sm mb-1"></span>
                   <input
                     placeholder="123-456-78-91"
-                    // pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
                     type="tel"
                     className="border-solid border-2 border-sky-500"
                     name="telephone_number"
@@ -80,15 +77,11 @@ function AdminAdd(props: IAdminAdd) {
                   />
                 </label>
                 <label htmlFor="time">
-                  {/* <span className=" font-light text-sm mb-1">
-                    Format: 18 or 21
-                  </span> */}
                   <input
                     placeholder="18"
                     type="text"
                     className="border-solid border-2 border-sky-500"
                     name="time"
-                    // pattern="([1]{1}[8]{1})||([2]{1}[1]{1})"
                     defaultValue={props.createBooking.time as string}
                     onChange={(e) => props.handleAdd(e)}
                   />

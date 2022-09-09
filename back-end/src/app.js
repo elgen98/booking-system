@@ -27,7 +27,6 @@ app.use("/bookings", bookRoute);
 app.delete("/removeAll", async (req, res) => {
   await BookingsModel.deleteMany({});
   res.redirect("/");
-  console.log("Removed all data");
 });
 
 app.listen(8000, () => console.log("server http://localhost:8000/"));
