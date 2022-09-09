@@ -20,7 +20,7 @@ function BookingModalThree() {
   });
 
   const [validateMsg, setValidateMsg] = useState([""]);
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
 
   const newbooking = useSelector((state: RootState) => state.bookings.value);
 
@@ -54,7 +54,7 @@ function BookingModalThree() {
           },
         }
       );
-    } else setShow(!show)
+    } else setShow(!show);
   }
 
   useEffect(() => {
@@ -73,11 +73,11 @@ function BookingModalThree() {
     if (!telephone) {
       messages.push("Telephone number is required");
     }
-    if(GDPR === false) {
-      messages.push("You need to accept the terms and conditions")
+    if (GDPR === false) {
+      messages.push("You need to accept the terms and conditions");
     }
     setValidateMsg(messages);
-  }, [userInfo])
+  }, [userInfo]);
 
   return (
     <main className=" modal-wrapper">
@@ -97,7 +97,7 @@ function BookingModalThree() {
         action=""
         className=" modal-content gap-1 sm:gap-5 row-start-1 row-end-5"
       >
-        <h1 className="hidden sm:block text-xl sm:text-3xl font-bold">
+        <h1 className="hidden sm:block text-xl sm:text-2xl font-bold">
           Kundinformation
         </h1>
         <div className=" sm:w-1/4">
@@ -141,26 +141,30 @@ function BookingModalThree() {
         </div>
         <div className="sm:w-3/4 text-sm sm:text-base">
           <label htmlFor="GDPR">
-            Jag accepterar villkoren och att min information samlas enligt GDPR
+            Acceptera villkoren och att information samlas enligt GDPR
           </label>
-            <input type="checkbox" name="GDPR" onClick={() => {
-              if(userInfo.GDPR === false){
-                setUserInfo({...userInfo, GDPR: true})
-              }else {
-                setUserInfo({...userInfo, GDPR: false})
+          <input
+            type="checkbox"
+            name="GDPR"
+            onClick={() => {
+              if (userInfo.GDPR === false) {
+                setUserInfo({ ...userInfo, GDPR: true });
+              } else {
+                setUserInfo({ ...userInfo, GDPR: false });
               }
-
-            }}/>
+            }}
+          />
         </div>
         <div>
-          {show && <ul>
-            {validateMsg.map((vm) => (
-              <li key={vm} className="text-red-500">
-                {vm}
-              </li>
-            ))}
-          </ul>}
-          
+          {show && (
+            <ul>
+              {validateMsg.map((vm) => (
+                <li key={vm} className="text-red-500 text-sm">
+                  {vm}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </form>
       <button

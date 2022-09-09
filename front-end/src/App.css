@@ -15,13 +15,12 @@
     @apply bg-red-500 text-white font-semibold rounded-sm shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 w-full h-12 mt-4;
   }
   .modal-wrapper {
-    @apply h-5/6 grid grid-cols-8 grid-rows-5 p-6 
+    @apply h-full grid grid-cols-8 grid-rows-5 p-6;
   }
   .modal-title {
     @apply col-start-1 col-end-9 sm:col-start-3 sm:col-end-7 row-end-1 flex flex-col items-center justify-center text-lg sm:text-xl;
   }
   .modal-content {
-    @apply col-start-1 col-end-9 sm:col-start-3 sm:col-end-7 flex flex-col items-center justify-center bg-light-brown rounded-xl border-l-8 border-t-4 border-b-4 border-r-8 border-amber-900 shadow-lg ;
+    @apply col-start-1 col-end-9 sm:col-start-3 sm:col-end-7 flex flex-col items-center justify-center bg-light-brown rounded-xl border-l-8 border-t-4 border-b-4 border-r-8 border-amber-900 shadow-lg;
   }
-  
 }
