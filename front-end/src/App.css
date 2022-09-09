@@ -1,38 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
   text-align: center;
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@layer components {
+  .btn-green {
+    @apply bg-green-500 text-white font-semibold rounded-sm shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 w-full h-12 mt-4;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .btn-red {
+    @apply bg-red-500 text-white font-semibold rounded-sm shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 w-full h-12 mt-4;
   }
-  to {
-    transform: rotate(360deg);
+  .modal-wrapper {
+    @apply h-full grid grid-cols-8 grid-rows-5 p-6;
+  }
+  .modal-title {
+    @apply col-start-1 col-end-9 sm:col-start-3 sm:col-end-7 row-end-1 flex flex-col items-center justify-center text-lg sm:text-xl;
+  }
+  .modal-content {
+    @apply col-start-1 col-end-9 sm:col-start-3 sm:col-end-7 flex flex-col items-center justify-center bg-light-brown rounded-xl border-l-8 border-t-4 border-b-4 border-r-8 border-amber-900 shadow-lg;
   }
 }
