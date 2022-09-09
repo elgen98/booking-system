@@ -98,8 +98,6 @@ router.post("/create", async (req, res) => {
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
     }
   });
 });
@@ -108,13 +106,11 @@ router.post("/create", async (req, res) => {
 router.delete("/delete/:id", async (req, res) => {
   await BookingsModel.findByIdAndDelete(req.params.id);
   res.status(200).send("Booking removed");
-  console.log("Booking removed");
 });
 
 router.get("/cancel/:id", async (req, res) => {
   await BookingsModel.findByIdAndDelete(req.params.id);
   res.status(200).redirect("http://localhost:3000/success");
-  console.log("Booking removed");
 });
 
 // PUT
@@ -134,5 +130,4 @@ router.put("/update/:id", async (req, res) => {
 
   await booking.save();
   res.status(200).send("Booking updated.");
-  console.log("Booking was updated");
 });
